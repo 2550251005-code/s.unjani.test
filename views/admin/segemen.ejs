@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+    <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+    <link rel="stylesheet" href="/public/assets/libs/select2/dist/css/select2.min.css" />
+    <style>
+        :root {
+            --seg-primary: var(--bs-primary, #4361ee);
+            --seg-primary-rgb: var(--bs-primary-rgb, 67, 97, 238);
+            --seg-soft: rgba(var(--seg-primary-rgb), 0.08);
+            --seg-soft-2: rgba(var(--seg-primary-rgb), 0.16);
+            --seg-border: rgba(var(--seg-primary-rgb), 0.25);
+            --seg-text: #0f172a;
+            --seg-muted: #64748b;
+        }
+
+        .segmen-card {
+            border: 1px solid var(--seg-border);
+            border-radius: 1rem;
+            box-shadow: 0 12px 24px rgba(var(--seg-primary-rgb), 0.12);
+        }
+
+        .segmen-badge {
+            border: 1px solid var(--seg-border);
+            background-color: var(--seg-soft);
+            color: var(--seg-primary);
+            font-weight: 600;
+        }
+
+        .segmen-meta {
+            color: var(--seg-muted);
+            font-size: 0.9rem;
+        }
+
+        .table-shell {
+            border: 0px solid var(--seg-border);
+            border-radius: 1rem;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .segmen-table th,
+        .segmen-table td { vertical-align: middle; }
+
+        .segmen-table th {
+            background: linear-gradient(180deg, #ffffff 0%, var(--seg-soft) 100%);
+            color: var(--seg-text);
+            border-bottom: 1px solid var(--seg-border);
+            padding: 0.95rem 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .segmen-table td {
+            padding: 0.95rem 1rem;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .segmen-table tbody tr:nth-child(odd) {
+            background-color: rgba(var(--seg-primary-rgb), 0.03);
+        }
+
+        .segmen-table tbody tr:hover {
+            background-color: var(--seg-soft);
+        }
+
+        .segmen-table .text-ellipsis {
+            max-width: 260px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .segmen-date {
+            border: 1px solid var(--seg-border);
+            background-color: var(--seg-soft);
+            color: var(--seg-primary);
+            font-weight: 600;
+        }
+
+        .segmen-actions .btn {
+            border-radius: 0.45rem;
+        }
+
+        .dataTables_wrapper .dataTables_filter,
+        .dataTables_wrapper .dataTables_length {
+            margin-bottom: 1rem;
+        }
+
+        .dataTables_wrapper .dataTables_filter input,
+        .dataTables_wrapper .dataTables_length select {
+            border: 1px solid var(--seg-border);
+            border-radius: 0.5rem;
+            padding: 0.35rem 0.6rem;
+        }
+
+        .dataTables_wrapper .dataTables_filter input:focus,
+        .dataTables_wrapper .dataTables_length select:focus {
+            border-color: var(--seg-primary);
+            box-shadow: 0 0 0 0.2rem var(--seg-soft-2);
+            outline: none;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            border: none !important;
+            border-radius: 0.45rem;
+            margin: 0 2px;
+            padding: 0.35rem 0.65rem;
+            background-color: var(--seg-soft) !important;
+            color: #334155 !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background-color: var(--seg-primary) !important;
+            color: #ffffff !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background-color: var(--seg-soft-2) !important;
+            color: #1d4ed8 !important;
+        }
+    </style>
+    <title>Segmen - S UNJANI</title>
+</head>
+
+<body>
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <%- include('../partials/aside') %>
+        <div class="page-wrapper">
+            <%- include('../partials/header') %>
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <%
+                        const segmenData = Array.isArray(segmenList) ? segmenList : [];
+                        const totalSegmen = segmenData.length;
+                        const unitKerjaSet = new Set();
+                        const homebaseSet = new Set();
+                        const subhomebaseSet = new Set();
+                        let latestUpdate = null;
+
+                        segmenData.forEach(function (item) {
+                            if (item?.unitKerja) unitKerjaSet.add(item.unitKerja);
+                            if (item?.homebase) homebaseSet.add(item.homebase);
+                            if (item?.subhomebase) subhomebaseSet.add(item.subhomebase);
+                            const stamp = item?.timeUpdate || item?.timeStamp;
+                            if (stamp) {
+                                const current = new Date(stamp);
+                                if (!latestUpdate || current > latestUpdate) {
+                                    latestUpdate = current;
+                                }
+                            }
+                        });
+                        const latestUpdateLabel = latestUpdate ? latestUpdate.toLocaleString('id-ID') : '-';
+                    %>
+                    <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8">Segmen</h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb mb-0">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Menu</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">Segmen</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3 text-center">
+                                    <img src="/public/assets/images/breadcrumb/ChatBc.png" alt="breadcrumb illustration"
+                                        class="img-fluid mb-n4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card segmen-card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3 mb-4">
+                                <div>
+                                    <h5 class="fw-semibold mb-1">Daftar Segmen</h5>
+                                    <p class="mb-0 text-muted">Kelola unit kerja dan homebase yang ditarik dari SSO.</p>
+                                    <div class="d-flex flex-wrap gap-2 align-items-center mt-3">
+                                        <span class="badge segmen-badge">Total: <%= totalSegmen %></span>
+                                        <span class="badge segmen-badge">Unit Kerja: <%= unitKerjaSet.size %></span>
+                                        <span class="badge segmen-badge">Homebase: <%= homebaseSet.size %></span>
+                                        <span class="badge segmen-badge">Sub Homebase: <%= subhomebaseSet.size %></span>
+                                        <span class="segmen-meta"><i class="fa-regular fa-calendar-clock me-1"></i>Update: <%= latestUpdateLabel %></span>
+                                    </div>
+                                </div>
+                                <button id="btnAddSegmen" class="btn btn-primary">
+                                    <i class="fa-solid fa-layer-group me-2"></i>Tambah Segmen
+                                </button>
+                            </div>
+
+                            <div class="table-responsive table-shell">
+                                <table id="segmenTable" class="table align-middle segmen-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:70px;">No</th>
+                                            <th>Nama</th>
+                                            <th>Unit Kerja</th>
+                                            <th>Homebase</th>
+                                            <th>Sub Homebase</th>
+                                            <th style="width:180px;">Update Terakhir</th>
+                                            <th style="width:160px;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% segmenData.forEach(function(item, index) { %>
+                                        <tr>
+                                            <td class="text-center"><%= index + 1 %></td>
+                                            <td class="fw-semibold text-ellipsis" title="<%= item.nama %>"><%= item.nama %></td>
+                                            <td class="text-ellipsis" title="<%= item.unitKerja %>"><%= item.unitKerja %></td>
+                                            <td class="text-ellipsis" title="<%= item.homebase %>"><%= item.homebase || '-' %></td>
+                                            <td class="text-ellipsis" title="<%= item.subhomebase %>"><%= item.subhomebase || '-' %></td>
+                                            <td>
+                                                <span class="badge segmen-date">
+                                                    <i class="fa-regular fa-calendar-clock me-1"></i>
+                                                    <%= new Date(item.timeUpdate || item.timeStamp).toLocaleString('id-ID') %>
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group segmen-actions" role="group" aria-label="segmen-actions">
+                                                    <button class="btn btn-outline-primary btn-sm btn-edit-segmen"
+                                                        data-id="<%= item._id %>"
+                                                        data-nama="<%= item.nama %>"
+                                                        data-unitkerja="<%= item.unitKerja %>"
+                                                        data-homebase="<%= item.homebase %>"
+                                                        data-subhomebase="<%= item.subhomebase %>">
+                                                        <i class="fa-solid fa-pen-to-square"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm btn-delete-segmen"
+                                                        data-id="<%= item._id %>"
+                                                        data-nama="<%= item.nama %>">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/menu') %>
+        </div>
+    </div>
+
+    <!-- Modal: Create Segmen -->
+    <div class="modal fade" id="segmenCreateModal" tabindex="-1" aria-labelledby="segmenCreateModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <form id="createSegmenForm" class="needs-validation" novalidate>
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title text-white" id="segmenCreateModalLabel">Tambah Segmen</h5>
+                        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa-duotone fa-solid fa-circle-xmark text-white fa-2x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Nama</label>
+                                <input type="text" name="nama" id="createNama" class="form-control" required
+                                    pattern="[A-Za-z0-9]+"
+                                    placeholder="Kode atau nama segmen (huruf/angka saja)">
+                                <div class="form-text">Hanya huruf atau angka, tanpa spasi/karakter khusus.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Unit Kerja (SSO)</label>
+                                <select class="form-control segmen-select" data-type="unitkerja" id="createUnitKerja" name="unitKerja" required></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Homebase (SSO)</label>
+                                <select class="form-control segmen-select" data-type="homebase" id="createHomebase" name="homebase" disabled></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Sub Homebase (SSO)</label>
+                                <select class="form-control segmen-select" data-type="subhomebase" id="createSubhomebase" name="subhomebase" disabled></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-floppy-disk me-2"></i>Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Edit Segmen -->
+    <div class="modal fade" id="segmenEditModal" tabindex="-1" aria-labelledby="segmenEditModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <form id="editSegmenForm" class="needs-validation" novalidate>
+                    <input type="hidden" id="editSegmenId" name="id" />
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title text-white" id="segmenEditModalLabel">Edit Segmen</h5>
+                        <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="fa-duotone fa-solid fa-circle-xmark text-white fa-2x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Nama</label>
+                                <input type="text" name="nama" id="editNama" class="form-control" required
+                                    pattern="[A-Za-z0-9]+"
+                                    placeholder="Kode atau nama segmen (huruf/angka saja)">
+                                <div class="form-text">Hanya huruf atau angka, tanpa spasi/karakter khusus.</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Unit Kerja (SSO)</label>
+                                <select class="form-control segmen-select" data-type="unitkerja" id="editUnitKerja" name="unitKerja" required></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Homebase (SSO)</label>
+                                <select class="form-control segmen-select" data-type="homebase" id="editHomebase" name="homebase" disabled></select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-semibold">Sub Homebase (SSO)</label>
+                                <select class="form-control segmen-select" data-type="subhomebase" id="editSubhomebase" name="subhomebase" disabled></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-floppy-disk me-2"></i>Simpan Perubahan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/public/assets/js/vendor.min.js"></script>
+    <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="/public/assets/js/theme/app.init.js"></script>
+    <script src="/public/assets/js/theme/theme.js"></script>
+    <script src="/public/assets/js/theme/app.min.js"></script>
+    <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+    <script src="/public/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/public/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
+    <script>
+        (function () {
+            const nameRule = /^[A-Za-z0-9]+$/;
+            const createModalEl = document.getElementById('segmenCreateModal');
+            const editModalEl = document.getElementById('segmenEditModal');
+            const createModal = new bootstrap.Modal(createModalEl);
+            const editModal = new bootstrap.Modal(editModalEl);
+
+            function showError(errors = []) {
+                const messages = errors.map((err) => err.msg || err).join('<br>');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    html: messages || 'Terjadi kesalahan.',
+                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                    buttonsStyling: false,
+                    customClass: { confirmButton: 'btn btn-primary' }
+                });
+            }
+
+            function showSuccess(message) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: message || 'Data tersimpan.',
+                    timer: 1200,
+                    showConfirmButton: false
+                });
+            }
+
+            function initSelect2(modalSelector) {
+                ['unitkerja', 'homebase', 'subhomebase'].forEach(function (type) {
+                    const selector = `${modalSelector} select[data-type="${type}"]`;
+                    if (!document.querySelector(selector)) return;
+                    $(selector).select2({
+                        dropdownParent: $(modalSelector),
+                        width: '100%',
+                        placeholder: `Pilih ${type}`,
+                        allowClear: true,
+                        minimumInputLength: 0,
+                        ajax: {
+                            url: `/admin/segmen/options/${type}`,
+                            delay: 200,
+                            data: function (params) {
+                                const form = $(modalSelector);
+                                const data = { search: params.term || '' };
+                                const unitVal = form.find('select[data-type="unitkerja"]').val();
+                                const homeVal = form.find('select[data-type="homebase"]').val();
+
+                                if (type === 'homebase' && unitVal) {
+                                    data.unitKerja = unitVal;
+                                }
+                                if (type === 'subhomebase' && homeVal) {
+                                    data.homebase = homeVal;
+                                }
+                                return data;
+                            },
+                            processResults: function (data) {
+                                const results = (data?.results || []).map(function (item) {
+                                    return { id: item.id, text: item.text };
+                                });
+                                return { results };
+                            }
+                        }
+                    });
+                });
+            }
+
+            function setSelectValue(selector, value) {
+                if (!value) return;
+                const option = new Option(value, value, true, true);
+                $(selector).append(option).trigger('change');
+            }
+
+            function setupDependencies(modalSelector) {
+                const form = $(modalSelector);
+                const unitEl = form.find('select[data-type="unitkerja"]');
+                const homeEl = form.find('select[data-type="homebase"]');
+                const subEl = form.find('select[data-type="subhomebase"]');
+
+                const setDisabled = ($el, disabled) => $el.prop('disabled', disabled);
+
+                const resetHomeSub = () => {
+                    homeEl.val(null).trigger('change');
+                    subEl.val(null).trigger('change');
+                    setDisabled(homeEl, !unitEl.val());
+                    setDisabled(subEl, true);
+                };
+
+                const resetSub = () => {
+                    subEl.val(null).trigger('change');
+                    setDisabled(subEl, !homeEl.val());
+                };
+
+                unitEl.on('change', resetHomeSub);
+                homeEl.on('change', resetSub);
+
+                // initial state
+                setDisabled(homeEl, !unitEl.val());
+                setDisabled(subEl, !homeEl.val());
+            }
+
+            initSelect2('#segmenCreateModal');
+            initSelect2('#segmenEditModal');
+            setupDependencies('#segmenCreateModal');
+            setupDependencies('#segmenEditModal');
+            new DataTable('#segmenTable', {
+                order: [[0, 'asc']],
+                pageLength: 10,
+                columnDefs: [
+                    { targets: 0, className: 'text-center', width: '60px' },
+                    { targets: [6], orderable: false },
+                ],
+                language: {
+                    search: 'Cari:',
+                    lengthMenu: 'Tampilkan _MENU_ data',
+                    info: 'Menampilkan _START_ - _END_ dari _TOTAL_ data',
+                    infoEmpty: 'Tidak ada data',
+                    emptyTable: 'Belum ada segmen.',
+                    zeroRecords: 'Data tidak ditemukan',
+                    paginate: {
+                        previous: 'Sebelumnya',
+                        next: 'Berikutnya',
+                    },
+                }
+            });
+
+            document.getElementById('btnAddSegmen').addEventListener('click', function () {
+                document.getElementById('createSegmenForm').reset();
+                $('#createUnitKerja, #createHomebase, #createSubhomebase').val(null).trigger('change');
+                $('#createHomebase, #createSubhomebase').prop('disabled', true);
+                createModal.show();
+            });
+
+            document.querySelectorAll('.btn-edit-segmen').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const { id, nama, unitkerja, homebase, subhomebase } = btn.dataset;
+                    document.getElementById('editSegmenId').value = id;
+                    document.getElementById('editNama').value = nama || '';
+                    $('#editUnitKerja, #editHomebase, #editSubhomebase').val(null).trigger('change');
+                    $('#editHomebase, #editSubhomebase').prop('disabled', true);
+                    if (unitkerja) {
+                        setSelectValue('#editUnitKerja', unitkerja);
+                        $('#editHomebase').prop('disabled', false);
+                    }
+                    if (homebase) {
+                        setSelectValue('#editHomebase', homebase);
+                        $('#editSubhomebase').prop('disabled', false);
+                    }
+                    if (subhomebase) setSelectValue('#editSubhomebase', subhomebase);
+                    editModal.show();
+                });
+            });
+
+            async function submitSegmen(url, payload) {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    const data = await response.json().catch(() => ({}));
+                    throw data.errors || [{ msg: 'Gagal memproses permintaan' }];
+                }
+                return response.json();
+            }
+
+            document.getElementById('createSegmenForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const payload = {
+                    nama: document.getElementById('createNama').value.trim(),
+                    unitKerja: $('#createUnitKerja').val(),
+                    homebase: $('#createHomebase').val(),
+                    subhomebase: $('#createSubhomebase').val()
+                };
+
+                if (!nameRule.test(payload.nama)) {
+                    return showError([{ msg: 'Nama hanya huruf/angka tanpa karakter khusus' }]);
+                }
+
+                try {
+                    await submitSegmen('/admin/segmen', payload);
+                    showSuccess('Segmen berhasil ditambahkan');
+                    setTimeout(function () { window.location.reload(); }, 700);
+                } catch (err) {
+                    showError(err);
+                }
+            });
+
+            document.getElementById('editSegmenForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const segmenId = document.getElementById('editSegmenId').value;
+                const payload = {
+                    nama: document.getElementById('editNama').value.trim(),
+                    unitKerja: $('#editUnitKerja').val(),
+                    homebase: $('#editHomebase').val(),
+                    subhomebase: $('#editSubhomebase').val()
+                };
+
+                if (!nameRule.test(payload.nama)) {
+                    return showError([{ msg: 'Nama hanya huruf/angka tanpa karakter khusus' }]);
+                }
+
+                try {
+                    await submitSegmen(`/admin/segmen/${segmenId}/update`, payload);
+                    showSuccess('Segmen berhasil diperbarui');
+                    setTimeout(function () { window.location.reload(); }, 700);
+                } catch (err) {
+                    showError(err);
+                }
+            });
+
+            document.querySelectorAll('.btn-delete-segmen').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const { id, nama } = btn.dataset;
+                    Swal.fire({
+                        title: 'Hapus segmen?',
+                        text: `Segmen "${nama}" akan dihapus permanen.`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, hapus',
+                        cancelButtonText: 'Batal',
+                        confirmButtonColor: '#d33',
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'btn btn-danger me-2',
+                            cancelButton: 'btn btn-light'
+                        }
+                    }).then(async function (result) {
+                        if (!result.isConfirmed) return;
+                        try {
+                            await submitSegmen(`/admin/segmen/${id}/delete`, {});
+                            showSuccess('Segmen dihapus');
+                            setTimeout(function () { window.location.reload(); }, 700);
+                        } catch (err) {
+                            showError(err);
+                        }
+                    });
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

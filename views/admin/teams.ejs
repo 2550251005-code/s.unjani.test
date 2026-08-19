@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+    <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+    <title>Our Teams - S UNJANI</title>
+</head>
+
+<body>
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <%- include('../partials/aside') %>
+        <div class="page-wrapper">
+            <%- include('../partials/header') %>
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8">Our Teams <i class="fa-solid fa-users text-primary ms-2"></i></h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Menu</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">Our Teams</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center mb-n5">
+                                        <img src="/public/assets/images/breadcrumb/ChatBc.png" alt="modernize-img"
+                                            class="img-fluid mb-n4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+                                <div>
+                                    <h5 class="fw-semibold mb-1">Daftar Anggota Tim Landing Page</h5>
+                                    <p class="mb-0 text-muted">Kelola konten section "Our Teams" yang tampil di landing page.</p>
+                                </div>
+                                <a class="btn btn-primary mt-3 mt-md-0" href="/admin/teams/create">
+                                    <i class="fa-solid fa-plus me-2"></i>Tambah Anggota
+                                </a>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th scope="col" style="width:60px;">No</th>
+                                            <th scope="col" style="width:90px;">Foto</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Jabatan</th>
+                                            <th scope="col" style="width:110px;">Urutan</th>
+                                            <th scope="col" style="width:120px;">Status</th>
+                                            <th scope="col" style="width:220px;">Diperbarui</th>
+                                            <th scope="col" style="width:260px;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% if (!teams || teams.length === 0) { %>
+                                        <tr>
+                                            <td colspan="8" class="text-center text-muted py-4">Belum ada anggota tim.</td>
+                                        </tr>
+                                        <% } else { %>
+                                        <% teams.forEach(function(item) { %>
+                                        <tr>
+                                            <td><%= item.number %></td>
+                                            <td>
+                                                <img src="<%= item.photoUrl %>" alt="photo-team" class="rounded-2"
+                                                    style="width:56px;height:56px;object-fit:cover;">
+                                            </td>
+                                            <td class="fw-semibold"><%= item.name %></td>
+                                            <td><%= item.position %></td>
+                                            <td><%= item.sortOrder %></td>
+                                            <td>
+                                                <span class="badge bg-<%= item.isActive ? 'success' : 'secondary' %>">
+                                                    <%= item.isActive ? 'Aktif' : 'Nonaktif' %>
+                                                </span>
+                                            </td>
+                                            <td><%= item.formattedDate %></td>
+                                            <td class="text-nowrap">
+                                                <a class="btn btn-sm btn-outline-primary me-2" href="/admin/teams/<%= item._id %>/edit">
+                                                    <i class="fa-solid fa-pen-to-square me-1"></i>Edit
+                                                </a>
+                                                <form class="d-inline js-delete-team" action="/admin/teams/<%= item._id %>/delete" method="POST">
+                                                    <button class="btn btn-sm btn-outline-danger" type="submit">
+                                                        <i class="fa-solid fa-trash me-1"></i>Hapus
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        <% }) %>
+                                        <% } %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <%- include('../partials/menu') %>
+
+        </div>
+    </div>
+    <script src="/public/assets/js/vendor.min.js"></script>
+    <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="/public/assets/js/theme/app.init.js"></script>
+    <script src="/public/assets/js/theme/theme.js"></script>
+    <script src="/public/assets/js/theme/app.min.js"></script>
+    <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        (function () {
+            const rawSuccess = JSON.parse(`<%- JSON.stringify(success_msg || []) %>`);
+            const rawError = JSON.parse(`<%- JSON.stringify(error_msg || []) %>`);
+            const rawDanger = JSON.parse(`<%- JSON.stringify(error || []) %>`);
+            const toArray = (value) => Array.isArray(value) ? value : (value ? [value] : []);
+
+            const successMessages = toArray(rawSuccess).filter(Boolean);
+            const errorMessages = [...toArray(rawError), ...toArray(rawDanger)].filter(Boolean);
+
+            if (successMessages.length) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    html: successMessages.join('<br>'),
+                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                    customClass: { confirmButton: 'btn btn-primary' },
+                    buttonsStyling: false
+                });
+            }
+
+            if (errorMessages.length) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    html: errorMessages.join('<br>'),
+                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                    customClass: { confirmButton: 'btn btn-primary' },
+                    buttonsStyling: false
+                });
+            }
+
+            document.querySelectorAll('.js-delete-team').forEach((form) => {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    Swal.fire({
+                        title: 'Hapus anggota ini?',
+                        text: 'Tindakan ini tidak dapat dibatalkan.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#d33',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Ya, hapus!',
+                        cancelButtonText: 'Batal',
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'btn btn-danger me-2',
+                            cancelButton: 'btn btn-light'
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                });
+            });
+        })();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+    <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+    <title><%= mode === 'edit' ? 'Edit Anggota Tim' : 'Tambah Anggota Tim' %> - S UNJANI</title>
+</head>
+
+<body>
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <%- include('../partials/aside') %>
+        <div class="page-wrapper">
+            <%- include('../partials/header') %>
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <%
+                        const isEdit = mode === 'edit';
+                        const formAction = isEdit && entry._id ? ('/admin/teams/' + entry._id + '/update') : '/admin/teams';
+                        const submitLabel = isEdit ? 'Simpan Perubahan' : 'Simpan Anggota';
+                        const currentPhoto = entry.photo ? ('/assets/uploads/' + entry.photo) : '/public/assets/images/frontend-pages/who.jpg';
+                    %>
+                    <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8"><%= isEdit ? 'Edit' : 'Tambah' %> Anggota Tim
+                                        <i class="fa-solid fa-users text-primary ms-2"></i>
+                                    </h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Menu</a>
+                                            </li>
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/admin/teams">Our Teams</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page"><%= isEdit ? 'Edit' : 'Tambah' %></li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center mb-n5">
+                                        <img src="/public/assets/images/breadcrumb/ChatBc.png" alt="modernize-img" class="img-fluid mb-n4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="<%= formAction %>" method="POST" enctype="multipart/form-data">
+                                <div class="row g-4">
+                                    <div class="col-lg-8">
+                                        <div class="row g-4">
+                                            <div class="col-md-6">
+                                                <label class="form-label">Nama <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="name" placeholder="Contoh: Wildan Pratama, S.Kom."
+                                                    value="<%= entry.name || '' %>" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Jabatan <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="position" placeholder="Contoh: Anggota UTP"
+                                                    value="<%= entry.position || '' %>" required>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Urutan Tampil</label>
+                                                <input type="number" class="form-control" name="sortOrder" value="<%= typeof entry.sortOrder === 'number' ? entry.sortOrder : 0 %>" min="0">
+                                                <small class="text-muted">Semakin kecil nilainya, semakin awal tampil di carousel.</small>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="form-label">Foto</label>
+                                                <input type="file" class="form-control" name="photo" accept="image/*">
+                                                <small class="text-muted">Opsional. Kosongkan jika ingin menggunakan foto default.</small>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox" id="isActive" name="isActive" <%= entry.isActive ? 'checked' : '' %>>
+                                                    <label class="form-check-label" for="isActive">Tampilkan di landing page</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-end mt-4">
+                                            <a class="btn btn-light me-2" href="/admin/teams">Batal</a>
+                                            <button class="btn btn-primary" type="submit"><%= submitLabel %></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <label class="form-label d-block">Preview Foto</label>
+                                        <div class="border rounded p-3 bg-light text-center">
+                                            <img src="<%= currentPhoto %>" alt="Preview Foto" class="img-fluid rounded-2" style="max-height:260px;object-fit:cover;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <%- include('../partials/menu') %>
+
+        </div>
+    </div>
+
+    <script src="/public/assets/js/vendor.min.js"></script>
+    <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="/public/assets/js/theme/app.init.js"></script>
+    <script src="/public/assets/js/theme/theme.js"></script>
+    <script src="/public/assets/js/theme/app.min.js"></script>
+    <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        (function () {
+            const rawSuccess = JSON.parse(`<%- JSON.stringify(success_msg || []) %>`);
+            const rawError = JSON.parse(`<%- JSON.stringify(error_msg || []) %>`);
+            const rawDanger = JSON.parse(`<%- JSON.stringify(error || []) %>`);
+            const toArray = (value) => Array.isArray(value) ? value : (value ? [value] : []);
+
+            const successMessages = toArray(rawSuccess).filter(Boolean);
+            const errorMessages = [...toArray(rawError), ...toArray(rawDanger)].filter(Boolean);
+
+            if (successMessages.length) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    html: successMessages.join('<br>'),
+                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                    customClass: { confirmButton: 'btn btn-primary' },
+                    buttonsStyling: false
+                });
+            }
+
+            if (errorMessages.length) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    html: errorMessages.join('<br>'),
+                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                    customClass: { confirmButton: 'btn btn-primary' },
+                    buttonsStyling: false
+                });
+            }
+        })();
+    </script>
+</body>
+
+</html>

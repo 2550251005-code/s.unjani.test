@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+    <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+    <link rel="stylesheet" href="/public/assets/libs/select2/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <style>
+        /* UI/UX improvements - tidak mengubah include/asset yang sudah ada */
+
+        /* Section wrapper */
+        .form-section {
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: .75rem;
+            padding: 1rem;
+        }
+
+        .form-section + .form-section {
+            margin-top: 1rem;
+        }
+
+        .form-section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: .75rem;
+            margin-bottom: .75rem;
+        }
+
+        .form-section-title h6 {
+            margin: 0;
+            font-weight: 700;
+        }
+
+        .form-section-title .badge {
+            font-weight: 600;
+        }
+
+        /* Focus states */
+        .form-control:focus {
+            border-color: #4361ee;
+            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.20);
+        }
+
+        /* Select2 focus (yang benar) */
+        .select2-container--default .select2-selection--single {
+            height: calc(2.25rem + 2px);
+            border: 1px solid #ced4da;
+            border-radius: .375rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 1.5;
+            padding-left: .75rem;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100%;
+            right: .5rem;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--single {
+            border-color: #4361ee;
+            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.20);
+        }
+
+        /* Helper styles */
+        .input-group-text {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+
+        #shortlinkPreview {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            color: #4361ee;
+            word-break: break-all;
+        }
+
+        .character-count {
+            font-size: 0.875em;
+            color: #6c757d;
+            text-align: right;
+            min-width: 72px;
+        }
+
+        .character-count.warning {
+            color: #ffc107;
+        }
+
+        .character-count.danger {
+            color: #dc3545;
+        }
+
+        .validation-feedback {
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .validation-feedback.valid {
+            color: #198754;
+            display: block;
+        }
+
+        .validation-feedback.invalid {
+            color: #dc3545;
+            display: block;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #toggle-password {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #toggle-password:hover {
+            background-color: #4361ee;
+            color: white;
+        }
+
+        .preview-box {
+            background-color: #f8f9fa;
+            border: 1px dashed #cfd4da;
+            border-radius: .75rem;
+            padding: 1rem;
+        }
+
+        .copy-btn {
+            font-size: 0.875rem;
+        }
+
+        .req-star {
+            color: #dc3545;
+            font-weight: 700;
+        }
+
+        /* Form spacing & better alignment */
+        .form-label {
+            margin-bottom: .35rem;
+        }
+
+        .form-text {
+            margin-top: .35rem;
+        }
+    </style>
+
+    <title>Tambah Link - S UNJANI</title>
+</head>
+
+<body>
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <%- include('../partials/aside') %>
+        <div class="page-wrapper">
+            <%- include('../partials/header') %>
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8">Tambah Link</h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb mb-0">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Menu</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">Tambah Link</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3 text-center">
+                                    <img src="/public/assets/images/breadcrumb/ChatBc.png" alt="breadcrumb illustration"
+                                        class="img-fluid mb-n4">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            
+
+                            <form id="linkAddForm" class="row g-3">
+                                <div class="col-12">
+                                    <div class="accordion" id="linkAddAccordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="linkAddHeadingWajib">
+                                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#linkAddCollapseWajib" aria-expanded="true"
+                                                    aria-controls="linkAddCollapseWajib">
+                                                    <span class="d-flex align-items-center w-100 gap-2">
+                                                        <i class="fa fa-link text-primary" aria-hidden="true"></i>
+                                                        <span>Informasi Wajib</span>
+                                                        <span class="badge text-bg-primary ms-auto">Wajib</span>
+                                                    </span>
+                                                </button>
+                                            </h2>
+                                            <div id="linkAddCollapseWajib" class="accordion-collapse collapse show"
+                                                aria-labelledby="linkAddHeadingWajib" data-bs-parent="#linkAddAccordion">
+                                                <div class="accordion-body">
+                                                    <div class="row g-3">
+                                                        <!-- URL (Wajib) -->
+                                                        <div class="col-12">
+                                                            <label class="form-label fw-semibold">URL Tujuan <span class="req-star">*</span></label>
+                                                            <input type="url" class="form-control" placeholder="https://example.com"
+                                                                aria-label="https://example.com" id="link" name="link" required>
+                                                            <div class="validation-feedback" id="linkFeedback"></div>
+                                                            <div class="form-text">Pastikan diawali <b>http://</b> atau <b>https://</b>.</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="linkAddHeadingShortlink">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#linkAddCollapseShortlink" aria-expanded="false"
+                                                    aria-controls="linkAddCollapseShortlink">
+                                                    <span class="d-flex align-items-center w-100 gap-2">
+                                                        <i class="fa fa-sliders text-primary" aria-hidden="true"></i>
+                                                        <span>Kustomsasi Shortlink</span>
+                                                        <span class="badge text-bg-secondary ms-auto">Opsional</span>
+                                                    </span>
+                                                </button>
+                                            </h2>
+                                            <div id="linkAddCollapseShortlink" class="accordion-collapse collapse"
+                                                aria-labelledby="linkAddHeadingShortlink" data-bs-parent="#linkAddAccordion">
+                                                <div class="accordion-body">
+                                                    <div class="row g-3">
+                                                        <!-- Segmen (Opsional) -->
+                                                        <div class="col-12 col-lg-6">
+                                                            <label class="form-label fw-semibold">Segmen</label>
+                                                            <select class="form-control" id="segmen" name="segmen"></select>
+                                                            <div class="form-text">Opsional. Segmen mengikuti unit kerja Anda.</div>
+                                                            <div class="validation-feedback" id="segmenFeedback"></div>
+                                                        </div>
+
+                                                        <!-- Alias (Opsional) -->
+                                                        <div class="col-12 col-lg-6">
+                                                            <label class="form-label fw-semibold">Alias</label>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text" id="segmenPrefix">https://s.unjani.ac.id/</span>
+                                                                <input type="text" class="form-control" id="alias" placeholder="custom-alias"
+                                                                    maxlength="50" autocomplete="off">
+                                                            </div>
+                                                            <div class="d-flex justify-content-between mt-1">
+                                                                <div class="form-text">Tanpa spasi. Boleh <code>-</code> <code>_</code> <code>.</code></div>
+                                                                <div class="character-count" id="aliasCount">0/50</div>
+                                                            </div>
+                                                            <div class="validation-feedback" id="aliasFeedback"></div>
+                                                        </div>
+
+                                                        <!-- Preview -->
+                                                        <div class="col-12">
+                                                            <div class="preview-box">
+                                                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                    <span class="text-muted fw-medium">Preview shortlink:</span>
+                                                                    <button type="button" class="btn btn-sm btn-outline-primary copy-btn" id="copyPreview">
+                                                                        <i class="fa fa-copy me-1"></i>Salin
+                                                                    </button>
+                                                                </div>
+                                                                <span class="fw-semibold text-primary" id="shortlinkPreview">
+                                                                    https://s.unjani.ac.id/alias
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="linkAddHeadingLanjutan">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#linkAddCollapseLanjutan" aria-expanded="false"
+                                                    aria-controls="linkAddCollapseLanjutan">
+                                                    <span class="d-flex align-items-center w-100 gap-2">
+                                                        <i class="fa fa-cog text-primary" aria-hidden="true"></i>
+                                                        <span>Pengaturan Lanjutan</span>
+                                                        <span class="badge text-bg-secondary ms-auto">Opsional</span>
+                                                    </span>
+                                                </button>
+                                            </h2>
+                                            <div id="linkAddCollapseLanjutan" class="accordion-collapse collapse"
+                                                aria-labelledby="linkAddHeadingLanjutan" data-bs-parent="#linkAddAccordion">
+                                                <div class="accordion-body">
+                                                    <div class="row g-3">
+                                                        <!-- Redirect -->
+                                                        <div class="col-12 col-lg-4">
+                                                            <label class="form-label fw-semibold">Redirect</label>
+                                                            <select class="form-control" id="referer">
+                                                                <option value="direct" selected>Direct</option>
+                                                                <option value="splash">Splash</option>
+                                                            </select>
+                                                            <div class="form-text">Mode pengalihan ketika link dibuka.</div>
+                                                        </div>
+
+                                                        <!-- Expired -->
+                                                        <div class="col-12 col-lg-4">
+                                                            <label class="form-label fw-semibold">Expired</label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control datepicker" id="expired"
+                                                                    placeholder="dd/mm/yyyy" readonly>
+                                                                <button type="button" class="btn btn-outline-secondary" id="clearExpired" title="Hapus tanggal">
+                                                                    <i class="fa fa-times"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="form-text">Kosongkan jika tidak ada batas waktu.</div>
+                                                        </div>
+
+                                                        <!-- Password -->
+                                                        <div class="col-12 col-lg-4">
+                                                            <label class="form-label fw-semibold">Password Link</label>
+                                                            <div class="input-group">
+                                                                <input type="password" class="form-control" autocomplete="new-password"
+                                                                    id="password" placeholder="Password link (opsional)">
+                                                                <button type="button" class="input-group-text btn px-6" id="toggle-password"
+                                                                    aria-label="Toggle password visibility">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </button>
+                                                            </div>
+                                                            <div class="form-text">Jika diisi, akses link memerlukan password.</div>
+                                                        </div>
+
+                                                        <!-- Deskripsi -->
+                                                        <div class="col-12">
+                                                            <label class="form-label fw-semibold">Deskripsi</label>
+                                                            <textarea class="form-control" id="deskripsi" rows="2"
+                                                                placeholder="Contoh: Link pendaftaran seminar / dokumen internal" maxlength="200"></textarea>
+                                                            <div class="d-flex justify-content-between mt-1">
+                                                                <div class="form-text">Opsional: untuk dokumentasi internal.</div>
+                                                                <div class="character-count" id="deskripsiCount">0/200</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ===================== -->
+                                <!-- SUBMIT -->
+                                <!-- ===================== -->
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-end align-items-center">
+                                        <div class="loading-spinner" id="loadingSpinner"></div>
+                                        <button type="submit" class="btn btn-primary" id="submitBtn">
+                                            <i class="fa-duotone fa-solid fa-link-simple me-2"></i>Simpan Link
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/footer') %>
+        </div>
+    </div>
+
+    <!-- Modal Info -->
+    <div class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        id="modalLink">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-white" id="myModalLabel">S.UNJANI</h5>
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"
+                        data-bs-toggle="tooltip" data-bs-original-title="Tutup">
+                        <i class="fa-duotone fa-solid fa-circle-xmark text-white fa-2x"></i>
+                    </button>
+                </div>
+                <div class="modal-body p-5">
+                    <div class="row">
+                        <div class="col-4">
+                            <img id="qrcode" width="100%" src="">
+                            <a href="" id="qrcoded" class="btn btn-sm btn-primary btn-label right w-100"
+                                target="_blank">
+                                <i class="fa-duotone fa-solid fa-download label-icon align-middle fs-16 ms-2"></i>
+                                Download</a>
+                        </div>
+                        <div class="col-8">
+                            <div>
+                                <label for="shortLink" class="form-label">Short Link</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm mb-2" id="shortLink"
+                                        value="" readonly>
+                                    <button class="btn btn-success mb-2 btn-sm" type="button" id="buttonCopy"
+                                        onclick="copyLink()"><i class="fa-duotone fa-solid fa-copy"></i>
+                                        <span id="buttonText">Copy</span></button>
+                                </div>
+                                <a href="" id="shareFB" class="btn btn-sm btn-primary waves-effect waves-light"><i
+                                        class="fa-brands fa-facebook"></i></a>
+                                <a href="" id="shareX" class="btn btn-sm btn-primary waves-effect waves-light"><i
+                                        class="fa-brands fa-x-twitter"></i></a>
+                                <a href="" id="shareLI" class="btn btn-sm btn-primary waves-effect waves-light"><i
+                                        class="fa-brands fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <script src="/public/assets/js/vendor.min.js"></script>
+    <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="/public/assets/js/theme/app.init.js"></script>
+    <script src="/public/assets/js/theme/theme.js"></script>
+    <script src="/public/assets/js/theme/app.min.js"></script>
+    <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+    <script src="/public/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/public/assets/libs/select2/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/locales/bootstrap-datepicker.id.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        (function () {
+            // Inisialisasi Datepicker
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                todayHighlight: true,
+                language: 'id',
+                startDate: new Date()
+            });
+
+            $('#clearExpired').on('click', function () {
+                $('#expired').val('');
+            });
+
+            function normalizeSegmenSlug(name) {
+                return (name || '').toString().trim()
+                    .toLowerCase()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^a-z0-9-]/g, '');
+            }
+
+            function getSelectedSegmenName() {
+                const data = $('#segmen').select2('data') || [];
+                return data[0] ? (data[0].nama || data[0].text) : '';
+            }
+
+            // Validasi URL
+            function isValidUrl(string) {
+                try {
+                    const u = new URL(string);
+                    return u.protocol === 'http:' || u.protocol === 'https:';
+                } catch (_) {
+                    return false;
+                }
+            }
+
+            // Validasi Alias
+            function isValidAlias(alias) {
+                if (!alias) return true; // optional
+                const regex = /^[a-zA-Z0-9._-]+$/;
+                return regex.test(alias);
+            }
+
+            function buildShortUrl(aliasValue) {
+                const segmenName = getSelectedSegmenName();
+                const segmenSlug = normalizeSegmenSlug(segmenName);
+                return segmenSlug
+                    ? `https://s.unjani.ac.id/${segmenSlug}/${aliasValue}`
+                    : `https://s.unjani.ac.id/${aliasValue}`;
+            }
+
+            function setModalData(shortUrl, qrFilename) {
+                const encodedUrl = encodeURIComponent(shortUrl);
+                $('#shortLink').val(shortUrl);
+                $('#buttonText').text('Copy');
+                $('#shareFB').attr('href', `https://www.facebook.com/sharer.php?u=${encodedUrl}`);
+                $('#shareX').attr('href', `https://twitter.com/share?url=${encodedUrl}`);
+                $('#shareLI').attr('href', `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}`);
+
+                if (qrFilename) {
+                    const qrPath = `/assets/qr/${qrFilename}`;
+                    setTimeout(function () {
+                        $('#qrcode').attr('src', qrPath);
+                        $('#qrcoded').attr('href', qrPath);
+                    }, 100);
+                }
+            }
+
+            // Update Character Count (fix: danger harus dicek dulu)
+            function updateCharacterCount($el, $countEl, maxLength) {
+                const length = ($el.val() || '').length;
+                $countEl.text(`${length}/${maxLength}`);
+
+                $countEl.removeClass('warning danger');
+                if (length >= Math.ceil(maxLength * 0.90)) {
+                    $countEl.addClass('danger');
+                } else if (length >= Math.ceil(maxLength * 0.80)) {
+                    $countEl.addClass('warning');
+                }
+            }
+
+            // Update Preview (fix: urutan warning/danger)
+            function updatePreview() {
+                const segmenName = getSelectedSegmenName();
+                const segmenSlug = normalizeSegmenSlug(segmenName);
+
+                const aliasValue = ($('#alias').val() || '').trim();
+                const aliasPreview = aliasValue || 'alias';
+                const prefix = segmenSlug ? `${segmenSlug}/` : '';
+
+                $('#segmenPrefix').text(`https://s.unjani.ac.id/${prefix}`);
+                $('#shortlinkPreview').text(`https://s.unjani.ac.id/${prefix}${aliasPreview}`);
+
+                // Alias count
+                $('#aliasCount').text(`${aliasValue.length}/50`);
+                $('#aliasCount').removeClass('warning danger');
+                if (aliasValue.length >= 45) {
+                    $('#aliasCount').addClass('danger');
+                } else if (aliasValue.length >= 40) {
+                    $('#aliasCount').addClass('warning');
+                }
+            }
+
+            // Inisialisasi Select2
+            $('#segmen').select2({
+                width: '100%',
+                placeholder: 'Pilih segmen (opsional)',
+                allowClear: true,
+                minimumInputLength: 0,
+                ajax: {
+                    url: '/admin/linkadd/segmen-options',
+                    delay: 200,
+                    data: function (params) {
+                        return { search: params.term || '' };
+                    },
+                    processResults: function (data) {
+                        const results = (data && data.results) ? data.results : [];
+                        return { results: results };
+                    }
+                }
+            });
+
+            // Event: Segmen change
+            $('#segmen').on('change', function () {
+                updatePreview();
+                if ($(this).val()) {
+                    $('#segmenFeedback').removeClass('invalid').addClass('valid').text('Segmen dipilih');
+                } else {
+                    $('#segmenFeedback').removeClass('valid invalid').text('');
+                }
+            });
+
+            // Event: Alias input (fix: sanitasi + feedback konsisten)
+            $('#alias').on('input', function () {
+                const raw = $(this).val() || '';
+                const sanitized = raw.replace(/[^a-zA-Z0-9._-]/g, '');
+                if (raw !== sanitized) $(this).val(sanitized);
+
+                updatePreview();
+
+                if (sanitized) {
+                    $('#aliasFeedback').removeClass('invalid').addClass('valid').text('Format alias valid');
+                } else {
+                    $('#aliasFeedback').removeClass('valid invalid').text('');
+                }
+            });
+
+            // Event: URL validate realtime ringan
+            $('#link').on('input blur', function () {
+                const url = ($(this).val() || '').trim();
+
+                if (!url) {
+                    $(this).removeClass('is-valid is-invalid');
+                    $('#linkFeedback').removeClass('valid invalid').text('');
+                    return;
+                }
+
+                if (isValidUrl(url)) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                    $('#linkFeedback').removeClass('invalid').addClass('valid').text('Format URL valid');
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                    $('#linkFeedback').removeClass('valid').addClass('invalid').text('Format URL tidak valid. Gunakan http:// atau https://');
+                }
+            });
+
+            // Deskripsi count
+            $('#deskripsi').on('input', function () {
+                updateCharacterCount($(this), $('#deskripsiCount'), 200);
+            });
+
+            // Toggle Password Visibility
+            $('#toggle-password').on('click', function () {
+                const passwordInput = $('#password');
+                const icon = $(this).find('i');
+
+                if (passwordInput.attr('type') === 'password') {
+                    passwordInput.attr('type', 'text');
+                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                    $(this).attr('aria-label', 'Sembunyikan password');
+                } else {
+                    passwordInput.attr('type', 'password');
+                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                    $(this).attr('aria-label', 'Tampilkan password');
+                }
+            });
+
+            // Copy Preview
+            $('#copyPreview').on('click', function () {
+                const btn = $(this);
+                const text = $('#shortlinkPreview').text();
+
+                navigator.clipboard.writeText(text).then(function () {
+                    btn.html('<i class="fa fa-check me-1"></i>Tersalin')
+                        .removeClass('btn-outline-primary').addClass('btn-success');
+
+                    setTimeout(() => {
+                        btn.html('<i class="fa fa-copy me-1"></i>Salin')
+                            .removeClass('btn-success').addClass('btn-outline-primary');
+                    }, 2000);
+                }).catch(function (err) {
+                    console.error('Gagal menyalin: ', err);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: 'Tidak dapat menyalin ke clipboard',
+                        confirmButtonText: 'OK',
+                        customClass: { confirmButton: 'btn btn-danger' }
+                    });
+                });
+            });
+
+            window.copyLink = function () {
+                const input = document.getElementById('shortLink');
+                const buttonText = document.getElementById('buttonText');
+                if (!input) {
+                    return;
+                }
+
+                input.select();
+                input.setSelectionRange(0, 99999);
+
+                const value = input.value || '';
+                const setCopied = function () {
+                    if (!buttonText) return;
+                    buttonText.textContent = 'Copied';
+                    setTimeout(() => {
+                        buttonText.textContent = 'Copy';
+                    }, 2000);
+                };
+
+                if (navigator.clipboard && value) {
+                    navigator.clipboard.writeText(value).then(setCopied).catch(function () {
+                        document.execCommand('copy');
+                        setCopied();
+                    });
+                    return;
+                }
+
+                document.execCommand('copy');
+                setCopied();
+            };
+
+            // Submit
+            $('#linkAddForm').on('submit', function (e) {
+                e.preventDefault();
+
+                const link = ($('#link').val() || '').trim();
+                const segmen = $('#segmen').val();
+                const alias = ($('#alias').val() || '').trim();
+
+                if (!link) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'URL Kosong',
+                        text: 'URL tujuan wajib diisi',
+                        confirmButtonText: 'OK',
+                        customClass: { confirmButton: 'btn btn-danger' },
+                        buttonsStyling: false
+                    });
+                    $('#link').focus();
+                    return;
+                }
+
+                if (!isValidUrl(link)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'URL Tidak Valid',
+                        text: 'Format URL tidak valid. Pastikan menggunakan http:// atau https://',
+                        confirmButtonText: 'OK',
+                        customClass: { confirmButton: 'btn btn-danger' },
+                        buttonsStyling: false
+                    });
+                    $('#link').focus();
+                    return;
+                }
+
+                if (alias && !isValidAlias(alias)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Alias Tidak Valid',
+                        text: 'Alias mengandung karakter yang tidak diizinkan',
+                        confirmButtonText: 'OK',
+                        customClass: { confirmButton: 'btn btn-danger' },
+                        buttonsStyling: false
+                    });
+                    $('#alias').focus();
+                    return;
+                }
+
+                const payload = {
+                    link: link,
+                    segmen: segmen,
+                    alias: alias,
+                    referer: $('#referer').val(),
+                    expired: $('#expired').val(),
+                    deskripsi: $('#deskripsi').val(),
+                    password: $('#password').val()
+                };
+
+                const submitBtn = $('#submitBtn');
+                const originalText = submitBtn.html();
+                $('#loadingSpinner').show();
+                submitBtn.prop('disabled', true)
+                    .html('<i class="fa fa-spinner fa-spin me-2"></i>Menyimpan...');
+
+                $.ajax({
+                    url: '/users/link',
+                    method: 'POST',
+                    data: payload,
+                    success: function (data) {
+                        if (data && data.alias) {
+                            const shortUrl = buildShortUrl(data.alias);
+                            const qrFilename = data.qrCode || `${data.alias}.png`;
+                            setModalData(shortUrl, qrFilename);
+
+                            const modalElement = document.getElementById('modalLink');
+                            if (modalElement) {
+                                const modal = new bootstrap.Modal(modalElement, {
+                                    backdrop: 'static',
+                                    keyboard: false
+                                });
+                                modal.show();
+                            }
+
+                            // Reset form
+                            document.getElementById('linkAddForm').reset();
+                            $('#segmen').val(null).trigger('change');
+                            $('.form-control').removeClass('is-valid is-invalid');
+                            $('.validation-feedback').removeClass('valid invalid').text('');
+                            updatePreview();
+                            updateCharacterCount($('#deskripsi'), $('#deskripsiCount'), 200);
+                        } else if (data && data.error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: data.error,
+                                confirmButtonText: 'OK',
+                                customClass: { confirmButton: 'btn btn-danger' },
+                                buttonsStyling: false
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Kesalahan Sistem',
+                            text: 'Terjadi kesalahan saat menyimpan link. Silakan coba lagi.',
+                            confirmButtonText: 'OK',
+                            customClass: { confirmButton: 'btn btn-danger' },
+                            buttonsStyling: false
+                        });
+                        console.error('Error:', error);
+                    },
+                    complete: function () {
+                        $('#loadingSpinner').hide();
+                        submitBtn.prop('disabled', false).html(originalText);
+                    }
+                });
+            });
+
+            // Initial updates
+            updatePreview();
+            updateCharacterCount($('#deskripsi'), $('#deskripsiCount'), 200);
+        })();
+    </script>
+</body>
+
+</html>

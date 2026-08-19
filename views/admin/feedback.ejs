@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+
+    <!-- Core Css -->
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+
+    <title>Feedback - S UNJANI</title>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        <%- include('../partials/aside') %>
+
+        <!--  Sidebar End -->
+        <div class="page-wrapper">
+            <!--  Header Start -->
+            <%- include('../partials/header') %>
+
+            <!--  Header End -->
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8">Feedbacks <i
+                                            class="fa-duotone fa-solid fa-link text-primary ms-2"></i></h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Menu</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">Feedback</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center mb-n5">
+                                        <img src="/public/assets/images/breadcrumb/ChatBc.png" alt="modernize-img"
+                                            class="img-fluid mb-n4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body" style="background-color: #f6f8fa;">
+                                    <div class="table-responsive mb-4">
+                                        <!-- Modal -->
+                                        <!-- Enhanced Message Modal -->
+                                        <div class="modal fade" id="messageModal" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-primary ps-5 ">
+                                                        <h5 class="modal-title text-white">Contact Message Details</h5>
+                                                        <button type="button" class="btn-close btn-close-white me-2"
+                                                            data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body px-5">
+                                                        <div class="row">
+                                                            <!-- Left Column - Contact Info -->
+                                                            <div class="col-md-4 border-end">
+                                                                <div class="contact-info">
+                                                                    <div class="d-flex align-items-center mb-4">
+                                                                        <div
+                                                                            class="icon-circle bg-primary-subtle text-primary me-3">
+                                                                            <i class="fas fa-user"></i>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0 text-muted small">Name</h6>
+                                                                            <p id="modalName" class="mb-0 fw-bold"></p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="d-flex align-items-center mb-4">
+                                                                        <div
+                                                                            class="icon-circle bg-primary-subtle text-primary me-3">
+                                                                            <i class="fas fa-envelope"></i>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0 text-muted small">Email</h6>
+                                                                            <p id="modalEmail" class="mb-0"></p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="d-flex align-items-center mb-4">
+                                                                        <div
+                                                                            class="icon-circle bg-primary-subtle text-primary me-3">
+                                                                            <i class="fas fa-tag"></i>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0 text-muted small">Enquiry
+                                                                                Type</h6>
+                                                                            <p id="modalEnquiry" class="mb-0"></p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="d-flex align-items-center">
+                                                                        <div
+                                                                            class="icon-circle bg-primary-subtle text-primary me-3">
+                                                                            <i class="fas fa-clock"></i>
+                                                                        </div>
+                                                                        <div>
+                                                                            <h6 class="mb-0 text-muted small">Submitted
+                                                                                At</h6>
+                                                                            <p id="modalTimestamp" class="mb-0"></p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Right Column - Message -->
+                                                            <div class="col-md-8">
+                                                                <div class="message-content">
+                                                                    <h6 class="text-muted mb-3">Message:</h6>
+                                                                    <div id="modalMessage"
+                                                                        class="bg-light p-4 rounded-2"
+                                                                        style="min-height: 200px;"></div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-primary"
+                                                            data-bs-dismiss="modal">Close</button>
+                                                        <a id="modalEmailLink" href="#" class="btn btn-primary">
+                                                            <i class="fas fa-reply me-2"></i>Reply via Email
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Table with clickable rows -->
+                                        <table id="linksTables" class="table table-hover align-middle text-nowrap mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th scope="col">No.</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col">Email</th>
+                                                    <th scope="col">Enquire</th>
+                                                    <th scope="col">Message</th>
+                                                    <th scope="col">TimeStamp</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% let no = 1 %>
+                                                <% for(const f of feedbacks){ %>
+                                                <tr onclick="showFullMessage(
+            '<%= f.firstName %> <%= f.lastName %>',
+            '<%= f.email %>',
+            '<%= f.enquireLabel %>',
+            `<%= f.message %>`,
+            '<%= f.timeStamp %>'
+          )" data-bs-toggle="modal" data-bs-target="#messageModal" class="clickable-row">
+                                                    <td><%= no++ %></td>
+                                                    <td><%= f.firstName %> <%= f.lastName %></td>
+                                                    <td><%= f.email %></td>
+                                                    <td><span
+                                                            class="badge bg-primary-subtle text-primary"><%= f.enquireLabel %></span>
+                                                    </td>
+                                                    <td>
+                                                        <% 
+              const message = f.message.trim();
+              const words = message.split(/\s+/);
+              const truncated = words.length > 4 
+                ? words.slice(0, 4).join(' ') + '...' 
+                : message;
+            %>
+                                                        <%= truncated %>
+                                                    </td>
+                                                    <td><%= f.timeStamp %></td>
+                                                </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+
+                                        <script>
+                                            function showFullMessage(name, email, enquiry, message, timestamp) {
+                                                document.getElementById('modalName').textContent = name;
+                                                document.getElementById('modalEmail').textContent = email;
+                                                document.getElementById('modalEnquiry').textContent = enquiry;
+                                                document.getElementById('modalMessage').innerHTML = message;
+                                                document.getElementById('modalTimestamp').textContent = timestamp;
+                                                document.getElementById('modalEmailLink').href = `mailto:${email}`;
+                                            }
+                                        </script>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <%- include('../partials/footer') %>
+            <!-- End Footer -->
+            <script>
+                function handleColorTheme(e) {
+                    document.documentElement.setAttribute("data-color-theme", e);
+                }
+            </script>
+            <button
+                class="btn btn-primary p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
+                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                aria-controls="offcanvasExample">
+                <i class="icon ti ti-settings fs-7"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+
+    <!-- /.modal -->
+    <div class="dark-transparent sidebartoggler"></div>
+    <script src="/public/assets/js/vendor.min.js"></script>
+    <!-- Import Js Files -->
+    <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="/public/assets/js/theme/app.init.js"></script>
+    <script src="/public/assets/js/theme/theme.js"></script>
+    <script src="/public/assets/js/theme/app.min.js"></script>
+    <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+
+    <!-- solar icons -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script src="/public/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="/public/assets/js/dashboards/dashboard2.js"></script>
+
+    <!-- font-awesome -->
+    <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+
+    <!-- Sweat Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Data Tables -->
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
+
+
+    <script>
+        let messagesSuccess = '<%- success_msg %>';
+        if (messagesSuccess != '') {
+            Swal.fire({
+                title: "Berhasil",
+                icon: "success",
+                text: messagesSuccess,
+                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+            });
+        }
+        let messagesError = '<%- error_msg %>' + '<%- error %>';
+        if (messagesError != '') {
+            Swal.fire({
+                title: "Gagal",
+                icon: "error",
+                text: messagesError,
+                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+
+    <!-- Core Css -->
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+
+    <title>Statistik Akses - S UNJANI</title>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        <%- include('../partials/aside') %>
+
+        <!--  Sidebar End -->
+        <div class="page-wrapper">
+            <!--  Header Start -->
+            <%- include('../partials/header') %>
+
+            <!--  Header End -->
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8">Short Links <i
+                                            class="fa-duotone fa-solid fa-link text-primary ms-2"></i></h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Menu</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">Stats</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center mb-n5">
+                                        <img src="../assets/images/breadcrumb/ChatBc.png" alt="modernize-img"
+                                            class="img-fluid mb-n4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Data Label Line Chart</h4>
+                                    <div id="chart-line-with-data-label" class="mx-n3"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12">
+                            <div class="card" style="background-color: #f6f8fa;">
+                                <div class="card-header" style="background-color: #f6f8fa;">
+                                    <h4 class="card-title fw-semibold">
+                                        <i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i>
+                                        Aktivitas terbaru
+                                    </h4>
+                                    <p class="card-subtitle mb-0">Daftar pengaksesan short link</p>
+                                </div><!-- end card header -->
+                                <div class="card-body">
+                                    <table class="table text-nowrap mb-0 align-middle" id="tabelStat">
+                                        <thead class="text-dark fs-4">
+                                            <tr>
+                                                <th>
+                                                    <h6 class="fs-4 fw-semibold mb-0">No</h6>
+                                                </th>
+                                                <th>
+                                                    <h6 class="fs-4 fw-semibold mb-0">Akses</h6>
+                                                </th>
+                                                <th>
+                                                    <h6 class="fs-4 fw-semibold mb-0">Keterangan</h6>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% let no = 1 %>
+                                            <% for(const stat of stats){ %>
+                                            <tr>
+                                                <td class="text-center"><%= no %></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <img src="../assets/images/profile/user-3.jpg"
+                                                            class="rounded-circle" width="40" height="40">
+                                                        <div class="ms-3">
+                                                            <h6 class="fs-4 fw-semibold mb-0"><%= stat.ip %></h6>
+                                                            <span class="fw-normal"><%= `s.unjani.ac.id/${stat.alias}`.length > 50
+                                                        ? `s.unjani.ac.id/${stat.alias}`.substring(0, 50) + "..."
+                                                        : `s.unjani.ac.id/${stat.alias}` %></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <p class="text-muted fs-1 mt-1 mb-0"> <i
+                                                            class="fa-solid fa-language"></i>
+                                                        <%- stat.bahasa %> <i class="fa-brands fa-windows"></i>
+                                                        <%- stat.os %> </p>
+                                                    <p class="text-muted fs-1 mb-1"><i class="fa-brands fa-chrome"></i>
+                                                        <%- stat.browser %><span class="fw-medium"></span> <i
+                                                            class="fa-sharp-duotone fa-solid fa-map-location-dot"></i>
+                                                        <%- stat.negara %> <i
+                                                            class="fa-sharp-duotone fa-solid fa-city"></i>
+                                                        <%- stat.kota %></p>
+                                                </td>
+                                            </tr>
+                                            <% no++ %>
+                                            <% } %>
+                                        </tbody>
+                                    </table>
+                                </div><!-- end card -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- Footer -->
+            <%- include('../partials/footer') %>
+            <!-- End Footer -->
+            <script>
+                function handleColorTheme(e) {
+                    document.documentElement.setAttribute("data-color-theme", e);
+                }
+            </script>
+            <button
+                class="btn btn-primary p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
+                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                aria-controls="offcanvasExample">
+                <i class="icon ti ti-settings fs-7"></i>
+            </button>
+
+            <div class="offcanvas customizer offcanvas-end" tabindex="-1" id="offcanvasExample"
+                aria-labelledby="offcanvasExampleLabel">
+                <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
+                    <h4 class="offcanvas-title fw-semibold" id="offcanvasExampleLabel">
+                        Settings
+                    </h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body h-n80" data-simplebar>
+                    <h6 class="fw-semibold fs-4 mb-2">Theme</h6>
+
+                    <div class="d-flex flex-row gap-3 customizer-box" role="group">
+                        <input type="radio" class="btn-check light-layout" name="theme-layout" id="light-layout"
+                            autocomplete="off" />
+                        <label class="btn p-9 btn-outline-primary rounded-2" for="light-layout">
+                            <i class="icon ti ti-brightness-up fs-7 me-2"></i>Light
+                        </label>
+
+                        <input type="radio" class="btn-check dark-layout" name="theme-layout" id="dark-layout"
+                            autocomplete="off" />
+                        <label class="btn p-9 btn-outline-primary rounded-2" for="dark-layout">
+                            <i class="icon ti ti-moon fs-7 me-2"></i>Dark
+                        </label>
+                    </div>
+
+                    <h6 class="mt-5 fw-semibold fs-4 mb-2">Container Option</h6>
+
+                    <div class="d-flex flex-row gap-3 customizer-box" role="group">
+                        <input type="radio" class="btn-check" name="layout" id="boxed-layout" autocomplete="off" />
+                        <label class="btn p-9 btn-outline-primary" for="boxed-layout">
+                            <i class="icon ti ti-layout-distribute-vertical fs-7 me-2"></i>Boxed
+                        </label>
+
+                        <input type="radio" class="btn-check" name="layout" id="full-layout" autocomplete="off" />
+                        <label class="btn p-9 btn-outline-primary" for="full-layout">
+                            <i class="icon ti ti-layout-distribute-horizontal fs-7 me-2"></i>Full
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+    <div class="dark-transparent sidebartoggler"></div>
+    <script src="/public/assets/js/vendor.min.js"></script>
+    <!-- Import Js Files -->
+    <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="/public/assets/js/theme/app.init.js"></script>
+    <script src="/public/assets/js/theme/theme.js"></script>
+    <script src="/public/assets/js/theme/app.min.js"></script>
+    <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+
+    <!-- solar icons -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script src="/public/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="/public/assets/js/dashboards/dashboard2.js"></script>
+
+    <!-- font-awesome -->
+    <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+
+    <!-- Sweat Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Data Tables -->
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            new DataTable('#tabelStat');
+            let labelsLinks = [];
+            let datasLinks = [];
+            `<% for(const ac of chartLinks){ %>`
+                datasLinks.push(parseInt(`<%- ac.jumlah %>`))
+                labelsLinks.push('<%- ac.bulan %>');
+            `<% } %>`
+
+            var options = {
+                series: [{
+                        name: "High - 2013",
+                        data: datasLinks,
+                    },
+                    
+                ],
+                chart: {
+                    fontFamily: "inherit",
+                    height: 350,
+                    type: "line",
+                    dropShadow: {
+                        enabled: true,
+                        color: "#000",
+                        top: 18,
+                        left: 7,
+                        blur: 10,
+                        opacity: 0.2,
+                    },
+                    toolbar: {
+                        show: false,
+                    },
+                },
+                colors: ["var(--bs-primary)", "var(--bs-secondary)"],
+                dataLabels: {
+                    enabled: true,
+                },
+                stroke: {
+                    curve: "smooth",
+                },
+                grid: {
+                    borderColor: "transparent",
+                    row: {
+                        colors: ["transparent"], // takes an array which will be repeated on columns
+                        opacity: 0.5,
+                    },
+                },
+                markers: {
+                    size: 1,
+                },
+                xaxis: {
+                    categories: labelsLinks,
+                    labels: {
+                        style: {
+                            colors: [
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                            ],
+                        },
+                    },
+                },
+                yaxis: {
+                    
+                    labels: {
+                        style: {
+                            colors: [
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                                "#a1aab2",
+                            ],
+                        },
+                    },
+                },
+                tooltip: {
+                    theme: "dark",
+                },
+                legend: {
+                    position: "top",
+                    horizontalAlign: "right",
+                    floating: true,
+                    offsetY: -25,
+                    offsetX: -5,
+                },
+            };
+
+            var chart_line_data = new ApexCharts(
+                document.querySelector("#chart-line-with-data-label"),
+                options
+            );
+            chart_line_data.render();
+        });
+    </script>
+</body>
+
+</html>

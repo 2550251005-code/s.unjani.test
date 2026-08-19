@@ -1,0 +1,811 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+ 
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+
+    <!-- Core Css -->
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+
+    <link rel="stylesheet" href="/public/assets/libs/select2/dist/css/select2.min.css">
+
+    <title>Link Edit - S UNJANI</title>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        <%- include('../partials/aside') %>
+
+        <!--  Sidebar End -->
+        <div class="page-wrapper">
+            <!--  Header Start -->
+            <%- include('../partials/header') %>
+
+            <!--  Header End -->
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8">Data Users <i
+                                            class="fa-duotone fa-solid fa-users text-primary ms-2"></i></h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Administrator</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">
+                                                <a class="text-muted text-decoration-none" href="/admin/users">Users</a>
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center mb-n5">
+                                        <img src="/public/assets/images/breadcrumb/ChatBc.png" alt="modernize-img"
+                                            class="img-fluid mb-n4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row mb-4">
+                                        <div class="col-xl-6 d-flex align-items-center">
+                                            <h4 class="card-title"><i
+                                                    class="fa-duotone fa-solid fa-users me-2 text-center"></i>Tabel
+                                                Users</h4>
+                                        </div>
+                                        <div class="col-xl-6 d-flex justify-content-end">
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#modalAdd"
+                                                class="btn btn-primary btn-label waves-effect waves-light">
+                                                <i class="fa-solid fa-user-plus label-icon align-middle fs-16 me-2"></i>
+                                                Tambah Data</button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="table-responsive mb-4">
+                                        <table id="ajax-datatable"
+                                            class="display table table-bordered dt-responsive mt-4" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>NIP</th>
+                                                    <th>Nama</th>
+                                                    <th>Unit Kerja</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>NIP</th>
+                                                    <th>Nama Lengkap</th>
+                                                    <th>Unit Kerja</th>
+                                                    <th>Email</th>
+                                                    <th>Role</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <%- include('../partials/footer') %>
+                    <!-- End Footer -->
+                    <script>
+                        function handleColorTheme(e) {
+                            document.documentElement.setAttribute("data-color-theme", e);
+                        }
+                    </script>
+
+                </div>
+
+
+
+            </div>
+
+            <!-- Modal -->
+            <!-- Modal Update -->
+            <div class="modal fade bs-example-modal-center " tabindex="-1" role="dialog"
+                aria-labelledby="mySmallModalLabel" id="modalUpdate">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header pb-0 bg-primary-subtle" style="position: relative;">
+                            <h5 class="modal-title mt-5 bg-white p-2 px-3  rounded-top-3" id="myModalLabel"
+                                style="position: relative; z-index: 1;"><i
+                                    class="fa-solid fa-user-pen me-2 text-primary"></i>Edit
+                                User</h5>
+                            <button type="button" data-bs-toggle="tooltip" title="Tutup"
+                                class="btn btn-ghost waves-effect waves-light text-white d-flex align-items-start"
+                                data-bs-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;">
+                                <i class="fa-sharp fa-solid fa-circle-xmark fa-2x text-danger"></i>
+                            </button>
+                            <div class="rounded-top-2"
+                                style="content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('/assets/images/landing/new_unjani.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; opacity: 0.9; z-index: 0;">
+                            </div>
+                        </div>
+
+                        <div class="modal-body px-5 pb-5">
+
+                            <div class="row">
+                                <form action="javascript:void(0);" class="row g-3">
+                                    <div class="col-md-12">
+                                        <label for="fullnameInput" class="form-label">NIP</label>
+                                        <input type="text" class="form-control" id="nomorInduk">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="fullnameInput" class="form-label">Nama Lengkap</label>
+                                        <input type="text" class="form-control" id="name">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputEmail4" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Email">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputAddress" class="form-label">Unit Kerja</label>
+                                        <%- include('../partials/selectunitkerja') %>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="homebase" class="form-label">Homebase</label>
+                                        <%- include('../partials/selecthomebase') %>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputAddress2" class="form-label">Role</label>
+                                        <select class="select22 form-control" id="role" required>
+                                            <option value="admin">Admin</option>
+                                            <option value="user">User</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="type" class="form-label">Jenis Pegawai</label>
+                                        <select class="select22 form-control" id="type" required>
+                                            <option value="Tendik">Tendik</option>
+                                            <option value="Dosen">Dosen</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="jabatanFungsional" class="form-label">Jabatan Fungsional</label>
+                                        <input type="text" class="form-control" id="jabatanFungsional" placeholder="Isi jika ada">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <div class="text-end mt-3">
+                                            <button type="button" onclick="update()" class="btn btn-primary"
+                                                data-bs-dismiss="modal" aria-label="Close"><i
+                                                    class="fa-solid fa-floppy-disk me-2"></i> Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <!-- Modal Add -->
+            <div class="modal fade bs-example-modal-center " tabindex="-1" role="dialog"
+                aria-labelledby="mySmallModalLabel" id="modalAdd">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header pb-0 bg-primary-subtle" style="position: relative;">
+                            <h5 class="modal-title mt-5 bg-white p-2 px-3 mb-0 rounded-top-3" id="myModalLabel"
+                                style="position: relative; z-index: 1;"><i
+                                    class="fa-solid fa-user-pen me-2 text-primary"></i>Tambah
+                                User
+                            </h5>
+                            <button type="button" data-bs-toggle="tooltip" title="Tutup"
+                                class="btn btn-ghost waves-effect waves-light text-danger d-flex align-items-start"
+                                data-bs-dismiss="modal" aria-label="Close" style="position: relative; z-index: 1;">
+                                <i class="fa-sharp fa-solid fa-circle-xmark fa-2x"></i>
+                            </button>
+                            <div class="rounded-top-2"
+                                style="content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('/assets/images/landing/new_unjani.jpg'); background-position: center; background-repeat: no-repeat; background-size: cover; opacity: 0.9; z-index: 0;">
+                            </div>
+                        </div>
+
+                        <div class="modal-body px-5 pb-5">
+
+                            <div class="row">
+                                <form action="javascript:void(0);" class="row g-3">
+                                    <div class="col-md-12">
+                                        <label for="nomorInduk" class="form-label">NIP</label>
+                                        <input type="text" class="form-control" id="nomorIndukAdd"
+                                            placeholder="Masukan NIP atau NID">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="fullnameInput" class="form-label">Nama Lengkap</label>
+                                        <input type="text" class="form-control" id="nameAdd" placeholder="Masukan Nama">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputEmail4" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="emailAdd"
+                                            placeholder="Maukan Email">
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="inputPassword4" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="passwordAdd"
+                                            placeholder="Password">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="unitKerjaAdd" class="form-label">Unit Kerja</label>
+                                        <%- include('../partials/selectunitkerja', { selectId: 'unitKerjaAdd', selectName: 'unitKerjaAdd' }) %>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="homebaseAdd" class="form-label">Homebase</label>
+                                        <%- include('../partials/selecthomebase', { selectId: 'homebaseAdd', selectName: 'homebaseAdd' }) %>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="inputAddress2" class="form-label">Role</label>
+                                        <select class="select24 form-control" id="roleAdd" required>
+                                            <option value="admin">Admin</option>
+                                            <option value="user">User</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="typeAdd" class="form-label">Jenis Pegawai</label>
+                                        <select class="select24 form-control" id="typeAdd" required>
+                                            <option value="Tendik">Tendik</option>
+                                            <option value="Dosen">Dosen</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <label for="jabatanFungsionalAdd" class="form-label">Jabatan Fungsional</label>
+                                        <input type="text" class="form-control" id="jabatanFungsionalAdd" placeholder="Isi jika ada">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="text-end mt-3">
+                                            <button type="button" onclick="add()" class="btn btn-primary"
+                                                data-bs-dismiss="modal" aria-label="Close"><i
+                                                    class="fa-solid fa-floppy-disk me-2"></i> Simpan</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <!-- End Modal -->
+
+            <!-- Modal Reset Password -->
+            <div class="modal fade" id="modalReset" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div>
+                                <h5 class="modal-title fw-semibold">Reset Password</h5>
+                                <p class="mb-0 text-muted small">Pengguna: <span id="resetUserLabel"></span></p>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" id="resetUserId">
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="text" class="form-control" id="resetUserEmail" readonly>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password Baru</label>
+                                <input type="password" class="form-control" id="resetPassword"
+                                    placeholder="Minimal 6 karakter" autocomplete="new-password">
+                                <small class="text-muted">Gunakan kombinasi huruf besar, huruf kecil, angka, dan
+                                    karakter khusus.</small>
+                            </div>
+                            <div>
+                                <label class="form-label">Konfirmasi Password</label>
+                                <input type="password" class="form-control" id="resetPasswordConfirm"
+                                    autocomplete="new-password">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-primary" onclick="resetPassword()">Reset
+                                Password</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal Reset Password -->
+
+            <!-- Modal Hapus -->
+            <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                data-bs-toggle="tooltip" title="Tutup" aria-hidden="true" id="modalHapus">
+                <div class="modal-dialog modal-sm modal-dialog-centered">
+                    <div class="modal-content">
+                        <form>
+                            <div class="modal-body text-center">
+                                <i class="fa-duotone fa-solid fa-triangle-exclamation fa-5x text-danger m-4"></i>
+                                <h5 class="modal-title" id="mySmallModalLabel"><b>Hapus User</b></h5>
+                                <h6 class="fs-3 mt3">Apakah anda yakin untuk menghapus Akun</h6>
+                                <input type="text" readonly id="nameHapus" name="nameHapus"
+                                    class=" fs-2 text-center text-primary" value="" hidden>
+                                <input type="text" readonly id="csrf" name="csrf" hidden required>
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <a href="javascript:void(0);" class="btn btn-primary fw-medium"
+                                    data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Tidak
+                                    jadi.</a>
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+                                    onclick="hapus()"><i class="fa-duotone fa-solid fa-trash-can"></i> Ya,
+                                    Hapus!</button>
+                            </div>
+                        </form>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+            <!-- End Modal Hapus -->
+            <!-- /.modal -->
+
+            <div class="dark-transparent sidebartoggler"></div>
+            <script src="/public/assets/js/vendor.min.js"></script>
+            <!-- Import Js Files -->
+            <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+            <script src="/public/assets/js/theme/app.init.js"></script>
+            <script src="/public/assets/js/theme/theme.js"></script>
+            <script src="/public/assets/js/theme/app.min.js"></script>
+            <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+
+            <!-- solar icons -->
+            <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+            <script src="/public/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+            <script src="/public/assets/js/dashboards/dashboard2.js"></script>
+
+            <!-- font-awesome -->
+            <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+
+            <!-- Sweat Alert -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <!-- Data Tables -->
+            <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+            <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
+            <script src="/public/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+            <script src="/public/assets/js/forms/datepicker-init.js"></script>
+
+            <script src="/public/assets/libs/select2/dist/js/select2.full.min.js"></script>
+            <script src="/public/assets/libs/select2/dist/js/select2.min.js"></script>
+            <script src="/public/assets/js/forms/select2.init.js"></script>
+
+
+            <script>
+                let tabel = $('#ajax-datatable').DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "fixedColumns": {
+                        "right": 1 // Mengunci kolom "Aksi" di bagian kanan
+                    },
+                    "ajax": {
+                        "url": "/api/users",
+                        "type": "POST",
+                        "error": function (xhr, error, code) {
+                            console.log(xhr); // Lihat respon dari server
+                            console.log(error); // Pesan kesalahan
+                            console.log(code); // Status kesalahan
+                        }
+                    },
+                    "columns": [{
+                            "data": null,
+                            "render": (data, type, row, meta) => meta.row + 1
+                        }, // No.
+                        {
+                            "data": "nip"
+                        }, // NIP
+                        {
+                            "data": "namaLengkap"
+                        }, // Nama Lengkap
+                        {
+                            "data": "unitKerja"
+                        }, // Unit Kerja
+                        {
+                            "data": "email"
+                        }, // Email
+                        {
+                            "data": "role"
+                        }, // Role
+                        {
+                            "data": "aksi"
+                        }
+                    ]
+                });
+
+                function copyLink(link, buttonID) {
+                    navigator.clipboard.writeText(link).then(function () {
+                        // Ubah teks dari buttonText menjadi "Copied"
+                        $('#' + buttonID).text('Copied');
+                        setTimeout(function () {
+                            $('#' + buttonID).text("Copy");
+                        }, 2000);
+                    }, function (err) {
+                        console.error("Error copying text: ", err);
+                    });
+                }
+
+                function changeUpdate(name, nomorInduk, unitKerja, homebase, role, email, type = 'Tendik', jabatanFungsional = '') {
+                    $('#name').val(name);
+                    $('#nomorInduk').val(nomorInduk);
+                    $('#email').val(email);
+                    $('#unitKerja').val(unitKerja).trigger('change');
+                    $('#homebase').val(homebase).trigger('change');
+                    $('#role').val(role).trigger('change');
+                    $('#type').val(type).trigger('change');
+                    $('#jabatanFungsional').val(jabatanFungsional);
+                }
+
+
+                function changeHapus(n, d) {
+
+                    $('#nameHapus').val(n);
+                    $('#csrf').val(d);
+                }
+
+                function openReset(id, email, name) {
+                    $('#resetUserId').val(id);
+                    $('#resetUserEmail').val(email);
+                    $('#resetPassword').val('');
+                    $('#resetPasswordConfirm').val('');
+                    $('#resetUserLabel').text(`${name} (${email})`);
+                }
+
+                function isStrongPassword(password) {
+                    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{6,}$/.test(password);
+                }
+
+                function resetPassword() {
+                    const userId = $('#resetUserId').val();
+                    const password = $('#resetPassword').val();
+                    const confirmPassword = $('#resetPasswordConfirm').val();
+
+                    if (!password || !confirmPassword) {
+                        Swal.fire({
+                            title: "Gagal!",
+                            text: "Password baru dan konfirmasi wajib diisi.",
+                            icon: "error",
+                            confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                            customClass: {
+                                confirmButton: 'btn-primary btn'
+                            }
+                        });
+                        return;
+                    }
+
+                    if (password !== confirmPassword) {
+                        Swal.fire({
+                            title: "Gagal!",
+                            text: "Konfirmasi password tidak sama.",
+                            icon: "error",
+                            confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                            customClass: {
+                                confirmButton: 'btn-primary btn'
+                            }
+                        });
+                        return;
+                    }
+
+                    if (!isStrongPassword(password)) {
+                        Swal.fire({
+                            title: "Gagal!",
+                            text: "Password minimal 6 karakter dan harus mengandung huruf besar, huruf kecil, angka, serta karakter khusus.",
+                            icon: "error",
+                            confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                            customClass: {
+                                confirmButton: 'btn-primary btn'
+                            }
+                        });
+                        return;
+                    }
+
+                    $.post(`/admin/users/${userId}/reset-password`, {
+                        password: password
+                    }, function (response, status) {
+                        if (status === 'success' && response && response.success) {
+                            const modalElement = document.getElementById('modalReset');
+                            if (modalElement) {
+                                const modalInstance = bootstrap.Modal.getInstance(modalElement);
+                                if (modalInstance) {
+                                    modalInstance.hide();
+                                }
+                            }
+
+                            Swal.fire({
+                                title: "Berhasil!",
+                                text: response.message || 'Password berhasil direset.',
+                                icon: "success",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn'
+                                }
+                            }).then(() => {
+                                tabel.ajax.reload(null, false);
+                            });
+                        } else if (response && response.errors) {
+                            const errorMessages = response.errors.map(error => error.msg).join('');
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: errorMessages,
+                                icon: "error",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn'
+                                }
+                            });
+                        }
+                    }).fail(function (xhr) {
+                        let message = "Terjadi kesalahan dalam proses reset password.";
+                        if (xhr.responseJSON && xhr.responseJSON.errors) {
+                            message = xhr.responseJSON.errors.map(error => error.msg).join('');
+                        }
+                        Swal.fire({
+                            title: "Gagal!",
+                            text: message,
+                            icon: "error",
+                            confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                            customClass: {
+                                confirmButton: 'btn-primary btn'
+                            }
+                        });
+                    });
+                }
+
+                function hapus() {
+                    let nomorInduk = $('#csrf').val();
+                    $.post("/admin/delUser", {
+                            nomorInduk: nomorInduk
+                        },
+                        function (data, status) {
+                            if (status === 'success') {
+                                // Tampilkan SweetAlert jika berhasil
+                                Swal.fire({
+                                    title: "Berhasil!",
+                                    text: "User telah berhasil dihapus!",
+                                    icon: "success",
+                                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                    customClass: {
+                                        confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                    }
+                                }).then(() => {
+                                    // Reload tabel setelah alert
+                                    tabel.ajax.reload(null, false);
+                                });
+                            } else {
+                                // Tampilkan SweetAlert jika ada validasi error dari server
+                                let errorMessages = response.errors.map(error => error.msg).join('\n');
+                                Swal.fire({
+                                    title: "Gagal!",
+                                    text: `Terjadi kesalahan saat menghapus user:\n${errorMessages}`,
+                                    icon: "error",
+                                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                    customClass: {
+                                        confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                    }
+                                });
+                            }
+                        }).fail(function (xhr) {
+                        // Handle error saat request gagal
+                        let response = xhr.responseJSON;
+                        if (response && response.errors) {
+                            let errorMessages = response.errors.map(error => error.msg).join('\n');
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: `Terjadi kesalahan:\n${errorMessages}`,
+                                icon: "error",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: "Terjadi kesalahan dalam proses pengiriman data.",
+                                icon: "error",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            });
+                        }
+                    });
+                }
+
+                function changeStatus(alias, status) {
+                    let newStatus;
+                    if (status) {
+                        newStatus = false
+                    } else {
+                        newStatus = true
+                    };
+                    $.post("/users/link/update", {
+                            alias: alias,
+                            status: newStatus
+                        },
+                        function (data, status) {
+                            tabel.ajax.reload(null, false);
+                        });
+                }
+
+                function add() {
+                    let name = $("#nameAdd").val();
+                    let nomorInduk = $('#nomorIndukAdd').val();
+                    let email = $('#emailAdd').val();
+                    let unitKerja = $('#unitKerjaAdd').val();
+                    let homebase = $('#homebaseAdd').val();
+                    let role = $('#roleAdd').val();
+                    let password = $('#passwordAdd').val();
+                    let type = $('#typeAdd').val();
+                    let jabatanFungsional = $('#jabatanFungsionalAdd').val();
+
+                    const data = {
+                        name: name,
+                        nomorInduk: nomorInduk,
+                        email: email,
+                        unitKerja: unitKerja,
+                        homebase: homebase,
+                        role: role,
+                        password: password,
+                        type: type,
+                        jabatanFungsional: jabatanFungsional
+                    };
+
+                    $.post("/admin/user", data, function (response, status) {
+                        if (status === 'success' && !response.errors) {
+                            // Tampilkan SweetAlert jika berhasil
+                            Swal.fire({
+                                title: "Berhasil!",
+                                text: "Data telah berhasil disimpan!",
+                                icon: "success",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            }).then(() => {
+                                // Reload tabel setelah alert
+                                tabel.ajax.reload(null, false);
+                            });
+                        } else if (response.errors) {
+                            // Tampilkan SweetAlert jika ada validasi error dari server
+                            let errorMessages = response.errors.map(error => error.msg).join('\n');
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: `Terjadi kesalahan saat menyimpan data:\n${errorMessages}`,
+                                icon: "error",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            });
+                        }
+                    }).fail(function (xhr) {
+                        // Handle error saat request gagal
+                        let response = xhr.responseJSON;
+                        if (response && response.errors) {
+                            let errorMessages = response.errors.map(error => error.msg).join('\n');
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: `Terjadi kesalahan:\n${errorMessages}`,
+                                icon: "error",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: "Terjadi kesalahan dalam proses pengiriman data.",
+                                icon: "error",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            });
+                        }
+                    });
+                }
+
+                function update() {
+                    let name = $("#name").val();
+                    let nomorInduk = $('#nomorInduk').val();
+                    let email = $('#email').val();
+                    let unitKerja = $('#unitKerja').val();
+                    let homebase = $('#homebase').val();
+                    let role = $('#role').val();
+                    let type = $('#type').val();
+                    let jabatanFungsional = $('#jabatanFungsional').val();
+
+                    const data = {
+                        name: name,
+                        nomorInduk: nomorInduk,
+                        email: email,
+                        unitKerja: unitKerja,
+                        homebase: homebase,
+                        role: role,
+                        type: type,
+                        jabatanFungsional: jabatanFungsional,
+                    };
+
+                    $.post("/admin/updateUser", data, function (response, status) {
+                        if (status === 'success' && !response.errors) {
+                            // Tampilkan SweetAlert jika berhasil
+                            Swal.fire({
+                                title: "Berhasil!",
+                                text: "Data telah berhasil diUpdate!",
+                                icon: "success",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            }).then(() => {
+                                // Reload tabel setelah alert
+                                tabel.ajax.reload(null, false);
+                            });
+                        } else if (response.errors) {
+                            // Tampilkan SweetAlert jika ada validasi error dari server
+                            let errorMessages = response.errors.map(error => error.msg).join('\n');
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: `Terjadi kesalahan saat menyimpan data:\n${errorMessages}`,
+                                icon: "error",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            });
+                        }
+                    }).fail(function (xhr) {
+                        // Handle error saat request gagal
+                        let response = xhr.responseJSON;
+                        if (response && response.errors) {
+                            let errorMessages = response.errors.map(error => error.msg).join('\n');
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: `Terjadi kesalahan:\n${errorMessages}`,
+                                icon: "error",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Gagal!",
+                                text: "Terjadi kesalahan dalam proses pengiriman data.",
+                                icon: "error",
+                                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                customClass: {
+                                    confirmButton: 'btn-primary btn' // Kelas CSS untuk tombol
+                                }
+                            });
+                        }
+                    });
+                }
+            </script>
+</body>
+
+</html>

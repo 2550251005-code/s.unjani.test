@@ -1,0 +1,625 @@
+﻿<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical" data-boxed-layout="full">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+    <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+    <style>
+        .bio-preview-wrapper {
+            position: sticky;
+            top: 1rem;
+        }
+
+        @media (max-width: 1199.98px) {
+            .bio-preview-wrapper {
+                position: static;
+                margin-top: 1rem;
+            }
+        }
+
+        .bio-preview-wrapper h6 {
+            letter-spacing: 0.14em;
+            font-size: 0.75rem;
+            color: rgba(71, 85, 105, 0.9);
+        }
+
+        .bio-preview-phone {
+            max-width: 330px;
+            margin: 0 auto;
+            border-radius: 2.4rem;
+            padding: 2.7rem 1.65rem 1.9rem;
+            position: relative;
+            color: #f8fafc;
+            box-shadow: 0 30px 60px rgba(15, 23, 42, 0.25);
+            background: linear-gradient(145deg, #0f2e25, #0a241c);
+            --preview-button-bg: #155f49;
+            --preview-button-text: #ffffff;
+        }
+
+        .bio-preview-phone::before {
+            content: '';
+            position: absolute;
+            inset: 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            pointer-events: none;
+        }
+
+        .bio-preview-notch {
+            position: absolute;
+            top: 0.85rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 118px;
+            height: 20px;
+            border-radius: 0 0 1rem 1rem;
+            background: #05070f;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .bio-preview-screen {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            width: 100%;
+            padding: 0 0.35rem 0.75rem;
+        }
+
+        .bio-preview-avatar {
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            margin-bottom: 0.7rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .bio-preview-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .bio-preview-title {
+            font-size: 1.14rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 0;
+            color: #ffffff;
+            line-height: 1.35;
+        }
+
+        .bio-preview-alias {
+            font-size: 0.83rem;
+            color: rgba(226, 232, 240, 0.9);
+            margin: 0;
+            overflow-wrap: anywhere;
+            text-align: center;
+        }
+
+        .bio-preview-links {
+            margin-top: 1.1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .bio-preview-link {
+            background: var(--preview-button-bg);
+            color: var(--preview-button-text);
+            border-radius: 0.9rem;
+            padding: 0.78rem 1rem;
+            text-align: center;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            box-shadow: 0 10px 22px rgba(1, 34, 18, 0.25);
+            pointer-events: none;
+        }
+
+        .bio-preview-empty {
+            color: rgba(226, 232, 240, 0.75);
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .bio-theme-note {
+            font-size: 0.78rem;
+            color: #6b7280;
+        }
+    </style>
+    <title><%= mode === 'edit' ? 'Edit Bio' : 'Tambah Bio' %> - S UNJANI</title>
+</head>
+<body>
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <%- include('../partials/aside') %>
+        <div class="page-wrapper">
+            <%- include('../partials/header') %>
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <%
+                        const isEdit = mode === 'edit';
+                        const formAction = isEdit && bio._id ? ('/admin/bios/' + bio._id + '/update') : '/admin/bios';
+                        const submitLabel = isEdit ? 'Simpan Perubahan' : 'Simpan Bio';
+                        const bioTheme = bio.theme || {
+                            preset: 'unjani',
+                            backgroundMode: 'gradient',
+                            backgroundSolid: '#0a241c',
+                            gradientFrom: '#0f2e25',
+                            gradientTo: '#0a241c',
+                            buttonColor: '#155f49',
+                            buttonTextColor: '#ffffff'
+                        };
+                    %>
+                    <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8"><%= isEdit ? 'Edit' : 'Tambah' %> Bio Page
+                                        <i class="fa-solid fa-address-card text-primary ms-2"></i>
+                                    </h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Menu</a>
+                                            </li>
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/admin/bios">Bio</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page"><%= isEdit ? 'Edit' : 'Tambah' %></li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center mb-n5">
+                                        <img src="/public/assets/images/breadcrumb/ChatBc.png" alt="modernize-img" class="img-fluid mb-n4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="<%= formAction %>" method="POST" enctype="multipart/form-data">
+                                <div class="row g-4 align-items-start">
+                                    <div class="col-12 col-xl-7">
+                                        <div class="row g-4">
+                                            <div class="col-lg-6">
+                                                <label class="form-label">Judul Bio <span class="text-danger">*</span></label>
+                                                <input type="text" class="form-control" name="title" placeholder="Contoh: Linktree Fakultas Teknik" value="<%= bio.title %>" required>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label class="form-label">Alias <span class="text-danger">*</span></label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">/bio/</span>
+                                                    <input type="text" class="form-control" name="alias" placeholder="alias-unikan" value="<%= bio.alias %>" required>
+                                                </div>
+                                                <small class="text-muted">Alias harus unik dan hanya huruf, angka, atau tanda hubung.</small>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <label class="form-label">Logo</label>
+                                                <input type="file" class="form-control" name="logo" accept="image/*">
+                                                <small class="text-muted">Opsional. Logo akan ditampilkan di bagian atas halaman bio.</small>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <% if (bio.logo) { %>
+                                                <label class="form-label d-block">Logo Saat Ini</label>
+                                                <div class="border rounded p-2 bg-light text-center">
+                                                    <img src="/public/assets/uploads/<%= bio.logo %>" alt="Logo" class="img-fluid" style="max-height:120px;">
+                                                </div>
+                                                <% } else { %>
+                                                <label class="form-label d-block">Preview Logo</label>
+                                                <div class="border rounded p-3 bg-light text-center text-muted">
+                                                    Belum ada logo. Gunakan logo institusi agar halaman lebih menarik.
+                                                </div>
+                                                <% } %>
+                                            </div>
+                                        </div>
+
+                                        <%- include('../partials/bio-theme-controls', { bioTheme }) %>
+
+                                        <hr class="my-4">
+
+                                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
+                                            <div>
+                                                <h5 class="fw-semibold mb-1">Daftar Link</h5>
+                                                <p class="mb-0 text-muted">Tambahkan beberapa link tujuan. Minimal satu link diperlukan.</p>
+                                            </div>
+                                            <button class="btn btn-outline-primary mt-3 mt-md-0" type="button" id="add-link">
+                                                <i class="fa-solid fa-plus me-2"></i>Tambah Link
+                                            </button>
+                                        </div>
+
+                                        <div id="links-container">
+                                            <% if (bio.links && bio.links.length > 0) { %>
+                                                <% bio.links.forEach(function(link) { %>
+                                                    <div class="row g-3 align-items-end link-item mb-3">
+                                                        <div class="col-md-5">
+                                                            <label class="form-label">Judul Link</label>
+                                                            <input type="text" class="form-control" name="linkLabels[]" placeholder="Contoh: Website PMB" value="<%= link.label %>" required>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <label class="form-label">URL</label>
+                                                            <input type="url" class="form-control" name="linkUrls[]" placeholder="https://s.unjani.ac.id" value="<%= link.url %>" required>
+                                                        </div>
+                                                        <div class="col-md-2 text-md-end">
+                                                            <button class="btn btn-outline-danger remove-link-btn" type="button" onclick="removeLink(this)">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                <% }) %>
+                                            <% } %>
+                                        </div>
+
+                                        <template id="link-row-template">
+                                            <div class="row g-3 align-items-end link-item mb-3">
+                                                <div class="col-md-5">
+                                                    <label class="form-label">Judul Link</label>
+                                                    <input type="text" class="form-control" name="linkLabels[]" placeholder="Contoh: Website PMB" required>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <label class="form-label">URL</label>
+                                                    <input type="url" class="form-control" name="linkUrls[]" placeholder="https://contoh.id" required>
+                                                </div>
+                                                <div class="col-md-2 text-md-end">
+                                                    <button class="btn btn-outline-danger remove-link-btn" type="button" onclick="removeLink(this)">
+                                                        <i class="fa-solid fa-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                        <div class="d-flex justify-content-end mt-4">
+                                            <a class="btn btn-light me-2" href="/admin/bios">Batal</a>
+                                            <button class="btn btn-primary" type="submit"><%= submitLabel %></button>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-xl-5">
+                                        <div class="bio-preview-wrapper">
+                                            <h6 class="text-muted text-uppercase fw-semibold text-center mb-3">Live Preview</h6>
+                                            <div class="bio-preview-phone" id="bioPreviewPhone" style="--preview-button-bg:<%= bioTheme.buttonColor %>; --preview-button-text:<%= bioTheme.buttonTextColor %>;">
+                                                <div class="bio-preview-notch"></div>
+                                                <div class="bio-preview-screen">
+                                                    <div class="bio-preview-avatar" id="bioPreviewAvatar">
+                                                        <img id="bioPreviewLogoImg" src="<%= bio.logo ? '/assets/uploads/' + bio.logo : '' %>" alt="Logo Bio" class="<%= bio.logo ? '' : 'd-none' %>" data-original="<%= bio.logo ? '/assets/uploads/' + bio.logo : '' %>" />
+                                                        <span id="bioPreviewLogoFallback" class="<%= bio.logo ? 'd-none' : '' %>"><%= ((bio.title || 'Bio').trim().slice(0, 2) || 'BI').toUpperCase() %></span>
+                                                    </div>
+                                                    <h4 class="bio-preview-title" id="bioPreviewTitle"><%= bio.title || 'Judul Bio' %></h4>
+                                                    <p class="bio-preview-alias" id="bioPreviewAlias" data-base-url="/bio/"><%= bio.alias ? '/bio/' + bio.alias : '/bio/alias-baru' %></p>
+                                                    <div class="bio-preview-links" id="bioPreviewLinks">
+                                                        <% if (bio.links && bio.links.length) { %>
+                                                            <% bio.links.forEach(function(link) { %>
+                                                                <div class="bio-preview-link"><%= link.label %></div>
+                                                            <% }) %>
+                                                        <% } else { %>
+                                                            <div class="bio-preview-empty">Tambahkan link untuk melihat pratinjau.</div>
+                                                        <% } %>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <p class="bio-theme-note text-center mt-3 mb-0">Preview menyesuaikan mode background, warna tombol, dan isi link secara real-time.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include('../partials/menu') %>
+        </div>
+    </div>
+
+    <script src="/public/assets/js/vendor.min.js"></script>
+    <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="/public/assets/js/theme/app.init.js"></script>
+    <script src="/public/assets/js/theme/theme.js"></script>
+    <script src="/public/assets/js/theme/app.min.js"></script>
+    <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script src="/public/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="/public/assets/js/dashboards/dashboard2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        const PRESET_THEMES = {
+            unjani: {
+                backgroundMode: 'gradient',
+                backgroundSolid: '#0a241c',
+                gradientFrom: '#0f2e25',
+                gradientTo: '#0a241c',
+                buttonColor: '#155f49',
+                buttonTextColor: '#ffffff'
+            },
+            sunset: {
+                backgroundMode: 'gradient',
+                backgroundSolid: '#31112d',
+                gradientFrom: '#ff6b35',
+                gradientTo: '#4a154b',
+                buttonColor: '#ffd166',
+                buttonTextColor: '#1b1b1b'
+            },
+            ocean: {
+                backgroundMode: 'gradient',
+                backgroundSolid: '#102542',
+                gradientFrom: '#0f4c81',
+                gradientTo: '#1c2541',
+                buttonColor: '#5bc0be',
+                buttonTextColor: '#0b132b'
+            },
+            midnight: {
+                backgroundMode: 'gradient',
+                backgroundSolid: '#111827',
+                gradientFrom: '#0f172a',
+                gradientTo: '#312e81',
+                buttonColor: '#22d3ee',
+                buttonTextColor: '#0b1120'
+            }
+        };
+
+        const linksContainer = document.getElementById('links-container');
+        const template = document.getElementById('link-row-template');
+        const addLinkBtn = document.getElementById('add-link');
+
+        const titleInput = document.querySelector('input[name="title"]');
+        const aliasInput = document.querySelector('input[name="alias"]');
+        const logoInput = document.querySelector('input[name="logo"]');
+
+        const presetInput = document.getElementById('themePreset');
+        const bgModeInputs = document.querySelectorAll('input[name="themeBackgroundMode"]');
+        const bgSolidInput = document.getElementById('themeBackgroundSolid');
+        const gradientFromInput = document.getElementById('themeGradientFrom');
+        const gradientToInput = document.getElementById('themeGradientTo');
+        const buttonColorInput = document.getElementById('themeButtonColor');
+        const buttonTextColorInput = document.getElementById('themeButtonTextColor');
+
+        const previewPhone = document.getElementById('bioPreviewPhone');
+        const previewTitleEl = document.getElementById('bioPreviewTitle');
+        const previewAliasEl = document.getElementById('bioPreviewAlias');
+        const previewLinksEl = document.getElementById('bioPreviewLinks');
+        const previewLogoImg = document.getElementById('bioPreviewLogoImg');
+        const previewLogoFallback = document.getElementById('bioPreviewLogoFallback');
+
+        const aliasBasePathRaw = previewAliasEl ? previewAliasEl.dataset.baseUrl || '/bio/' : '/bio/';
+        const normalizedAliasBasePath = aliasBasePathRaw.charAt(0) === '/' ? aliasBasePathRaw : '/' + aliasBasePathRaw;
+        const aliasBasePath = normalizedAliasBasePath.endsWith('/') ? normalizedAliasBasePath : normalizedAliasBasePath + '/';
+        const aliasBaseOrigin = (typeof window !== 'undefined' && window.location) ? window.location.origin : '';
+        const aliasBase = aliasBaseOrigin + aliasBasePath;
+
+        const themeSolidGroups = document.querySelectorAll('.js-theme-solid-group');
+        const themeGradientGroups = document.querySelectorAll('.js-theme-gradient-group');
+
+        function setFallbackInitials(source) {
+            if (!previewLogoFallback) return;
+            const text = (source || '').trim();
+            if (!text) {
+                previewLogoFallback.textContent = 'BI';
+                return;
+            }
+            const initials = text.split(/\s+/).slice(0, 2).map((word) => word.charAt(0)).join('') || text.charAt(0);
+            previewLogoFallback.textContent = initials.toUpperCase();
+        }
+
+        function getBackgroundMode() {
+            const checked = Array.from(bgModeInputs).find((input) => input.checked);
+            return checked ? checked.value : 'gradient';
+        }
+
+        function updateThemeFieldVisibility() {
+            const mode = getBackgroundMode();
+            themeSolidGroups.forEach((el) => {
+                el.style.display = mode === 'solid' ? '' : 'none';
+            });
+            themeGradientGroups.forEach((el) => {
+                el.style.display = mode === 'gradient' ? '' : 'none';
+            });
+        }
+
+        function applyPresetTheme() {
+            if (!presetInput) return;
+            const preset = PRESET_THEMES[presetInput.value] || PRESET_THEMES.unjani;
+
+            if (bgSolidInput) bgSolidInput.value = preset.backgroundSolid;
+            if (gradientFromInput) gradientFromInput.value = preset.gradientFrom;
+            if (gradientToInput) gradientToInput.value = preset.gradientTo;
+            if (buttonColorInput) buttonColorInput.value = preset.buttonColor;
+            if (buttonTextColorInput) buttonTextColorInput.value = preset.buttonTextColor;
+
+            bgModeInputs.forEach((input) => {
+                input.checked = input.value === preset.backgroundMode;
+            });
+
+            updateThemeFieldVisibility();
+            updatePreview();
+        }
+
+        function updatePreviewTheme() {
+            if (!previewPhone) return;
+
+            const mode = getBackgroundMode();
+            const solid = (bgSolidInput && bgSolidInput.value) ? bgSolidInput.value : '#0a241c';
+            const from = (gradientFromInput && gradientFromInput.value) ? gradientFromInput.value : '#0f2e25';
+            const to = (gradientToInput && gradientToInput.value) ? gradientToInput.value : '#0a241c';
+            const buttonBg = (buttonColorInput && buttonColorInput.value) ? buttonColorInput.value : '#155f49';
+            const buttonText = (buttonTextColorInput && buttonTextColorInput.value) ? buttonTextColorInput.value : '#ffffff';
+
+            previewPhone.style.background = mode === 'solid' ? solid : 'linear-gradient(145deg, ' + from + ', ' + to + ')';
+            previewPhone.style.setProperty('--preview-button-bg', buttonBg);
+            previewPhone.style.setProperty('--preview-button-text', buttonText);
+        }
+
+        function updatePreview() {
+            if (previewTitleEl && titleInput) {
+                const title = titleInput.value.trim();
+                previewTitleEl.textContent = title || 'Judul Bio';
+                if ((!previewLogoImg || previewLogoImg.classList.contains('d-none')) && previewLogoFallback) {
+                    setFallbackInitials(title || 'Bio');
+                }
+            }
+
+            if (previewAliasEl && aliasInput) {
+                let aliasValue = aliasInput.value.trim() || 'alias-baru';
+                aliasValue = aliasValue.replace(/^\/+/, '');
+                previewAliasEl.textContent = aliasBase + aliasValue;
+            }
+
+            if (previewLinksEl && linksContainer) {
+                const items = linksContainer.querySelectorAll('.link-item');
+                previewLinksEl.innerHTML = '';
+                if (!items.length) {
+                    previewLinksEl.innerHTML = '<div class="bio-preview-empty">Tambahkan link untuk melihat pratinjau.</div>';
+                } else {
+                    items.forEach((item, index) => {
+                        const labelInput = item.querySelector('input[name="linkLabels[]"]');
+                        const label = (labelInput ? labelInput.value.trim() : '') || ('Link ' + (index + 1));
+                        const previewItem = document.createElement('div');
+                        previewItem.className = 'bio-preview-link';
+                        previewItem.textContent = label;
+                        previewLinksEl.appendChild(previewItem);
+                    });
+                }
+            }
+
+            updatePreviewTheme();
+        }
+
+        function updateRemoveButtons() {
+            if (!linksContainer) return;
+            const items = linksContainer.querySelectorAll('.link-item');
+            items.forEach((item) => {
+                const btn = item.querySelector('.remove-link-btn');
+                if (btn) {
+                    btn.disabled = items.length === 1;
+                }
+            });
+        }
+
+        function handleLogoChange(event) {
+            if (!previewLogoImg || !previewLogoFallback) return;
+            const file = event.target.files && event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    previewLogoImg.src = reader.result;
+                    previewLogoImg.classList.remove('d-none');
+                    previewLogoFallback.classList.add('d-none');
+                    updatePreview();
+                };
+                reader.readAsDataURL(file);
+                return;
+            }
+
+            const originalSrc = previewLogoImg.getAttribute('data-original');
+            if (originalSrc) {
+                previewLogoImg.src = originalSrc;
+                previewLogoImg.classList.remove('d-none');
+                previewLogoFallback.classList.add('d-none');
+            } else {
+                previewLogoImg.classList.add('d-none');
+                previewLogoFallback.classList.remove('d-none');
+                setFallbackInitials(titleInput ? titleInput.value : 'Bio');
+            }
+            updatePreview();
+        }
+
+        function removeLink(button) {
+            if (!linksContainer) return;
+            const item = button.closest('.link-item');
+            if (!item) return;
+            if (linksContainer.querySelectorAll('.link-item').length === 1) return;
+            item.remove();
+            updateRemoveButtons();
+            updatePreview();
+        }
+        window.removeLink = removeLink;
+
+        if (addLinkBtn) {
+            addLinkBtn.addEventListener('click', () => {
+                if (!template || !linksContainer) return;
+                const clone = template.content.cloneNode(true);
+                linksContainer.appendChild(clone);
+                updateRemoveButtons();
+                updatePreview();
+            });
+        }
+
+        if (linksContainer) {
+            if (!linksContainer.children.length && template) {
+                const clone = template.content.cloneNode(true);
+                linksContainer.appendChild(clone);
+            }
+            linksContainer.addEventListener('input', updatePreview);
+        }
+
+        if (logoInput) logoInput.addEventListener('change', handleLogoChange);
+        if (titleInput) titleInput.addEventListener('input', updatePreview);
+        if (aliasInput) aliasInput.addEventListener('input', updatePreview);
+        if (presetInput) presetInput.addEventListener('change', applyPresetTheme);
+        bgModeInputs.forEach((input) => input.addEventListener('change', () => {
+            updateThemeFieldVisibility();
+            updatePreview();
+        }));
+
+        [bgSolidInput, gradientFromInput, gradientToInput, buttonColorInput, buttonTextColorInput]
+            .filter(Boolean)
+            .forEach((input) => input.addEventListener('input', updatePreview));
+
+        updateThemeFieldVisibility();
+        updateRemoveButtons();
+        updatePreview();
+    </script>
+
+    <script>
+        (function () {
+            const rawSuccess = JSON.parse(`<%- JSON.stringify(success_msg || []) %>`);
+            const rawError = JSON.parse(`<%- JSON.stringify(error_msg || []) %>`);
+            const rawDanger = JSON.parse(`<%- JSON.stringify(error || []) %>`);
+            const toArray = (value) => Array.isArray(value) ? value : (value ? [value] : []);
+
+            const successMessages = toArray(rawSuccess).filter(Boolean);
+            const errorMessages = [...toArray(rawError), ...toArray(rawDanger)].filter(Boolean);
+
+            if (successMessages.length) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    html: successMessages.join('<br>'),
+                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                    customClass: { confirmButton: 'btn btn-primary' },
+                    buttonsStyling: false
+                });
+            }
+
+            if (errorMessages.length) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal',
+                    html: errorMessages.join('<br>'),
+                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                    customClass: { confirmButton: 'btn btn-primary' },
+                    buttonsStyling: false
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

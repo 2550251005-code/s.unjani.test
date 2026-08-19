@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical" data-boxed-layout="full">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/public/assets/css/styles.css" />
+  <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+  <title>Tambah QR Code - S UNJANI</title>
+  <style>
+    #qrCodeContainer {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+      min-height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+    
+    #qrCodeContainer canvas {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .preview-loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+    }
+    
+    .preview-placeholder {
+      text-align: center;
+      padding: 40px 20px;
+      color: #6c757d;
+    }
+    
+    .qr-container {
+      position: relative;
+      min-height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .qr-preview-frame {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .preview-controls {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="preloader">
+    <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+  </div>
+  <div id="main-wrapper">
+    <%- include('../partials/aside') %>
+    <div class="page-wrapper">
+      <%- include('../partials/header') %>
+      <div class="body-wrapper">
+        <div class="container-fluid">
+          <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+            <div class="card-body px-4 py-3">
+              <div class="row align-items-center">
+                <div class="col-9">
+                  <h4 class="fw-semibold mb-8">Tambah QR Code</h4>
+                  <p class="mb-0 text-muted">Kustomisasi QR Anda dengan warna, frame, dan logo.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% if (success_msg && success_msg.length) { %>
+          <div class="alert alert-success"><%= success_msg %></div>
+          <% } %>
+          <% if (error_msg && error_msg.length) { %>
+          <div class="alert alert-danger"><%= error_msg %></div>
+          <% } %>
+
+          <div class="row g-3">
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="card-title mb-0">Tambah QR Code</h5>
+                    <a href="/users/qrcodes" class="btn btn-outline-secondary btn-sm"><i class="fa-solid fa-arrow-left"></i> Kembali</a>
+                  </div>
+                  <form action="/users/qrcodes" method="POST" enctype="multipart/form-data" class="row g-3" id="qrCreateForm">
+                    <div class="col-12">
+                      <label class="form-label">Nama</label>
+                      <input type="text" name="name" id="name" class="form-control" placeholder="Contoh: Portfolio" required />
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">URL</label>
+                      <input type="url" name="url" id="url" class="form-control" placeholder="https://contoh.com" required />
+                      <small class="text-muted">Pastikan URL diawali dengan http:// atau https://</small>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Ukuran (px)</label>
+                      <input type="number" name="size" id="size" class="form-control" value="<%= defaults.size %>" min="200" max="2000" />
+                      <small class="text-muted">Min: 200, Max: 2000</small>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Margin</label>
+                      <input type="number" name="margin" id="margin" class="form-control" value="<%= defaults.margin %>" min="0" max="80" />
+                      <small class="text-muted">Spasi di sekitar QR code</small>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Error Correction</label>
+                      <select name="errorCorrection" id="errorCorrection" class="form-select">
+                        <% ['L','M','Q','H'].forEach(function(level){ %>
+                        <option value="<%= level %>" <%= level===defaults.errorCorrection?'selected':'' %>><%= level %></option>
+                        <% }) %>
+                      </select>
+                      <small class="text-muted">H = Tinggi (rekomendasi)</small>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Style</label>
+                      <select name="style" id="style" class="form-select">
+                        <option value="square">Square</option>
+                        <option value="dots">Dots</option>
+                        <option value="round">Round</option>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Inner Eye</label>
+                      <select name="innerEyeStyle" id="innerEyeStyle" class="form-select">
+                        <option value="square">Square</option>
+                        <option value="round">Round</option>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Outer Eye</label>
+                      <select name="outerEyeStyle" id="outerEyeStyle" class="form-select">
+                        <option value="square">Square</option>
+                        <option value="round">Round</option>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Foreground</label>
+                      <input type="color" name="foregroundColor" id="foregroundColor" class="form-control form-control-color" value="<%= defaults.foregroundColor %>" />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Background</label>
+                      <input type="color" name="backgroundColor" id="backgroundColor" class="form-control form-control-color" value="<%= defaults.backgroundColor %>" />
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">BG Transparansi (0-1)</label>
+                      <input type="number" name="backgroundAlpha" id="backgroundAlpha" class="form-control" value="<%= defaults.backgroundAlpha %>" step="0.05" min="0" max="1" />
+                      <small class="text-muted">0 = Transparan, 1 = Solid</small>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Frame</label>
+                      <select name="frameStyle" id="frameStyle" class="form-select">
+                        <option value="none">None</option>
+                        <option value="solid">Solid</option>
+                      </select>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Frame Padding</label>
+                      <input type="number" name="framePadding" id="framePadding" class="form-control" value="<%= defaults.framePadding %>" min="0" max="120" />
+                    </div>
+                    <div class="col-12">
+                      <label class="form-label">Frame Text</label>
+                      <input type="text" name="frameText" id="frameText" class="form-control" placeholder="Teks di bawah QR" />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Frame Text Size</label>
+                      <input type="number" name="frameTextSize" id="frameTextSize" class="form-control" value="<%= defaults.frameTextSize %>" min="10" max="64" />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Logo Size (0-1)</label>
+                      <input type="number" name="logoSize" id="logoSize" class="form-control" value="<%= defaults.logoSize %>" step="0.05" min="0.05" max="0.8" />
+                      <small class="text-muted">Ukuran relatif logo</small>
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Logo Margin</label>
+                      <input type="number" name="logoMargin" id="logoMargin" class="form-control" value="<%= defaults.logoMargin %>" min="0" max="60" />
+                    </div>
+                    <div class="col-6">
+                      <label class="form-label">Logo (opsional)</label>
+                      <input type="file" name="logo" id="logoInput" class="form-control" accept="image/*" />
+                      <small class="text-muted">Maksimal 2MB (PNG, JPG, SVG)</small>
+                    </div>
+                    <input type="hidden" name="previewImage" id="previewImage" />
+                    <div class="col-12 d-flex gap-2">
+                      <a href="/users/qrcodes" class="btn btn-outline-secondary">Batal</a>
+                      <button type="submit" class="btn btn-primary">Simpan QR</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex align-items-center justify-content-between mb-3 gap-2 flex-wrap">
+                    <h5 class="card-title mb-0">Pratinjau</h5>
+                    <div class="d-flex gap-2">
+                      <button class="btn btn-outline-secondary btn-sm" type="button" id="generatePreview">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Generate
+                      </button>
+                      <button class="btn btn-outline-primary btn-sm" type="button" id="downloadPreview" disabled>
+                        <i class="fa-solid fa-download"></i> Download Preview
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div class="qr-container">
+                    <div id="previewLoading" class="preview-loading">
+                      <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
+                      <p class="mt-2">Generating QR Code...</p>
+                    </div>
+                    
+                    <div id="previewPlaceholder" class="preview-placeholder">
+                      <i class="fa-solid fa-qrcode fa-4x mb-3 text-muted"></i>
+                      <p>Isi form dan klik <strong>Generate</strong> untuk melihat preview QR Code</p>
+                    </div>
+                    
+                    <div id="qrPreview" style="display: none;">
+                      <div class="qr-preview-frame">
+                        <div id="qrCodeContainer"></div>
+                      </div>
+                      <div class="preview-controls mt-3">
+                        <button class="btn btn-outline-success btn-sm" type="button" id="refreshPreview">
+                          <i class="fa-solid fa-rotate"></i> Refresh
+                        </button>
+                        <button class="btn btn-outline-info btn-sm" type="button" id="copyPreview">
+                          <i class="fa-solid fa-copy"></i> Copy
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <small class="text-muted mt-3">
+                    <i class="fa-solid fa-circle-info"></i>
+                    Pratinjau dibuat di browser. Hasil final mungkin sedikit berbeda dengan yang disimpan.
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('../partials/menu') %>
+
+  <script src="/public/assets/js/vendor.min.js"></script>
+  <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+  <script src="/public/assets/js/theme/app.init.js"></script>
+  <script src="/public/assets/js/theme/theme.js"></script>
+  <script src="/public/assets/js/theme/app.min.js"></script>
+  <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/qr-code-styling@1.6.0/lib/qr-code-styling.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // ====== QR Preview dengan qr-code-styling ======
+      const $ = (id) => document.getElementById(id);
+      let qrCode = null;
+      let logoDataUrl = '';
+      
+      // Elemen UI
+      const previewPlaceholder = $('previewPlaceholder');
+      const qrPreview = $('qrPreview');
+      const previewLoading = $('previewLoading');
+      const generateBtn = $('generatePreview');
+      const downloadBtn = $('downloadPreview');
+      const refreshBtn = $('refreshPreview');
+      const copyBtn = $('copyPreview');
+      const qrCodeContainer = $('qrCodeContainer');
+      const previewInput = $('previewImage');
+
+      // Helper convert blob ke data URL
+      const blobToDataUrl = (blob) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('Gagal membaca preview'));
+        reader.readAsDataURL(blob);
+      });
+
+      // Fungsi untuk menampilkan/menyembunyikan elemen
+      function showLoading() {
+        previewPlaceholder.style.display = 'none';
+        qrPreview.style.display = 'none';
+        previewLoading.style.display = 'block';
+      }
+
+      function showPreview() {
+        previewPlaceholder.style.display = 'none';
+        previewLoading.style.display = 'none';
+        qrPreview.style.display = 'block';
+        downloadBtn.disabled = false;
+      }
+
+      function showPlaceholder() {
+        previewLoading.style.display = 'none';
+        qrPreview.style.display = 'none';
+        previewPlaceholder.style.display = 'block';
+        downloadBtn.disabled = true;
+      }
+
+      // Validasi URL
+      function isValidUrl(string) {
+        try {
+          new URL(string);
+          return true;
+        } catch (_) {
+          return false;
+        }
+      }
+
+      // Fungsi untuk mengubah hex ke rgba
+      const hexToRgba = (hex, alpha) => {
+        if (!hex || hex === '') return `rgba(255, 255, 255, ${alpha})`;
+        hex = hex.replace('#', '');
+        
+        if (hex.length === 3) {
+          hex = hex.split('').map(x => x + x).join('');
+        }
+        
+        const r = parseInt(hex.substring(0, 2), 16);
+        const g = parseInt(hex.substring(2, 4), 16);
+        const b = parseInt(hex.substring(4, 6), 16);
+        const a = Math.max(0, Math.min(1, alpha));
+        return `rgba(${r}, ${g}, ${b}, ${a})`;
+      };
+
+      // Build options untuk QR Code
+      function buildOptions() {
+        const size = Math.min(Math.max(parseInt($('size').value) || 600, 200), 2000);
+        const margin = Math.min(Math.max(parseInt($('margin').value) || 4, 0), 80);
+        const ecc = $('errorCorrection').value || 'H';
+        const fg = $('foregroundColor').value || '#111827';
+        const bg = $('backgroundColor').value || '#ffffff';
+        const bgAlpha = Math.min(Math.max(parseFloat($('backgroundAlpha').value) || 1, 0), 1);
+        const style = $('style').value || 'square';
+        const innerEyeStyle = $('innerEyeStyle').value || 'square';
+        const outerEyeStyle = $('outerEyeStyle').value || 'square';
+        const logoSize = Math.min(Math.max(parseFloat($('logoSize').value) || 0.2, 0.05), 0.8);
+        const logoMargin = Math.min(Math.max(parseInt($('logoMargin').value) || 8, 0), 60);
+        
+        // Konfigurasi type berdasarkan value
+        let dotsType = 'square';
+        let cornersSquareType = 'square';
+        let cornersDotType = 'square';
+        
+        if (style === 'dots') dotsType = 'dots';
+        if (style === 'round') dotsType = 'rounded';
+        
+        if (outerEyeStyle === 'round') cornersSquareType = 'extra-rounded';
+        
+        if (innerEyeStyle === 'round') cornersDotType = 'dot';
+        
+        const options = {
+          width: size,
+          height: size,
+          margin: margin,
+          type: 'canvas',
+          data: $('url').value.trim(),
+          qrOptions: { 
+            errorCorrectionLevel: ecc,
+            typeNumber: 0
+          },
+          dotsOptions: { 
+            type: dotsType,
+            color: fg 
+          },
+          cornersSquareOptions: { 
+            type: cornersSquareType,
+            color: fg 
+          },
+          cornersDotOptions: { 
+            type: cornersDotType,
+            color: fg 
+          },
+          backgroundOptions: { 
+            color: hexToRgba(bg, bgAlpha)
+          }
+        };
+
+        if (logoDataUrl) {
+          options.image = logoDataUrl;
+          options.imageOptions = { 
+            hideBackgroundDots: true, 
+            imageSize: logoSize, 
+            margin: logoMargin,
+            crossOrigin: 'anonymous'
+          };
+        }
+
+        return options;
+      }
+
+      // Render preview QR Code
+      async function renderPreview(opts = {}) {
+        const silent = opts.silent === true;
+        try {
+          showLoading();
+          
+          const url = $('url').value.trim();
+          if (!url) {
+            throw new Error('URL tidak boleh kosong');
+          }
+          
+          if (!isValidUrl(url)) {
+            throw new Error('URL tidak valid. Pastikan URL diawali dengan http:// atau https://');
+          }
+
+          const name = $('name').value.trim();
+          if (!name) {
+            throw new Error('Nama tidak boleh kosong');
+          }
+
+          const options = buildOptions();
+          
+          // Kosongkan container
+          qrCodeContainer.innerHTML = '';
+          
+          // Jika QR Code belum dibuat, buat baru
+          if (!qrCode) {
+            qrCode = new QRCodeStyling(options);
+            qrCode.append(qrCodeContainer);
+          } else {
+            qrCode.update(options);
+            // Re-render dengan setTimeout untuk memastikan DOM siap
+            setTimeout(() => {
+              qrCode.append(qrCodeContainer);
+            }, 100);
+          }
+
+          // Tunggu sebentar untuk memastikan rendering selesai
+          setTimeout(() => {
+            showPreview();
+            
+            // Tampilkan notifikasi sukses
+            if (!silent) {
+              Swal.fire({
+                icon: 'success',
+                title: 'QR Code Berhasil Digenerate!',
+                text: 'QR Code telah berhasil dibuat dan siap didownload.',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000
+              });
+            }
+          }, 500);
+          
+        } catch (error) {
+          console.error('Error rendering preview:', error);
+          showPlaceholder();
+          
+          Swal.fire({
+            icon: 'error',
+            title: 'Gagal Generate QR Code',
+            text: error.message || 'Terjadi kesalahan saat membuat QR Code',
+            confirmButtonText: 'OK'
+          });
+        }
+      }
+
+      async function ensurePreviewImage() {
+        await renderPreview({ silent: true });
+        if (!qrCode) {
+          throw new Error('Preview belum dibuat. Silakan generate terlebih dahulu.');
+        }
+        const blob = await qrCode.getRawData();
+        const dataUrl = await blobToDataUrl(blob);
+        if (previewInput) {
+          previewInput.value = dataUrl;
+        }
+        return dataUrl;
+      }
+
+      // ====== Form Submission ======
+      const form = document.getElementById('qrCreateForm');
+      if (form) {
+        form.addEventListener('submit', async function(e) {
+          if (form.dataset.submitting === 'true') {
+            e.preventDefault();
+            return;
+          }
+          e.preventDefault();
+          try {
+            await ensurePreviewImage();
+            form.dataset.submitting = 'true';
+            form.submit();
+          } catch (error) {
+            form.dataset.submitting = 'false';
+            Swal.fire({
+              icon: 'error',
+              title: 'Gagal Menyimpan QR',
+              text: error.message || 'Preview belum siap. Silakan generate ulang.'
+            });
+          }
+        });
+      }
+
+      // Handle logo upload
+      const logoInput = $('logoInput');
+      if (logoInput) {
+        logoInput.addEventListener('change', (ev) => {
+          const file = ev.target.files && ev.target.files[0];
+          if (!file) {
+            logoDataUrl = '';
+            return;
+          }
+          
+          // Validasi ukuran file (maks 2MB)
+          if (file.size > 2 * 1024 * 1024) {
+            Swal.fire({
+              icon: 'error',
+              title: 'File Terlalu Besar',
+              text: 'Ukuran logo maksimal 2MB'
+            });
+            logoInput.value = '';
+            logoDataUrl = '';
+            return;
+          }
+          
+          // Validasi tipe file
+          if (!file.type.match('image.*')) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Format File Tidak Didukung',
+              text: 'File harus berupa gambar (PNG, JPG, SVG)'
+            });
+            logoInput.value = '';
+            logoDataUrl = '';
+            return;
+          }
+          
+          const reader = new FileReader();
+          reader.onload = () => {
+            logoDataUrl = reader.result;
+            // Auto refresh preview jika sudah ada
+            if (qrCode) {
+              renderPreview({ silent: true });
+            }
+          };
+          reader.onerror = () => {
+            console.error('Gagal membaca file logo');
+            logoDataUrl = '';
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      // Download preview
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', async () => {
+          if (!qrCode) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'QR Code Belum Digenerate',
+              text: 'Silahkan generate QR Code terlebih dahulu'
+            });
+            return;
+          }
+          
+          try {
+            const blob = await qrCode.getRawData();
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const fileName = ($('name').value || 'qr_preview').replace(/[^\w\-]+/g, '_') + '.png';
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            Swal.fire({
+              icon: 'success',
+              title: 'Download Berhasil!',
+              text: 'QR Code telah berhasil didownload',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          } catch (error) {
+            console.error('Error downloading:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Gagal Download',
+              text: 'Terjadi kesalahan saat mendownload QR Code'
+            });
+          }
+        });
+      }
+
+      // Copy QR Code ke clipboard
+      if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+          if (!qrCode) {
+            Swal.fire({
+              icon: 'warning',
+              title: 'QR Code Belum Digenerate',
+              text: 'Silahkan generate QR Code terlebih dahulu'
+            });
+            return;
+          }
+          
+          try {
+            const blob = await qrCode.getRawData();
+            const item = new ClipboardItem({ 'image/png': blob });
+            await navigator.clipboard.write([item]);
+            
+            Swal.fire({
+              icon: 'success',
+              title: 'QR Code Disalin!',
+              text: 'QR Code telah berhasil disalin ke clipboard',
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 3000
+            });
+          } catch (error) {
+            console.error('Error copying:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Gagal Menyalin',
+              text: 'Browser tidak mendukung atau terjadi kesalahan'
+            });
+          }
+        });
+      }
+
+      // Event listeners
+      if (generateBtn) {
+        generateBtn.addEventListener('click', renderPreview);
+      }
+
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', renderPreview);
+      }
+
+      // Auto generate saat input berubah (dengan debounce)
+      let debounceTimer;
+      const inputsToWatch = [
+        'url', 'name', 'size', 'margin', 'errorCorrection', 'style', 
+        'innerEyeStyle', 'outerEyeStyle', 'foregroundColor', 
+        'backgroundColor', 'backgroundAlpha', 'logoSize', 'logoMargin',
+        'frameStyle', 'framePadding', 'frameText', 'frameTextSize'
+      ];
+      
+      inputsToWatch.forEach(id => {
+        const el = $(id);
+        if (el) {
+          el.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+              if (qrCode && $('url').value.trim() && $('name').value.trim()) {
+                renderPreview({ silent: true });
+              }
+            }, 1000);
+          });
+        }
+      });
+
+      // Auto generate saat halaman pertama kali dimuat jika data sudah ada
+      setTimeout(() => {
+        const url = $('url').value.trim();
+        const name = $('name').value.trim();
+        if (url && name) {
+          renderPreview({ silent: true });
+        }
+      }, 500);
+    });
+  </script>
+</body>
+</html>
