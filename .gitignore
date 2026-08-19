@@ -1,0 +1,22 @@
+# Kebergantungan pihak ketiga
+node_modules/
+
+# Berkas statis, pustaka pihak ketiga, dan luaran runtime
+# (dikecualikan pula pada analisis SonarQube, lihat sonar-project.properties)
+public/
+
+# Rahasia — jangan pernah dimasukkan ke riwayat revisi
+.env
+.env.*
+!.env.example
+
+# Luaran peranti analisis
+.scannerwork/
+
+# Berkas sementara sistem dan editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.log
+*.tmp
+~$*
