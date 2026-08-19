@@ -1,0 +1,60 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  (function () {
+    const chartPayload = <%- JSON.stringify((analytics && analytics.charts) || {}) %>;
+    const daily = chartPayload.daily || { labels: [], data: [] };
+    const monthly = chartPayload.monthly || { labels: [], data: [] };
+
+    const baseColor = '#1B5E20';
+    const fillColor = 'rgba(27, 94, 32, 0.15)';
+    const gridColor = 'rgba(0, 0, 0, 0.06)';
+
+    function renderLineChart(canvasId, labels, values, labelName) {
+      const canvas = document.getElementById(canvasId);
+      if (!canvas) return;
+      const context = canvas.getContext('2d');
+      if (!context) return;
+
+      new Chart(context, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: labelName,
+              data: values,
+              borderColor: baseColor,
+              backgroundColor: fillColor,
+              borderWidth: 2,
+              pointRadius: 3,
+              pointHoverRadius: 4,
+              tension: 0.35,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: {
+              display: true,
+            },
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+            },
+            y: {
+              beginAtZero: true,
+              grid: { color: gridColor },
+            },
+          },
+        },
+      });
+    }
+
+    renderLineChart('analyticsDailyChart', daily.labels || [], daily.data || [], 'Access Harian');
+    renderLineChart('analyticsMonthlyChart', monthly.labels || [], monthly.data || [], 'Access Bulanan');
+  })();
+</script>

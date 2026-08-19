@@ -1,0 +1,185 @@
+<%
+  const periodOptions = (analytics && analytics.periodOptions) || [7, 30, 90];
+  const selectedPeriod = (analytics && analytics.periodDays) || 30;
+  const link = (analytics && analytics.link) || {};
+  const kpis = (analytics && analytics.kpis) || {};
+  const breakdowns = (analytics && analytics.breakdowns) || {};
+  const recentActivity = (analytics && analytics.recentActivity) || [];
+  const formatDateTime = (value) => {
+    if (!value) return '-';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return '-';
+    return date.toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
+  };
+%>
+
+<div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+  <div class="card-body px-4 py-3">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h4 class="fw-semibold mb-2">Detail Analytics</h4>
+        <div class="mb-1">
+          <span class="fw-semibold text-primary"><%= link.shortPath || link.alias || '-' %></span>
+        </div>
+        <small class="text-muted d-block text-truncate"><%= link.targetUrl || '-' %></small>
+      </div>
+      <div class="col-md-4 mt-3 mt-md-0">
+        <form method="get" action="<%= filterAction %>" class="d-flex justify-content-md-end gap-2 flex-wrap">
+          <% periodOptions.forEach((option) => { %>
+            <button
+              type="submit"
+              name="period"
+              value="<%= option %>"
+              class="btn btn-sm <%= selectedPeriod === option ? 'btn-primary' : 'btn-outline-primary' %>">
+              <%= option %> Hari
+            </button>
+          <% }); %>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="card border-start border-primary border-4 h-100">
+      <div class="card-body">
+        <p class="text-muted mb-2">Total Access (Periode)</p>
+        <h4 class="mb-0"><%= kpis.totalAccess || 0 %></h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-start border-success border-4 h-100">
+      <div class="card-body">
+        <p class="text-muted mb-2">Unique Visitors</p>
+        <h4 class="mb-0"><%= kpis.uniqueVisitors || 0 %></h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card border-start border-warning border-4 h-100">
+      <div class="card-body">
+        <p class="text-muted mb-2">Last Access</p>
+        <h6 class="mb-0"><%= formatDateTime(kpis.lastAccess) %></h6>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% if (analytics && analytics.emptyState) { %>
+  <div class="alert alert-info mb-4">
+    Belum ada data akses pada periode ini untuk link tersebut.
+  </div>
+<% } %>
+
+<div class="row g-4 mb-4">
+  <div class="col-xl-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Trend Access Harian</h5>
+        <canvas id="analyticsDailyChart"></canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Trend Access Bulanan (12 Bulan)</h5>
+        <canvas id="analyticsMonthlyChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4 mb-4">
+  <div class="col-xl-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Top Browser</h5>
+        <ul class="list-group list-group-flush">
+          <% ((breakdowns && breakdowns.browsers) || []).forEach((item) => { %>
+            <li class="list-group-item d-flex justify-content-between px-0">
+              <span><%= item.label %></span>
+              <span class="badge bg-primary rounded-pill"><%= item.count %></span>
+            </li>
+          <% }); %>
+          <% if (!((breakdowns && breakdowns.browsers) || []).length) { %>
+            <li class="list-group-item px-0 text-muted">Belum ada data.</li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Top Kota</h5>
+        <ul class="list-group list-group-flush">
+          <% ((breakdowns && breakdowns.cities) || []).forEach((item) => { %>
+            <li class="list-group-item d-flex justify-content-between px-0">
+              <span><%= item.label %></span>
+              <span class="badge bg-success rounded-pill"><%= item.count %></span>
+            </li>
+          <% }); %>
+          <% if (!((breakdowns && breakdowns.cities) || []).length) { %>
+            <li class="list-group-item px-0 text-muted">Belum ada data.</li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Top Negara</h5>
+        <ul class="list-group list-group-flush">
+          <% ((breakdowns && breakdowns.countries) || []).forEach((item) => { %>
+            <li class="list-group-item d-flex justify-content-between px-0">
+              <span><%= item.label %></span>
+              <span class="badge bg-warning rounded-pill"><%= item.count %></span>
+            </li>
+          <% }); %>
+          <% if (!((breakdowns && breakdowns.countries) || []).length) { %>
+            <li class="list-group-item px-0 text-muted">Belum ada data.</li>
+          <% } %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title mb-3">Recent Activity</h5>
+    <div class="table-responsive">
+      <table class="table align-middle mb-0">
+        <thead>
+          <tr>
+            <th>IP</th>
+            <th>Lokasi</th>
+            <th>Browser / OS</th>
+            <th>Referer</th>
+            <th>Waktu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (!recentActivity.length) { %>
+            <tr>
+              <td colspan="5" class="text-muted">Belum ada aktivitas.</td>
+            </tr>
+          <% } %>
+          <% recentActivity.forEach((item) => { %>
+            <tr>
+              <td><%= item.ip || '-' %></td>
+              <td><%= item.kota || '-' %>, <%= item.negara || '-' %></td>
+              <td><%= item.browser || '-' %> / <%= item.os || '-' %></td>
+              <td><%= item.referer || '-' %></td>
+              <td><small><%= formatDateTime(item.timeStamp) %></small></td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
