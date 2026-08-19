@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.ico" />
+
+    <!-- Core Css -->
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+
+    <style>
+        .swal2-popup {
+            background-color: #ffffff;
+            border: 3px solid #007b3e;
+            border-radius: 12px;
+        }
+
+        .swal2-title {
+            color: #007b3e;
+            font-size: 24px;
+        }
+
+        .swal2-content {
+            color: #333333;
+            font-size: 18px;
+        }
+
+        .swal2-confirm {
+            background-color: #007b3e !important;
+            color: white !important;
+            border-radius: 8px;
+            padding: 10px 24px;
+            font-size: 16px;
+        }
+
+        .swal2-icon.swal2-info {
+            border-color: #007b3e !important;
+            color: #007b3e !important;
+        }
+    </style>
+
+    <title>Login - S UNJANI</title>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper" class="auth-customizer-none" style="background-image: url('/assets/images/backgrounds/bg.jpg');
+    background-color: #cccccc; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-size: cover;">
+        <div
+            class="position-relative overflow-hidden radial-gradient min-vh-100 w-100 d-flex align-items-center justify-content-center">
+            <div class="d-flex align-items-center justify-content-center w-100">
+                <div class="row justify-content-center w-100">
+                    <div class="col-md-8 col-lg-6 col-xxl-3 auth-card">
+                        <div class="card mb-0">
+                            <div class="card-body">
+                                <a href="/" class="text-nowrap logo-img text-center d-block mb-5 w-100 mt-4">
+                                    <img src="/public/assets/images/logos/logo.png" width="250px" class="dark-logo"
+                                        alt="Logo-Dark" />
+                                    <img src="/public/assets/images/logos/logo.png" width="250px" class="light-logo"
+                                        alt="Logo-light" />
+                                </a>
+                                <form action="/users/login" method="post">
+                                    <div class="mb-3">
+                                        <label for="exampleInputEmail1" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1"
+                                            aria-describedby="emailHelp" name="email">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1"
+                                            name="password">
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input primary" type="checkbox" value=""
+                                                id="flexCheckChecked" checked>
+                                            <label class="form-check-label text-dark" for="flexCheckChecked">
+                                                Remeber this Device
+                                            </label>
+                                        </div>
+                                        <!-- Hidden input for reCAPTCHA token -->
+                                        <input type="hidden" id="recaptcha-token" name="recaptcha-token">
+                                        <a class="text-primary fw-medium" href="https://helpdesk.unjani.ac.id">Forgot
+                                            Password ?</a>
+                                    </div>
+                                    <div>
+                                        <!-- Widget reCAPTCHA v2 -->
+                                        <div class="g-recaptcha mb-2"
+                                            data-sitekey="6Lc6Hx8rAAAAACIHUUWNLADwljs98kuKd1bGxFJz"
+                                            style="width: 100%; max-width: 100%;">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-8 mb-4 rounded-2">Sign
+                                        In</button>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <p class="fs-2 mb-0 fw-medium">© Copyright 2025 <a
+                                                class="text-primary fw-medium " href="https://wa.me/6281295574385">Wildan Pratama, S.Kom.,</a>
+                                            All Rights Reserved</p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dark-transparent sidebartoggler"></div>
+    <!-- Import Js Files -->
+    <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="/public/assets/js/theme/app.init.js"></script>
+    <script src="/public/assets/js/theme/theme.js"></script>
+    <script src="/public/assets/js/theme/app.min.js"></script>
+
+    <!-- solar icons -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <!-- Ganti script reCAPTCHA v3 dengan ini -->
+    <script src="https://www.google.com/recaptcha/api.js " async defer></script>
+
+
+
+    <style>
+        .g-recaptcha {
+            transform: scale(0.92);
+            -webkit-transform: scale(0.92);
+            transform-origin: 0 0;
+            -webkit-transform-origin: 0 0;
+        }
+    </style>
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        Swal.fire({
+            icon: 'info',
+            title: 'Update Aplikasi S.UNJANI',
+            text: 'Update terbaru ada landing page. Aplikasi S.UNJANI saat ini sedang dalam tahap Alpha Tester.  Harap bersabar dan laporkan jika terdapat bug atau kesalahan silahkan akses halaman contact s.unjani.ac.id/contact',
+            confirmButtonText: 'Mengerti',
+        });
+        let messagesSuccess = '<%- success_msg %>';
+        if (messagesSuccess != '') {
+            Swal.fire({
+                title: "Berhasil",
+                icon: "success",
+                text: messagesSuccess,
+                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+            });
+        }
+        let messagesError = '<%- error_msg %>' + '<%- error %>';
+        if (messagesError != '') {
+            Swal.fire({
+                title: "Gagal",
+                icon: "error",
+                text: messagesError,
+                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+            });
+        }
+    </script>
+</body>
+
+</html>
