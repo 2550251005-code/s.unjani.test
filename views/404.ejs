@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="/public/assets/images/logos/favicon.ico" />
+  <link rel="stylesheet" href="/public/assets/css/styles.css" />
+
+  <title>404 - Halaman Tidak Ditemukan | S.UNJANI</title>
+
+  <style>
+    :root {
+      --page-bg-start: #f4f9ff;
+      --page-bg-end: #f1f8f2;
+      --card-bg: rgba(255, 255, 255, 0.78);
+      --card-border: rgba(255, 255, 255, 0.56);
+      --text-main: #17233b;
+      --text-muted: #5d6778;
+      --brand: #0f7f4f;
+      --brand-deep: #0a5f3b;
+      --soft-shadow: 0 20px 55px rgba(13, 33, 56, 0.16);
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Plus Jakarta Sans", "Nunito Sans", "Segoe UI", sans-serif;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 8% 12%, rgba(77, 144, 254, 0.2), transparent 34%),
+        radial-gradient(circle at 88% 10%, rgba(15, 127, 79, 0.18), transparent 37%),
+        radial-gradient(circle at 50% 92%, rgba(255, 198, 102, 0.2), transparent 40%),
+        linear-gradient(135deg, var(--page-bg-start), var(--page-bg-end));
+    }
+
+    .error-shell {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(1.25rem, 2vw, 2rem);
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(10px);
+      opacity: 0.45;
+      pointer-events: none;
+      animation: floatBlob 7s ease-in-out infinite;
+    }
+
+    .blob-a {
+      width: 240px;
+      height: 240px;
+      left: -70px;
+      top: 10%;
+      background: #91c4ff;
+    }
+
+    .blob-b {
+      width: 200px;
+      height: 200px;
+      right: -70px;
+      top: 18%;
+      background: #9be3b6;
+      animation-delay: 1.5s;
+    }
+
+    .blob-c {
+      width: 230px;
+      height: 230px;
+      right: 20%;
+      bottom: -90px;
+      background: #ffd28b;
+      animation-delay: 0.8s;
+    }
+
+    .error-card {
+      width: min(980px, 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: clamp(1.35rem, 3vw, 2.5rem);
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--soft-shadow);
+      position: relative;
+      z-index: 2;
+    }
+
+    .error-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(0, 0.96fr);
+      align-items: center;
+      gap: clamp(1.2rem, 3vw, 2.4rem);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 0.38rem 0.78rem;
+      border-radius: 999px;
+      background: rgba(15, 127, 79, 0.11);
+      color: var(--brand);
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .title {
+      margin: 0 0 0.9rem;
+      font-size: clamp(1.85rem, 3.2vw, 2.85rem);
+      line-height: 1.16;
+      font-weight: 800;
+    }
+
+    .desc {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: clamp(0.96rem, 1.75vw, 1.08rem);
+      line-height: 1.74;
+      max-width: 52ch;
+    }
+
+    .action-group {
+      margin-top: 1.55rem;
+      display: flex;
+      gap: 0.82rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-brand {
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      border: none;
+      color: #fff;
+      border-radius: 12px;
+      padding: 0.75rem 1.08rem;
+      font-weight: 700;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      box-shadow: 0 12px 24px rgba(15, 127, 79, 0.28);
+    }
+
+    .btn-brand:hover {
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 15px 30px rgba(15, 127, 79, 0.33);
+    }
+
+    .btn-ghost {
+      border-radius: 12px;
+      border: 1px solid rgba(23, 35, 59, 0.14);
+      padding: 0.75rem 1.08rem;
+      font-weight: 700;
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.62);
+      transition: all 0.2s ease;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.96);
+      border-color: rgba(23, 35, 59, 0.24);
+      color: var(--text-main);
+      transform: translateY(-2px);
+    }
+
+    .quick-links {
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    .quick-links a {
+      text-decoration: none;
+      font-size: 0.82rem;
+      color: #234264;
+      background: rgba(35, 66, 100, 0.08);
+      border: 1px solid rgba(35, 66, 100, 0.11);
+      border-radius: 999px;
+      padding: 0.38rem 0.7rem;
+      transition: all 0.2s ease;
+    }
+
+    .quick-links a:hover {
+      color: #fff;
+      background: #234264;
+      border-color: #234264;
+    }
+
+    .helper-text {
+      margin: 1rem 0 0;
+      color: var(--text-muted);
+      font-size: 0.87rem;
+    }
+
+    .visual-panel {
+      position: relative;
+      border-radius: 22px;
+      border: 1px solid rgba(23, 35, 59, 0.1);
+      background: linear-gradient(150deg, rgba(255, 255, 255, 0.85), rgba(248, 253, 249, 0.72));
+      padding: clamp(1rem, 2.4vw, 1.5rem);
+      overflow: hidden;
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0.9rem;
+      isolation: isolate;
+    }
+
+    .status-chip {
+      align-self: flex-start;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #1a6b46;
+      background: rgba(26, 107, 70, 0.12);
+      border: 1px solid rgba(26, 107, 70, 0.24);
+      border-radius: 999px;
+      padding: 0.32rem 0.7rem;
+    }
+
+    .code-number {
+      font-size: clamp(3rem, 8.5vw, 4.8rem);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      margin: 0;
+      color: rgba(23, 35, 59, 0.15);
+      user-select: none;
+    }
+
+    .error-illustration {
+      width: min(360px, 100%);
+      position: relative;
+      z-index: 2;
+      animation: floatCard 5s ease-in-out infinite;
+    }
+
+    .ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px dashed rgba(26, 107, 70, 0.26);
+      pointer-events: none;
+      z-index: 1;
+      animation: pulseRing 4s ease-in-out infinite;
+    }
+
+    .ring-a {
+      width: 170px;
+      height: 170px;
+      right: 9%;
+      top: 17%;
+    }
+
+    .ring-b {
+      width: 116px;
+      height: 116px;
+      left: 8%;
+      bottom: 14%;
+      animation-delay: 1.2s;
+    }
+
+    @media (max-width: 991.98px) {
+      .error-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .visual-panel {
+        min-height: 310px;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .error-card {
+        border-radius: 22px;
+      }
+
+      .action-group {
+        flex-direction: column;
+      }
+
+      .action-group .btn {
+        width: 100%;
+      }
+    }
+
+    @keyframes floatBlob {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-14px);
+      }
+    }
+
+    @keyframes floatCard {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes pulseRing {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.75;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 0.35;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="preloader">
+    <img src="/public/assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
+  </div>
+
+  <div id="main-wrapper">
+    <main class="error-shell">
+      <span class="blob blob-a" aria-hidden="true"></span>
+      <span class="blob blob-b" aria-hidden="true"></span>
+      <span class="blob blob-c" aria-hidden="true"></span>
+
+      <section class="error-card" aria-labelledby="title-404">
+        <div class="error-grid">
+          <div class="content-panel">
+            <span class="eyebrow">Error 404</span>
+            <h1 id="title-404" class="title">Halaman yang Anda cari tidak ditemukan.</h1>
+            <p class="desc">
+              Tautan mungkin sudah dipindahkan, dihapus, atau URL yang dimasukkan belum tepat.
+              Gunakan tombol di bawah untuk kembali ke halaman utama atau menghubungi tim kami.
+            </p>
+
+            <div class="action-group">
+              <a class="btn btn-brand" href="/" role="button">Kembali ke Beranda</a>
+              <a class="btn btn-ghost" href="/contact" role="button">Hubungi Kami</a>
+            </div>
+
+            <div class="quick-links">
+              <a href="/about">Tentang S.UNJANI</a>
+              <a href="/apps">Aplikasi & Update</a>
+              <a href="/login">Masuk Akun</a>
+            </div>
+
+            <p class="helper-text">Tip: periksa kembali ejaan URL jika Anda mengetiknya secara manual.</p>
+          </div>
+
+          <div class="visual-panel">
+            <span class="status-chip">S.UNJANI Web</span>
+            <p class="code-number">404</p>
+            <img src="/public/assets/images/backgrounds/errorimg.svg" alt="Ilustrasi halaman tidak ditemukan"
+              class="img-fluid error-illustration" />
+            <span class="ring ring-a" aria-hidden="true"></span>
+            <span class="ring ring-b" aria-hidden="true"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="dark-transparent sidebartoggler"></div>
+
+  <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+  <script src="/public/assets/js/theme/app.init.js"></script>
+  <script src="/public/assets/js/theme/theme.js"></script>
+  <script src="/public/assets/js/theme/app.min.js"></script>
+</body>
+
+</html>

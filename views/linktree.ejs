@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UNJANI | Smart Military University – Links</title>
+  <meta name="description" content="Link singkat UNJANI: Info PMB dan Lokasi Wisuda" />
+  <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --unjani-green-900:#0b3d2e; /* deep green */
+      --unjani-green-700:#155f49; /* primary */
+      --unjani-green-600:#1f6f54; /* hover */
+      --unjani-green-100:#e6f3ef; /* light */
+      --unjani-gold:#caa73a; /* accent */
+      --unjani-gold-600:#a88917; /* darker accent */
+      --ring:#e9f5f1;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
+      color:#0e1a16;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(202,167,58,0.35) 0%, transparent 60%),
+                  radial-gradient(1200px 800px at 0% 110%, rgba(21,95,73,0.35) 0%, transparent 60%),
+                  linear-gradient(180deg, #0f2e25 0%, #0a241c 100%);
+    }
+
+    .wrap{
+      min-height:100%;
+      display:grid;
+      place-items:center;
+      padding:32px 16px;
+    }
+
+    .card{
+      width:100%;
+      max-width:560px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.82));
+      border:1px solid rgba(11,61,46,0.25);
+      backdrop-filter:saturate(160%) blur(6px);
+      border-radius:24px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(255,255,255,0.3);
+      padding:28px 22px 18px;
+      position:relative;
+    }
+
+    .crest-ring{
+      position:absolute; inset:-1px; border-radius:24px;
+      pointer-events:none;
+      background: conic-gradient(from 220deg, var(--unjani-gold) 0 25%, transparent 25% 75%, var(--unjani-gold) 75% 100%);
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      padding:1px;
+      opacity:.26;
+    }
+
+    header{
+      display:flex; flex-direction:column; align-items:center; gap:14px;
+      text-align:center; margin-top:8px; margin-bottom:8px;
+    }
+
+    .logo{
+      width:92px; height:92px; border-radius:20px; overflow:hidden; display:grid; place-items:center;
+      background:radial-gradient(circle at 30% 30%, #1f6f54 0 45%, #0b3d2e 60%);
+      box-shadow:0 8px 24px rgba(0,0,0,.25), inset 0 0 0 2px rgba(255,255,255,.35);
+      position:relative;
+      border:1px solid rgba(0,0,0,.1);
+    }
+    .logo img{width:100%; height:auto; display:block; filter:drop-shadow(0 2px 2px rgba(0,0,0,.2));}
+
+    .title{
+      color:var(--unjani-green-900);
+      font-weight:700; font-size:1.25rem; letter-spacing:.3px;
+    }
+    .subtitle{
+      color:#1b3e34; opacity:.9; font-weight:600; font-size:.9rem;
+      display:inline-flex; align-items:center; gap:.5ch;
+      padding:.25rem .6rem; border-radius:999px; background:var(--unjani-green-100);
+      border:1px solid rgba(21,95,73,.15);
+    }
+    .subtitle .dot{width:6px; height:6px; border-radius:50%; background:var(--unjani-gold-600);}    
+
+    .links{display:flex; flex-direction:column; gap:14px; margin:18px 0 8px}
+
+    .link-btn{
+      --btn-bg: #ffffff;
+      position:relative; display:flex; align-items:center; justify-content:space-between;
+      width:100%;
+      padding:16px 18px; border-radius:14px; border:1px solid rgba(0,0,0,.08);
+      background:var(--btn-bg);
+      text-decoration:none; color:#0e1a16;
+      font-weight:600; letter-spacing:.2px;
+      box-shadow:0 6px 18px rgba(0,0,0,.08);
+      transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .link-btn:hover{
+      transform: translateY(-1px);
+      box-shadow:0 10px 24px rgba(0,0,0,.12);
+      border-color:rgba(21,95,73,.25);
+    }
+    .link-btn:active{transform: translateY(0)}
+
+    .btn-primary{ --btn-bg: linear-gradient(180deg,#ffffff 0%, #f6fff7 100%);}    
+    .btn-primary .badge{ background: var(--unjani-green-700); color:white; }
+
+    .btn-map{ --btn-bg: linear-gradient(180deg,#ffffff 0%, #fff9e8 100%);}    
+    .btn-map .badge{ background: var(--unjani-gold-600); color:#1b1200; }
+
+    .btn-left{ display:flex; align-items:center; gap:12px; }
+    .btn-left .icon{
+      width:38px; height:38px; border-radius:10px; display:grid; place-items:center;
+      background:radial-gradient(circle at 30% 30%, rgba(21,95,73,.18), rgba(21,95,73,.06));
+      border:1px solid rgba(21,95,73,.18);
+    }
+    .btn-left .icon.map{ background:radial-gradient(circle at 30% 30%, rgba(202,167,58,.22), rgba(202,167,58,.06)); border-color:rgba(202,167,58,.25); }
+
+    .badge{ font-size:.72rem; font-weight:700; padding:.35rem .6rem; border-radius:999px; border:1px solid rgba(255,255,255,.5); }
+
+    footer{
+      margin-top:14px; padding:12px 0 2px; text-align:center; font-size:.85rem; color:#e8eee9;
+    }
+    footer a{ color:#e8eee9 }
+
+    /* Small screens */
+    @media (max-width:420px){
+      .title{font-size:1.12rem}
+      .link-btn{padding:14px 16px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="card" role="main">
+      <div class="crest-ring" aria-hidden="true"></div>
+      <header>
+        <div class="logo" aria-label="Logo UNJANI">
+          <img src="/public/assets/images/logos/logo qr.png" alt="UNJANI Logo" />
+        </div>
+
+        <div class="title">UNJANI – Smart Military University</div>
+        <div class="subtitle"><span class="dot" aria-hidden="true"></span> Tautan cepat resmi</div>
+      </header>
+
+      <section class="links" aria-label="Daftar tautan">
+        <!-- INFO PMB -->
+        <a class="link-btn btn-primary" href="https://pmb.unjani.ac.id" target="_blank" rel="noopener noreferrer" data-label="Info PMB">
+          <span class="btn-left">
+            <span class="icon" aria-hidden="true">
+              <!-- icon book -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15.5A2.5 2.5 0 0 1 17.5 21H6.5A2.5 2.5 0 0 0 4 23V5.5Z" stroke="#155f49" stroke-width="1.8"/>
+                <path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20" stroke="#155f49" stroke-width="1.8"/>
+              </svg>
+            </span>
+            <span>Info PMB</span>
+          </span>
+          <span class="badge" aria-hidden="true">Kunjungi</span>
+        </a>
+
+        <!-- LOKASI WISUDA -->
+        <a class="link-btn btn-map" href="https://maps.app.goo.gl/E74EKnE3nNnwtWEW8" target="_blank" rel="noopener noreferrer" data-label="Lokasi Wisuda">
+          <span class="btn-left">
+            <span class="icon map" aria-hidden="true">
+              <!-- icon map-pin -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M12 22s7-7 7-12a7 7 0 1 0-14 0c0 5 7 12 7 12Z" stroke="#8b6c0f" stroke-width="1.8"/>
+                <circle cx="12" cy="10" r="2.75" stroke="#8b6c0f" stroke-width="1.6"/>
+              </svg>
+            </span>
+            <span>Lokasi Wisuda</span>
+          </span>
+          <span class="badge" aria-hidden="true">Buka Maps</span>
+        </a>
+      </section>
+
+      <footer>
+        © UNJANI 2025 • <span style="opacity:.8">All rights reserved</span>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // Aksesibilitas: fokus jelas saat tab
+    (function(){
+      const style = document.createElement('style');
+      style.textContent = `
+        .link-btn:focus{ outline:3px solid var(--ring); outline-offset:2px; }
+      `;
+      document.head.appendChild(style);
+    })();
+
+    // Optional: kecilkan sentuhan animasi klik
+    document.querySelectorAll('.link-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        btn.style.transform = 'translateY(0) scale(.99)';
+        setTimeout(()=>{ btn.style.transform=''; }, 120);
+      });
+    });
+  </script>
+</body>
+</html>
