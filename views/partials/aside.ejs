@@ -1,0 +1,49 @@
+<aside class="left-sidebar with-vertical">
+  <%
+    const asideAvatar = user?.avatarUrl || '/public/assets/images/profile/user-1.jpg';
+    const asideName = user?.name || 'User';
+    const asideRole = user?.role || '-';
+  %>
+  <div>
+    <!-- ---------------------------------- -->
+    <!-- Start Vertical Layout Sidebar -->
+    <!-- ---------------------------------- -->
+    <div class="brand-logo d-flex align-items-center justify-content-between">
+      <a href="/" class="text-nowrap logo-img">
+        <img src="/public/assets/images/logos/logo.png" class="dark-logo" width="150px" alt="Logo-Dark" />
+        <img src="/public/assets/images/logos/logo.png" class="light-logo" width="150px" alt="Logo-light" />
+      </a>
+      <a href="javascript:void(0)" class="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none">
+        <i class="ti ti-x"></i>
+      </a>
+    </div>
+    <%- include('../partials/nav') %>
+
+    <div class="fixed-profile p-3 mx-4 mb-2 bg-secondary-subtle rounded mt-3" 
+     onclick="window.location.href='/users/profile'" 
+     style="cursor: pointer;">
+  <div class="hstack gap-3">
+    <div class="john-img">
+      <img src="<%= asideAvatar %>" class="rounded-circle" width="40" height="40" alt="user-avatar">
+    </div>
+    <div class="john-title">
+      <h6 class="mb-0 fs-1 fw-semibold"><%= asideName %></h6>
+      <span class="fs-2 text-capitalize"><%= asideRole %></span>
+    </div>
+    <a class="border-0 bg-transparent text-primary ms-auto" 
+       href="/users/logout" 
+       aria-label="logout" 
+       data-bs-toggle="tooltip" 
+       data-bs-placement="top" 
+       data-bs-title="logout"
+       onclick="event.stopPropagation();">
+      <i class="ti ti-power fs-6"></i>
+    </a>
+  </div>
+</div>
+
+    <!-- ---------------------------------- -->
+    <!-- Start Vertical Layout Sidebar -->
+    <!-- ---------------------------------- -->
+  </div>
+</aside>

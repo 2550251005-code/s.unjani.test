@@ -1,0 +1,65 @@
+<%
+  const theme = bioTheme || {};
+  const themePreset = theme.preset || 'unjani';
+  const themeBackgroundMode = theme.backgroundMode || 'gradient';
+  const themeBackgroundSolid = theme.backgroundSolid || '#0a241c';
+  const themeGradientFrom = theme.gradientFrom || '#0f2e25';
+  const themeGradientTo = theme.gradientTo || '#0a241c';
+  const themeButtonColor = theme.buttonColor || '#155f49';
+  const themeButtonTextColor = theme.buttonTextColor || '#ffffff';
+%>
+<div class="card border-0 shadow-sm bg-light-subtle mt-4">
+  <div class="card-body">
+    <h5 class="fw-semibold mb-1">Pengaturan Tampilan</h5>
+    <p class="text-muted mb-3">Atur warna tema halaman bio Anda.</p>
+
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label" for="themePreset">Preset Tema</label>
+        <select class="form-select" id="themePreset" name="themePreset">
+          <option value="unjani" <%= themePreset === 'unjani' ? 'selected' : '' %>>UNJANI</option>
+          <option value="sunset" <%= themePreset === 'sunset' ? 'selected' : '' %>>Sunset</option>
+          <option value="ocean" <%= themePreset === 'ocean' ? 'selected' : '' %>>Ocean</option>
+          <option value="midnight" <%= themePreset === 'midnight' ? 'selected' : '' %>>Midnight</option>
+        </select>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label d-block">Mode Background</label>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" id="themeBgModeGradient" name="themeBackgroundMode" value="gradient" <%= themeBackgroundMode === 'gradient' ? 'checked' : '' %>>
+          <label class="form-check-label" for="themeBgModeGradient">Gradient</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" id="themeBgModeSolid" name="themeBackgroundMode" value="solid" <%= themeBackgroundMode === 'solid' ? 'checked' : '' %>>
+          <label class="form-check-label" for="themeBgModeSolid">Solid</label>
+        </div>
+      </div>
+
+      <div class="col-md-6 js-theme-solid-group">
+        <label class="form-label" for="themeBackgroundSolid">Warna Background Solid</label>
+        <input type="color" class="form-control form-control-color w-100" id="themeBackgroundSolid" name="themeBackgroundSolid" value="<%= themeBackgroundSolid %>" />
+      </div>
+
+      <div class="col-md-6 js-theme-gradient-group">
+        <label class="form-label" for="themeGradientFrom">Gradient From</label>
+        <input type="color" class="form-control form-control-color w-100" id="themeGradientFrom" name="themeGradientFrom" value="<%= themeGradientFrom %>" />
+      </div>
+
+      <div class="col-md-6 js-theme-gradient-group">
+        <label class="form-label" for="themeGradientTo">Gradient To</label>
+        <input type="color" class="form-control form-control-color w-100" id="themeGradientTo" name="themeGradientTo" value="<%= themeGradientTo %>" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label" for="themeButtonColor">Warna Tombol</label>
+        <input type="color" class="form-control form-control-color w-100" id="themeButtonColor" name="themeButtonColor" value="<%= themeButtonColor %>" />
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label" for="themeButtonTextColor">Warna Teks Tombol</label>
+        <input type="color" class="form-control form-control-color w-100" id="themeButtonTextColor" name="themeButtonTextColor" value="<%= themeButtonTextColor %>" />
+      </div>
+    </div>
+  </div>
+</div>

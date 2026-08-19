@@ -1,0 +1,38 @@
+<% if (ssoApps && ssoApps.length) { %>
+  <li class="<%= itemClass || 'nav-item nav-icon-hover-bg rounded w-auto dropdown' %>">
+    <div class="hover-dd">
+      <a class="nav-link" href="javascript:void(0)">
+        Aplikasi SSO<span class="mt-1">
+          <i class="ti ti-chevron-down fs-3"></i>
+        </span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-nav dropdown-menu-animate-up py-0">
+        <div class="px-6 py-5">
+          <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0 fs-4 fw-semibold">Pindah Aplikasi</h6>
+            <span class="badge text-bg-primary-subtle text-primary"><%= ssoApps.length %> tersambung</span>
+          </div>
+          <div class="row gy-4">
+            <% ssoApps.forEach(function (app) { %>
+              <div class="col-12 col-md-6">
+                <a href="<%- app.url %>" class="d-flex align-items-start gap-3 app-switcher-link">
+                  <div class="text-bg-light rounded-1 p-3 d-flex align-items-center justify-content-center">
+                    <i class="<%- app.icon || 'ti ti-external-link' %> fs-5"></i>
+                  </div>
+                  <div>
+                    <h6 class="mb-1 fs-4 fw-semibold"><%- app.name %></h6>
+                    <% if (app.description) { %>
+                      <span class="fs-2 d-block text-body-secondary"><%- app.description %></span>
+                    <% } else { %>
+                      <span class="fs-2 d-block text-body-secondary"><%- app.url.replace(/^https?:\/\//i, '') %></span>
+                    <% } %>
+                  </div>
+                </a>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+<% } %>

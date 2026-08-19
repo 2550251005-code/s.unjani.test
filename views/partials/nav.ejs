@@ -1,0 +1,245 @@
+<nav class="sidebar-nav scroll-sidebar" data-simplebar>
+    <ul id="sidebarnav">
+      <!-- ---------------------------------- -->
+      <!-- Home -->
+      <!-- ---------------------------------- -->
+      
+      <!-- ---------------------------------- -->
+      <!-- Dashboard -->
+      <!-- ---------------------------------- -->
+      
+      <!-- <li class="sidebar-item">
+        <a class="sidebar-link" href="/main/index2.html" aria-expanded="false">
+          <span>
+            <i class="ti ti-shopping-cart"></i>
+          </span>
+          <span class="hide-menu">eCommerce</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="/main/index3.html" aria-expanded="false">
+          <span>
+            <i class="ti ti-currency-dollar"></i>
+          </span>
+          <span class="hide-menu">NFT</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="/main/index4.html" aria-expanded="false">
+          <span>
+            <i class="ti ti-cpu"></i>
+          </span>
+          <span class="hide-menu">Crypto</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="/main/index5.html" aria-expanded="false">
+          <span>
+            <i class="ti ti-activity-heartbeat"></i>
+          </span>
+          <span class="hide-menu">General</span>
+        </a>
+      </li>
+      <li class="sidebar-item">
+        <a class="sidebar-link" href="/main/index6.html" aria-expanded="false">
+          <span>
+            <i class="ti ti-playlist"></i>
+          </span>
+          <span class="hide-menu">Music</span>
+        </a>
+      </li> -->
+      <!-- ---------------------------------- -->
+      <!-- Frontend page -->
+      <!-- ---------------------------------- -->
+      <!-- <li class="sidebar-item">
+        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+          <span class="d-flex">
+            <i class="ti ti-layout-grid"></i>
+          </span>
+          <span class="hide-menu">Frontend page</span>
+        </a>
+        <ul aria-expanded="false" class="collapse first-level">
+          <li class="sidebar-item">
+            <a href="/main/frontend-landingpage.html" class="sidebar-link">
+              <div class="round-16 d-flex align-items-center justify-content-center">
+                <i class="ti ti-circle"></i>
+              </div>
+              <span class="hide-menu">Homepage</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/main/frontend-aboutpage.html" class="sidebar-link">
+              <div class="round-16 d-flex align-items-center justify-content-center">
+                <i class="ti ti-circle"></i>
+              </div>
+              <span class="hide-menu">About Us</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/main/frontend-contactpage.html" class="sidebar-link">
+              <div class="round-16 d-flex align-items-center justify-content-center">
+                <i class="ti ti-circle"></i>
+              </div>
+              <span class="hide-menu">Contact Us</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/main/frontend-blogpage.html" class="sidebar-link">
+              <div class="round-16 d-flex align-items-center justify-content-center">
+                <i class="ti ti-circle"></i>
+              </div>
+              <span class="hide-menu">Blog</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/main/frontend-blogdetailpage.html" class="sidebar-link">
+              <div class="round-16 d-flex align-items-center justify-content-center">
+                <i class="ti ti-circle"></i>
+              </div>
+              <span class="hide-menu">Blog Details</span>
+            </a>
+          </li>
+        </ul>
+      </li> -->
+
+      <!-- ---------------------------------- -->
+      <!-- Apps -->
+      <!-- ---------------------------------- -->
+      
+      <!-- ---------------------------------- -->
+      <!-- PAGES -->
+      <!-- ---------------------------------- -->
+      <% if(user.role == 'admin'){ %> 
+        <li class="nav-small-cap">
+          <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+          <span class="hide-menu">Administrator</span>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin dashboard' ? 'active' : ''%>" href="/admin/dashboard" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-house"></i>
+            </span>
+            <span class="hide-menu">Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin links' ? 'active' : ''%>" href="/admin/links" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-link"></i>
+            </span>
+            <span class="hide-menu">Links</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin qrcodes' ? 'active' : ''%>" href="/admin/qrcodes" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-qrcode"></i>
+            </span>
+            <span class="hide-menu">QR Codes</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin bios' ? 'active' : ''%>" href="/admin/bios" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-address-card"></i>
+            </span>
+            <span class="hide-menu">Bio</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin whatsnew' ? 'active' : ''%>" href="/admin/whatsnew" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-bullhorn"></i>
+            </span>
+            <span class="hide-menu">What's New</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin teams' ? 'active' : ''%>" href="/admin/teams" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-users"></i>
+            </span>
+            <span class="hide-menu">Our Teams</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin segmen' ? 'active' : ''%>" href="/admin/segmen" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-layer-group"></i>
+            </span>
+            <span class="hide-menu">Segmen</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin analytics' ? 'active' : ''%>" href="/admin/analytics" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-chart-column"></i>
+            </span>
+            <span class="hide-menu">Analytics</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin users' ? 'active' : ''%>" href="<%= ssoAdminUsersUrl || '/admin/users' %>" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-users"></i>
+            </span>
+            <span class="hide-menu">Users</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'admin feedback' ? 'active' : ''%>" href="/admin/feedback" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-comment-dots"></i>
+            </span>
+            <span class="hide-menu">Feedback</span>
+          </a>
+        </li>
+      <% } %>
+
+      <li class="nav-small-cap">
+        <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+        <span class="hide-menu">User</span>
+      </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'Dashboard' ? 'active' : ''%>" href="/users/" id="get-url" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-house"></i>
+            </span>
+            <span class="hide-menu">Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'links' ? 'active' : ''%>" href="/users/links" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-link"></i>
+            </span>
+            <span class="hide-menu">Links</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'qrcodes' ? 'active' : ''%>" href="/users/qrcodes" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-qrcode"></i>
+            </span>
+            <span class="hide-menu">QR Codes</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'bio' ? 'active' : ''%>" href="/users/bios" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-address-card"></i>
+            </span>
+            <span class="hide-menu">Bio</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a class="sidebar-link <%= title == 'analytics' ? 'active' : ''%>" href="/users/analytics" aria-expanded="false">
+            <span>
+              <i class="fa-solid fa-chart-sine"></i>
+            </span>
+            <span class="hide-menu">Analytics</span>
+          </a>
+        </li>
+
+    </ul>
+  </nav>
