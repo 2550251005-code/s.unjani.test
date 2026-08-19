@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicon icon-->
+  <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+
+  <!-- Core Css -->
+  <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+  <link rel="stylesheet" href="/public/assets/css/styles.css" />
+
+  <title>About Us - SUNJANI</title>
+  <!-- Owl Carousel  -->
+  <link rel="stylesheet" href="/public/assets/libs/owl.carousel/dist/assets/owl.carousel.min.css" />
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div class="preloader">
+    <img src="/public/assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
+  </div>
+  <!-- ------------------------------------- -->
+  <!-- Top Bar Start -->
+  <!-- ------------------------------------- -->
+  <div class="topbar-image bg-primary py-1 rounded-0 mb-0 alert alert-dismissible fade show" role="alert">
+    <div class="d-flex justify-content-center gap-sm-3 gap-2 align-items-center text-center flex-md-nowrap flex-wrap">
+      <span class="badge bg-white bg-opacity-10 fs-2 fw-bolder px-2">New</span>
+      <p class="mb-0 text-white fw-bold">Frontend Pages Included!</p>
+    </div>
+    <button type="button" class="btn-close btn-close-white p-2 fs-2" data-bs-dismiss="alert"
+      aria-label="Close"></button>
+  </div>
+  <!-- ------------------------------------- -->
+  <!-- Top Bar End -->
+  <!-- ------------------------------------- -->
+
+  <!-- ------------------------------------- -->
+  <!-- Header Start -->
+  <!-- ------------------------------------- -->
+  <%- include('../partials/headerlanding') %>
+  <!-- ------------------------------------- -->
+  <!-- Header End -->
+  <!-- ------------------------------------- -->
+
+  <!-- ------------------------------------- -->
+  <!-- Responsive Sidebar Start -->
+  <!-- ------------------------------------- -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <a href="/">
+        <img src="/public/assets/images/logos/S UNJANI.png" width="150px" alt="Logo-light" />
+      </a>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+          <a href="/about" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+            About Us
+          </a>
+        </li>
+
+        <!-- <li class="mb-1">
+          <a href="/main/frontend-blogpage.html" class="px-0 fs-4 d-block w-100 py-2 text-dark link-primary">
+            Blog
+          </a>
+        </li> -->
+
+        <li class="mb-1">
+          <a href="/apps"
+            class="px-0 fs-4 d-flex align-items-center justify-content-start gap-2 w-100 py-2 text-dark link-primary">
+            Other Apps
+            <span class="badge text-primary bg-primary-subtle fs-2 fw-bolder hstack">New</span>
+          </a>
+        </li>
+
+        <!-- <li class="mb-1">
+          <a href="/main/index.html" class="px-0 fs-4 d-block w-100 py-2 text-dark link-primary">
+            Dashboard
+          </a>
+        </li>
+
+        <li class="mb-1">
+          <a href="/main/frontend-pricingpage.html" class="px-0 fs-4 d-block w-100 py-2 text-dark link-primary">
+            Pricing
+          </a>
+        </li> -->
+
+        <li class="mb-1">
+          <a href="/contact" class="px-0 fs-4 d-block w-100 py-2 text-dark link-primary">
+            Contact
+          </a>
+        </li>
+        <li class="mt-3">
+          <a href="/login" class="btn btn-primary w-100">Log In</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- ------------------------------------- -->
+  <!-- Responsive Sidebar End -->
+  <!-- ------------------------------------- -->
+
+  <div class="main-wrapper overflow-hidden">
+    <!-- ------------------------------------- -->
+    <!-- banner Start -->
+    <!-- ------------------------------------- -->
+    <section class="sunjani-cta-section">
+      <div class="bg-primary-subtle py-lg-12 py-5">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <h2 class="display-4 fw-bolder mb-4">Experience the SUNJANI Advantage</h2>
+              <div class="d-flex mt-4 gap-3 flex-wrap">
+                <a href="/login" class="btn btn-primary btn-lg px-6 py-3">
+                  <i class="fas fa-link me-2"></i>Start Shortening
+                </a>
+                <a href="#analytics" class="btn btn-outline-primary btn-lg px-6 py-3">
+                  <i class="fas fa-chart-bar me-2"></i>View Analytics
+                </a>
+              </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-5">
+              <div class="cta-content bg-white p-5 rounded-3 shadow-sm">
+                <p class="lead mb-0">
+                  As UNJANI's official URL shortener, SUNJANI offers:
+                  <ul class="list-unstyled">
+                    <li class="mb-3">
+                      <i class="fas fa-check-circle text-primary me-2"></i>
+                      Exclusive <strong>s.unjani.ac.id</strong> domain for campus members
+                    </li>
+                    <li class="mb-3">
+                      <i class="fas fa-check-circle text-primary me-2"></i>
+                      Military-grade security with password protection & link expiration
+                    </li>
+                    <li class="mb-3">
+                      <i class="fas fa-check-circle text-primary me-2"></i>
+                      Real-time analytics and QR code generation
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle text-primary me-2"></i>
+                      Priority support for academic and administrative needs
+                    </li>
+                  </ul>
+                  <span class="fw-bold text-dark">Free for all UNJANI students and staff</span> - Part of our digital
+                  campus initiative
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .sunjani-cta-section .cta-content {
+        border-left: 4px solid var(--bs-primary);
+        transition: transform 0.3s ease;
+      }
+
+      .sunjani-cta-section .cta-content:hover {
+        transform: translateX(10px);
+      }
+
+      .sunjani-cta-section .list-unstyled li {
+        padding-left: 1rem;
+      }
+    </style>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- ------------------------------------- -->
+    <!-- banner End -->
+    <!-- ------------------------------------- -->
+
+    <!-- ------------------------------------- -->
+    <!-- Process Start -->
+    <!-- ------------------------------------- -->
+    <section class="pt-5 pt-md-14 pt-lg-12 pb-4 pb-md-5 pb-lg-14">
+      <div class="container-fluid">
+        <h2 class="display-4 fw-bolder text-center mb-8">3-Step Shortlink Creation</h2>
+        <div class="row g-4">
+          <!-- Step 1 -->
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="card shadow-none w-100 bg-primary-subtle rounded-3 border-primary">
+              <div class="card-body text-center p-5">
+                <div class="icon-lg bg-primary text-white rounded-circle mb-4 mx-auto">
+                  <i class="fas fa-pencil-alt fa-2x"></i>
+                </div>
+                <h3 class="h4 fw-bold mb-3">1. Create Your Link</h3>
+                <p class="mb-0">
+                  Paste your long URL and customize your shortlink alias
+                  <code class="d-block mt-2">s.unjani.ac.id/your-alias</code>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="card shadow-none w-100 bg-warning-subtle rounded-3 border-warning">
+              <div class="card-body text-center p-5">
+                <div class="icon-lg bg-warning text-white rounded-circle mb-4 mx-auto">
+                  <i class="fas fa-shield-alt fa-2x"></i>
+                </div>
+                <h3 class="h4 fw-bold mb-3">2. Secure & Configure</h3>
+                <p class="mb-0">
+                  Set password protection, expiration date, and tracking preferences
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="card shadow-none w-100 bg-success-subtle rounded-3 border-success">
+              <div class="card-body text-center p-5">
+                <div class="icon-lg bg-success text-white rounded-circle mb-4 mx-auto">
+                  <i class="fas fa-paper-plane fa-2x"></i>
+                </div>
+                <h3 class="h4 fw-bold mb-3">3. Deploy & Share</h3>
+                <p class="mb-0">
+                  Get your shortlink and QR code ready to share across platforms
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bonus Feature -->
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="card shadow-none w-100 bg-info-subtle rounded-3 border-info">
+              <div class="card-body text-center p-5">
+                <div class="icon-lg bg-info text-white rounded-circle mb-4 mx-auto">
+                  <i class="fas fa-chart-line fa-2x"></i>
+                </div>
+                <h3 class="h4 fw-bold mb-3">Track Performance</h3>
+                <p class="mb-0">
+                  Monitor real-time analytics and click-through rates
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+      .icon-lg {
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .fa-2x {
+        font-size: 1.5em !important;
+      }
+    </style>
+    <!-- ------------------------------------- -->
+    <!-- Process End -->
+    <!-- ------------------------------------- -->
+
+    <!-- ------------------------------------- -->
+    <!-- Metric Start -->
+    <!-- ------------------------------------- -->
+    <section class="py-lg-12 py-13 border-top data-shadow bg-light">
+      <div class="container-fluid">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-lg-5 mb-5 mb-lg-0">
+            <h2 class="display-4 fw-bolder mb-4">SUNJANI by The Numbers</h2>
+            <p class="lead mb-0">
+              Witness the impact of UNJANI's premier URL management solution. These metrics showcase our commitment to
+              revolutionizing digital connectivity within the campus community through secure, efficient link
+              management.
+            </p>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="row g-5">
+              <!-- Links Created -->
+              <div class="col-sm-6">
+                <div class="metric-card bg-white p-4 rounded-3 shadow-sm">
+                  <div class="d-flex align-items-center gap-3 mb-3">
+                    <i class="ti ti-link text-primary fs-10"></i>
+                    <div>
+                      <p class="text-primary text-uppercase fw-bold mb-0">Links Shortened</p>
+                      <h3 class="display-3 fw-bold">15M+</h3>
+                    </div>
+                  </div>
+                  <p class="text-muted mb-0">Secure connections made through our platform</p>
+                </div>
+              </div>
+
+              <!-- Active Users -->
+              <div class="col-sm-6">
+                <div class="metric-card bg-white p-4 rounded-3 shadow-sm">
+                  <div class="d-flex align-items-center gap-3 mb-3">
+                    <i class="ti ti-users text-primary fs-10"></i>
+                    <div>
+                      <p class="text-primary text-uppercase fw-bold mb-0">Active Users</p>
+                      <h3 class="display-3 fw-bold">25K+</h3>
+                    </div>
+                  </div>
+                  <p class="text-muted mb-0">UNJANI members optimizing their links</p>
+                </div>
+              </div>
+
+              <!-- Daily Clicks -->
+              <div class="col-sm-6">
+                <div class="metric-card bg-white p-4 rounded-3 shadow-sm">
+                  <div class="d-flex align-items-center gap-3 mb-3">
+                    <i class="ti ti-click text-primary fs-10"></i>
+                    <div>
+                      <p class="text-primary text-uppercase fw-bold mb-0">Daily Clicks</p>
+                      <h3 class="display-3 fw-bold">450K+</h3>
+                    </div>
+                  </div>
+                  <p class="text-muted mb-0">Total engagements tracked daily</p>
+                </div>
+              </div>
+
+              <!-- QR Codes Generated -->
+              <div class="col-sm-6">
+                <div class="metric-card bg-white p-4 rounded-3 shadow-sm">
+                  <div class="d-flex align-items-center gap-3 mb-3">
+                    <i class="ti ti-qrcode text-primary fs-10"></i>
+                    <div>
+                      <p class="text-primary text-uppercase fw-bold mb-0">QR Codes</p>
+                      <h3 class="display-3 fw-bold">2.3M+</h3>
+                    </div>
+                  </div>
+                  <p class="text-muted mb-0">Auto-generated for offline access</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .metric-card {
+        transition: transform 0.3s ease;
+        border: 1px solid rgba(13, 110, 253, 0.1);
+      }
+
+      .metric-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(13, 110, 253, 0.05);
+      }
+
+      .display-3 {
+        font-size: 2.5rem;
+        line-height: 1.2;
+      }
+
+      @media (min-width: 768px) {
+        .display-3 {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- ------------------------------------- -->
+    <!-- Metric End -->
+    <!-- ------------------------------------- -->
+
+    <!-- ------------------------------------- -->
+    <!-- Leadership Start -->
+    <!-- ------------------------------------- -->
+    <section class="py-5 py-md-14 py-lg-12">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-5">
+            <h2 class="fs-10 fw-bolder">Our Teams</h2>
+            <p class="fs-4 mb-0">
+              Our robust analytics provide valuable insights into how users interact with short links, helping teams understand engagement and optimize their communication strategies.
+            </p>
+          </div>
+        </div>
+        <div class="owl-carousel leadership-carousel owl-theme mt-5">
+          <% if (teamMembers && teamMembers.length > 0) { %>
+            <% teamMembers.forEach(function(member) { %>
+              <div class="item">
+                <div class="">
+                  <img src="<%= member.photoUrl %>" alt="<%= member.name %>" class="rounded-3">
+                  <div
+                    class="position-relative leadership-card z-1 bg-white mt-n10 rounded py-3 px-8 mx-9 text-center shadow-sm">
+                    <h4 class="fs-5 fw-semibold mb-2"><%= member.name %></h4>
+                    <p class="fs-3 mb-0"><%= member.position %></p>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <div class="item">
+              <div class="">
+                <img src="/public/assets/images/frontend-pages/who.jpg" alt="leader" class="rounded-3">
+                <div
+                  class="position-relative leadership-card z-1 bg-white mt-n10 rounded py-3 px-8 mx-9 text-center shadow-sm">
+                  <h4 class="fs-5 fw-semibold mb-2">Data Tim Belum Tersedia</h4>
+                  <p class="fs-3 mb-0">Silakan tambahkan dari panel admin.</p>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </section>
+    <!-- ------------------------------------- -->
+    <!-- Leadership end -->
+    <!-- ------------------------------------- -->
+
+    <section class="bg-primary py-9">
+      <div class="container-fluid">
+        <div class="d-flex gap-3 justify-content-center align-items-center flex-md-nowrap flex-wrap">
+          <ul class="hstack mb-0">
+            <li class="ms-n8">
+              <a href="javascript:void(0)" class="me-1">
+                <img src="/public/assets/images/profile/user-5.jpg" class="rounded-circle border border-2 border-white"
+                  width="44" height="44" alt="modernize-img">
+              </a>
+            </li>
+            <li class="ms-n8">
+              <a href="javascript:void(0)" class="me-1">
+                <img src="/public/assets/images/profile/user-2.jpg" class="rounded-circle border border-2 border-white"
+                  width="44" height="44" alt="modernize-img">
+              </a>
+            </li>
+          </ul>
+          <p class="text-white fs-4 mb-0 text-md-start text-center">Save valuable time and effort spent
+            searching for a solution.</p>
+          <a href="javascript:void(0)" class="text-white fs-4 fw-semibold text-underline">Contact us now</a>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ------------------------------------- -->
+    <!-- Develop Start -->
+    <!-- ------------------------------------- -->
+    <section class="my-md-12 my-14">
+      <div class="custom-container">
+        <div class="bg-primary-subtle rounded-3 position-relative overflow-hidden">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <div class="py-lg-12 ps-lg-12 py-5 px-lg-0 px-9">
+                <h2 class="display-4 fw-bolder text-lg-start text-center">
+                  Transform Your Links with <span class="text-primary">SUNJANI</span> Power
+                </h2>
+                <div class="d-flex justify-content-lg-start justify-content-center gap-3 my-4 flex-sm-nowrap flex-wrap">
+                  <a href="/login" class="btn btn-primary btn-lg px-6 py-3">
+                    <i class="ti ti-link me-2"></i>Start Shortening Now
+                  </a>
+                  <a href="#features" class="btn btn-outline-primary btn-lg px-6 py-3">
+                    <i class="ti ti-star me-2"></i>Explore Features
+                  </a>
+                </div>
+                <div class="mt-4 text-lg-start text-center">
+                  <p class="lead mb-0">
+                    <span class="fw-bold">Free for UNJANI Members</span> - Premium URL management tools included in
+                    campus package
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 d-lg-block d-none">
+              <div class="position-relative develop-feature-rich p-5">
+                <div class="position-absolute start-0 top-0 w-100 h-100 bg-url-pattern opacity-10"></div>
+                <img src="/public/assets/images/logos/S UNJANI.png" alt="Shortlink Analytics Dashboard"
+                  class="img-fluid rounded-3 shadow-lg" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+
+    <style>
+      .bg-url-pattern {
+        background-image: url('data:image/svg+xml,<svg viewBox="0 0 24 24" fill="%230d6efd" xmlns="http://www.w3.org/2000/svg"><path d="M8.465 11.293c1.133-1.133 3.109-1.133 4.242 0l.707.707 1.414-1.414-.707-.707c-.943-.944-2.199-1.465-3.535-1.465s-2.592.521-3.535 1.465L4.929 12a5.008 5.008 0 0 0 0 7.071 5.006 5.006 0 0 0 7.071 0l.707-.707-1.414-1.414-.707.707a3.007 3.007 0 0 1-4.242 0 3.005 3.005 0 0 1 0-4.243l2.122-2.121z"></path><path d="m12 4.929-.707.707 1.414 1.414.707-.707a3.007 3.007 0 0 1 4.242 0 3.005 3.005 0 0 1 0 4.243l-2.122 2.121c-1.133 1.133-3.109 1.133-4.242 0L10.586 12l-1.414 1.414.707.707c.943.944 2.199 1.465 3.535 1.465s2.592-.521 3.535-1.465L19.071 12a5.008 5.008 0 0 0 0-7.071 5.006 5.006 0 0 0-7.071 0z"></path></svg>');
+        opacity: 0.1;
+        background-size: 50px;
+      }
+    </style>
+    <!-- ------------------------------------- -->
+    <!-- Develop End -->
+    <!-- ------------------------------------- -->
+  </div>
+
+  <!-- ------------------------------------- -->
+  <!-- Footer Start -->
+  <!-- ------------------------------------- -->
+    <%- include('../partials/footer-landing') %>
+  <!-- ------------------------------------- -->
+  <!-- Footer End -->
+  <!-- ------------------------------------- -->
+
+  <!-- Scroll Top -->
+  <a href="javascript:void(0)"
+    class="top-btn btn btn-primary d-flex align-items-center justify-content-center round-54 p-0 rounded-circle">
+    <i class="ti ti-arrow-up fs-7"></i>
+  </a>
+
+  <script src="/public/assets/js/vendor.min.js"></script>
+  <!-- Import Js Files -->
+  <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+  <script src="/public/assets/js/theme/app.init.js"></script>
+  <script src="/public/assets/js/theme/theme.js"></script>
+  <script src="/public/assets/js/theme/app.min.js"></script>
+
+  <!-- solar icons -->
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script src="/public/assets/libs/owl.carousel/dist/owl.carousel.min.js"></script>
+  <script src="/public/assets/js/frontend-landingpage/homepage.js"></script>
+</body>
+
+</html>

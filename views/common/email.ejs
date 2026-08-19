@@ -1,0 +1,1163 @@
+<!doctype html>
+
+<!doctype html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="light" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>Landing | Velzon - Admin & Dashboard Template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/public/assets/images/favicon.ico">
+
+    <!--Swiper slider css-->
+    <link href="/public/assets/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Select 2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <!-- Layout config Js -->
+    <script src="/public/assets/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="/public/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="/public/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="/public/assets/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="/public/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar-example">
+
+    <!-- Begin page -->
+    <div class="layout-wrapper landing">
+        <nav class="navbar navbar-expand-lg navbar-landing fixed-top" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="/public/assets/images/brand.png" class="card-logo card-logo-dark" alt="logo dark" height="35">
+                    <img src="/public/assets/images/brand.png" class="card-logo card-logo-light" alt="logo light" height="35">
+                </a>
+                <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="mdi mdi-menu"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
+                       
+                    </ul>
+
+                    <div class="">
+                        <a href="#" class="btn btn-link fw-medium text-decoration-none text-body">SISFO</a>
+                        <a href="#" class="btn btn-primary">UNJANI</a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+        <!-- end navbar -->
+        <div class="vertical-overlay" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent.show"></div>
+
+        
+
+
+        <!-- start plan -->
+        <section class="section bg-light" id="plans">
+            <div class="bg-overlay bg-overlay-pattern"></div>
+            <div class="container">
+                <div class="row justify-content-center">                 
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-header align-items-center d-flex">
+                                <h4 class="card-title mb-0 flex-grow-1">Formulir Pengajuan Pembuatan Email</h4>
+                            </div><!-- end card header -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="nav nav-pills flex-column nav-pills-tab custom-verti-nav-pills text-center"
+                                            role="tablist" aria-orientation="vertical">
+                                            <a class="nav-link show active" id="mahasiswa-tab" data-bs-toggle="pill"
+                                                href="#mahasiswa" role="tab" aria-controls="mahasiswa"
+                                                aria-selected="true">
+                                                <i class=" las la-user-alt d-block fs-20 mb-1"></i>
+                                                Mahasiswa</a>
+                                            <a class="nav-link" id="dosen-tab" data-bs-toggle="pill" href="#dosen"
+                                                role="tab" aria-controls="dosen" aria-selected="false"
+                                                tabindex="-1">
+                                                <i class="ri-user-2-line d-block fs-20 mb-1"></i>
+                                                Dosen</a>
+                                            <a class="nav-link" id="tendik-tab" data-bs-toggle="pill" href="#tendik"
+                                                role="tab" aria-controls="tendik" aria-selected="false"
+                                                tabindex="-1">
+                                                <i class="las la-user-lock d-block fs-20 mb-1"></i>
+                                                Tendik</a>
+                                        </div>
+                                    </div> <!-- end col-->
+                                    <div class="col-lg-9">
+                                        <div class="tab-content text-muted mt-3 mt-lg-0">
+                                            <div class="tab-pane fade active show" id="mahasiswa" role="tabpanel"
+                                                aria-labelledby="mahasiswa">
+                                                <div class="d-flex mb-4">
+                                                    <div class="card">
+                                                        <div class="card-header align-items-center d-flex">
+                                                            <h4 class="card-title mb-0 flex-grow-1">Mahasiswa
+                                                            </h4>
+                                                        </div><!-- end card header -->
+                                                        <div class="card-body">
+                                                            <form action="/email/add" method="post"
+                                                                enctype="multipart/form-data">
+                                                                <input required type="text" class="form-control"
+                                                                    name="role" value="mahasiswa" required
+                                                                    hidden />
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="nomorInduk"
+                                                                            class="form-label">NIM</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="text" class="form-control"
+                                                                            id="nomorInduk" name="nomorInduk"
+                                                                            placeholder="Masukan NIM">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="nameinput required"
+                                                                            class="form-label">Nama Lengkap</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="text" class="form-control"
+                                                                            id="nameinput required" name="fullName"
+                                                                            placeholder="Masukan Nama Lengkap">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="unitProdi"
+                                                                            class="form-label">Program
+                                                                            Studi</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <select class="js-example-basic-single"
+                                                                            name="unitProdi" required>
+                                                                            
+                                                                            <optgroup
+                                                                                label="Fakultas  Teknik (FT)">
+                                                                                <option
+                                                                                    value="Teknik Elektro S-1">
+                                                                                    Teknik Elektro S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Kimia S-1">
+                                                                                    Teknik Kimia S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Sipil S-1">
+                                                                                    Teknik Sipil S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Teknik Sipil S-2">
+                                                                                    Magister Teknik Sipil
+                                                                                    S-2
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Geomatika S-1">
+                                                                                    Teknik Geomatika S-1
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Teknologi Manufaktur (FTM)">
+                                                                                <option
+                                                                                    value="Teknik Mesin S-1">
+                                                                                    Teknik Mesin S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Industri S-1">
+                                                                                    Teknik Industri S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Metalurgi S-1">
+                                                                                    Teknik Metalurgi S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Manajemen Teknologi S-2">
+                                                                                    Magister Manajemen
+                                                                                    Teknologi S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas  Ekonomi dan Bisnis (FEB)">
+                                                                                <option value="Akuntansi S-1">
+                                                                                    Akuntansi S-1
+                                                                                </option>
+                                                                                <option value="Manajemen S-1">
+                                                                                    Manajemen S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Manajemen S-2">
+                                                                                    Magister Manajemen S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Ilmu Sosial dan Ilmu Politik (FISIP)">
+                                                                                <option
+                                                                                    value="Ilmu Pemerintahan S-1">
+                                                                                    Ilmu Pemerintahan S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Ilmu Hub. Internasional S-1">
+                                                                                    Ilmu Hub. Internasional
+                                                                                    S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Hub. Internasional S-2">
+                                                                                    Magister Hub.
+                                                                                    Internasional S-2
+                                                                                </option>
+                                                                                <option value="Ilmu Hukum S-1">
+                                                                                    Ilmu Hukum
+                                                                                    S-1</option>
+                                                                                <option
+                                                                                    value="Magister Ilmu Pemerintahan S-2">
+                                                                                    Magister Ilmu
+                                                                                    Pemerintahan S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas  Sains dan Informatika (FSI)">
+                                                                                <option value="Kimia S-1">
+                                                                                    Kimia S-1</option>
+                                                                                <option
+                                                                                    value="Magister Kimia S-2">
+                                                                                    Magister Kimia S-2
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Informatika S-1">
+                                                                                    Teknik Informatika S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Sistem Informasi S-1">
+                                                                                    Sistem Informasi S-1
+                                                                                </option>
+                                                                            </optgroup>
+
+                                                                            <optgroup
+                                                                                label="Fakultas Psikologi">
+                                                                                <option value="Psikologi S-1">
+                                                                                    Psikologi S-1
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup label="Fakultas  Farmasi">
+                                                                                <option value="Farmasi S-1">
+                                                                                    Farmasi S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Profesi Apoteker">
+                                                                                    Profesi Apoteker
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Farmasi S-2">
+                                                                                    Magister Farmasi S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Kedokteran">
+                                                                                <option
+                                                                                    value="Pendidikan Dokter S-1">
+                                                                                    Pendidikan Dokter S-1
+                                                                                </option>
+                                                                                <option value="Profesi Dokter">
+                                                                                    Profesi
+                                                                                    Dokter</option>
+                                                                                <option
+                                                                                    value="Administrasi Rumah Sakit S-1">
+                                                                                    Administrasi Rumah Sakit
+                                                                                    S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Penuaan Kulit dan Estetika S-2">
+                                                                                    Magister Penuaan Kulit
+                                                                                    dan Estetika S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Kedokteran Gigi">
+                                                                                <option
+                                                                                    value="Kedokteran Gigi S-1">
+                                                                                    Kedokteran Gigi S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Profesi Dokter Gigi">
+                                                                                    Profesi Dokter Gigi
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Teknologi Kesehatan FITKES">
+                                                                                <option
+                                                                                    value="Magister Keperawatan S-2">
+                                                                                    Magister Keperawatan S-2
+                                                                                </option>
+                                                                                <option value="Profesi Ners">
+                                                                                    Profesi Ners
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Ilmu Keperawatan S-1">
+                                                                                    Ilmu Keperawatan S-1
+                                                                                </option>
+                                                                                <option value="Keperawatan D-3">
+                                                                                    Keperawatan D-3
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Kesehatan Masyarakat S-1">
+                                                                                    Kesehatan Masyarakat S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknologi Laboraturium Medis D-4">
+                                                                                    Teknologi Laboraturium
+                                                                                    Medis D-4
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknologi Laboraturium Medis D-3">
+                                                                                    Teknologi Laboraturium
+                                                                                    Medis D-3
+                                                                                </option>
+                                                                                <option value="Kebidanan S-1">
+                                                                                    Kebidanan S-1
+                                                                                </option>
+                                                                                <option value="Profesi Bidan">
+                                                                                    Profesi Bidan
+                                                                                </option>
+                                                                                <option value="Kebidanan D-3">
+                                                                                    Kebidanan D-3
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Kesehatan Masyarakat S-2">
+                                                                                    Magister Kesehatan
+                                                                                    Masyarakat S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="leaveemails"
+                                                                            class="form-label">Email untuk dihubungi</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="email" class="form-control"
+                                                                            id="email" name="email"
+                                                                            placeholder="Masukan Email">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="contactNumber"
+                                                                            class="form-label">No. Hp</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="number"
+                                                                            class="form-control"
+                                                                            id="contactNumber" name="phone"
+                                                                            placeholder="Contoh 081273537383">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="timeinput required"
+                                                                            class="form-label">Identitas
+                                                                            (KTM/KTR/ID
+                                                                            CARD/Kartu Akes Parkir) </label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="file" class="form-control"
+                                                                            name="idCard" capture="camera"
+                                                                            accept="image/*" required />
+                                                                    </div>
+                                                                </div>
+                                                                <!-- reCAPTCHA widget -->
+    <div class="g-recaptcha" data-sitekey="6LdhZiYqAAAAAPhXvlnu7IcjG3UyfNAt7fGAgN24"></div>
+<div class="text-end">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Simpan</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--end tab-pane-->
+                                            <div class="tab-pane fade" id="dosen" role="tabpanel"
+                                                aria-labelledby="dosen-tab">
+                                                <div class="d-flex mb-4">
+                                                    <div class="card">
+                                                        <div class="card-header align-items-center d-flex">
+                                                            <h4 class="card-title mb-0 flex-grow-1">Dosen
+                                                            </h4>
+                                                        </div><!-- end card header -->
+                                                        <div class="card-body">
+                                                            <form action="/email/add" method="post"
+                                                                enctype="multipart/form-data">
+                                                                <input required type="text" class="form-control"
+                                                                    name="role" value="dosen" required
+                                                                    hidden />
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="nomorInduk"
+                                                                            class="form-label">NID</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="text" class="form-control"
+                                                                            id="nomorInduk" name="nomorInduk"
+                                                                            placeholder="Masukan NID">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="nameinput required"
+                                                                            class="form-label">Nama Lengkap</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="text" class="form-control"
+                                                                            id="nameinput required" name="fullName"
+                                                                            placeholder="Masukan Nama Lengkap dan gelar">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="unitProdi"
+                                                                            class="form-label">Program
+                                                                            Studi</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <select class="js-example-basic-single"
+                                                                            name="unitProdi" required>
+                                                                            
+                                                                            <optgroup
+                                                                                label="Fakultas  Teknik (FT)">
+                                                                                <option
+                                                                                    value="Teknik Elektro S-1">
+                                                                                    Teknik Elektro S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Kimia S-1">
+                                                                                    Teknik Kimia S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Sipil S-1">
+                                                                                    Teknik Sipil S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Teknik Sipil S-2">
+                                                                                    Magister Teknik Sipil
+                                                                                    S-2
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Geomatika S-1">
+                                                                                    Teknik Geomatika S-1
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Teknologi Manufaktur (FTM)">
+                                                                                <option
+                                                                                    value="Teknik Mesin S-1">
+                                                                                    Teknik Mesin S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Industri S-1">
+                                                                                    Teknik Industri S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Metalurgi S-1">
+                                                                                    Teknik Metalurgi S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Manajemen Teknologi S-2">
+                                                                                    Magister Manajemen
+                                                                                    Teknologi S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas  Ekonomi dan Bisnis (FEB)">
+                                                                                <option value="Akuntansi S-1">
+                                                                                    Akuntansi S-1
+                                                                                </option>
+                                                                                <option value="Manajemen S-1">
+                                                                                    Manajemen S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Manajemen S-2">
+                                                                                    Magister Manajemen S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Ilmu Sosial dan Ilmu Politik (FISIP)">
+                                                                                <option
+                                                                                    value="Ilmu Pemerintahan S-1">
+                                                                                    Ilmu Pemerintahan S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Ilmu Hub. Internasional S-1">
+                                                                                    Ilmu Hub. Internasional
+                                                                                    S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Hub. Internasional S-2">
+                                                                                    Magister Hub.
+                                                                                    Internasional S-2
+                                                                                </option>
+                                                                                <option value="Ilmu Hukum S-1">
+                                                                                    Ilmu Hukum
+                                                                                    S-1</option>
+                                                                                <option
+                                                                                    value="Magister Ilmu Pemerintahan S-2">
+                                                                                    Magister Ilmu
+                                                                                    Pemerintahan S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas  Sains dan Informatika (FSI)">
+                                                                                <option value="Kimia S-1">
+                                                                                    Kimia S-1</option>
+                                                                                <option
+                                                                                    value="Magister Kimia S-2">
+                                                                                    Magister Kimia S-2
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknik Informatika S-1">
+                                                                                    Teknik Informatika S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Sistem Informasi S-1">
+                                                                                    Sistem Informasi S-1
+                                                                                </option>
+                                                                            </optgroup>
+
+                                                                            <optgroup
+                                                                                label="Fakultas Psikologi">
+                                                                                <option value="Psikologi S-1">
+                                                                                    Psikologi S-1
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup label="Fakultas  Farmasi">
+                                                                                <option value="Farmasi S-1">
+                                                                                    Farmasi S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Profesi Apoteker">
+                                                                                    Profesi Apoteker
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Farmasi S-2">
+                                                                                    Magister Farmasi S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Kedokteran">
+                                                                                <option
+                                                                                    value="Pendidikan Dokter S-1">
+                                                                                    Pendidikan Dokter S-1
+                                                                                </option>
+                                                                                <option value="Profesi Dokter">
+                                                                                    Profesi
+                                                                                    Dokter</option>
+                                                                                <option
+                                                                                    value="Administrasi Rumah Sakit S-1">
+                                                                                    Administrasi Rumah Sakit
+                                                                                    S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Penuaan Kulit dan Estetika S-2">
+                                                                                    Magister Penuaan Kulit
+                                                                                    dan Estetika S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Kedokteran Gigi">
+                                                                                <option
+                                                                                    value="Kedokteran Gigi S-1">
+                                                                                    Kedokteran Gigi S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Profesi Dokter Gigi">
+                                                                                    Profesi Dokter Gigi
+                                                                                </option>
+                                                                            </optgroup>
+                                                                            <optgroup
+                                                                                label="Fakultas Teknologi Kesehatan FITKES">
+                                                                                <option
+                                                                                    value="Magister Keperawatan S-2">
+                                                                                    Magister Keperawatan S-2
+                                                                                </option>
+                                                                                <option value="Profesi Ners">
+                                                                                    Profesi Ners
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Ilmu Keperawatan S-1">
+                                                                                    Ilmu Keperawatan S-1
+                                                                                </option>
+                                                                                <option value="Keperawatan D-3">
+                                                                                    Keperawatan D-3
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Kesehatan Masyarakat S-1">
+                                                                                    Kesehatan Masyarakat S-1
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknologi Laboraturium Medis D-4">
+                                                                                    Teknologi Laboraturium
+                                                                                    Medis D-4
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Teknologi Laboraturium Medis D-3">
+                                                                                    Teknologi Laboraturium
+                                                                                    Medis D-3
+                                                                                </option>
+                                                                                <option value="Kebidanan S-1">
+                                                                                    Kebidanan S-1
+                                                                                </option>
+                                                                                <option value="Profesi Bidan">
+                                                                                    Profesi Bidan
+                                                                                </option>
+                                                                                <option value="Kebidanan D-3">
+                                                                                    Kebidanan D-3
+                                                                                </option>
+                                                                                <option
+                                                                                    value="Magister Kesehatan Masyarakat S-2">
+                                                                                    Magister Kesehatan
+                                                                                    Masyarakat S-2
+                                                                                </option>
+                                                                            </optgroup>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="leaveemails"
+                                                                            class="form-label">Email untuk dihubungi</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="email" class="form-control"
+                                                                            id="email" name="email"
+                                                                            placeholder="Masukan Email">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="contactNumber"
+                                                                            class="form-label">No. Hp</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="number"
+                                                                            class="form-control"
+                                                                            id="contactNumber" name="phone"
+                                                                            placeholder="Contoh 081273537383">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="timeinput required"
+                                                                            class="form-label">Identitas
+                                                                            (ID
+                                                                            CARD/Kartu Akes Parkir) </label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="file" class="form-control"
+                                                                            name="idCard" capture="camera"
+                                                                            accept="image/*" required />
+                                                                    </div>
+                                                                </div>
+                                                                <!-- reCAPTCHA widget -->
+    <div class="g-recaptcha" data-sitekey="6LdhZiYqAAAAAPhXvlnu7IcjG3UyfNAt7fGAgN24"></div>
+<div class="text-end">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Simpan</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--end tab-pane-->
+                                            <div class="tab-pane fade" id="tendik" role="tabpanel"
+                                                aria-labelledby="custom-v-pills-messages-tab">
+                                                <div class="d-flex mb-4">
+                                                    <div class="card">
+                                                        <div class="card-header align-items-center d-flex">
+                                                            <h4 class="card-title mb-0 flex-grow-1">Tendik
+                                                            </h4>
+                                                        </div><!-- end card header -->
+                                                        <div class="card-body">
+                                                            <form action="/email/add" method="post"
+                                                                enctype="multipart/form-data">
+                                                                <input required type="text" class="form-control"
+                                                                    name="role" value="tendik" required
+                                                                    hidden />
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="nomorInduk"
+                                                                            class="form-label">NIP</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="text" class="form-control"
+                                                                            id="nomorInduk" name="nomorInduk"
+                                                                            placeholder="Masukan NIP">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="nameinput required"
+                                                                            class="form-label">Nama Lengkap dan Gelar</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="text" class="form-control"
+                                                                            id="nameinput required" name="fullName"
+                                                                            placeholder="Masukan Nama Lengkap">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="unitProdi"
+                                                                            class="form-label">Unit Kerja</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <select class="js-example-basic-single"
+                                                                                    name="unitProdi" required>
+                                                                                    <optgroup label='Unit Kerja'>
+                                                                                        <option value="Rektorat">
+                                                                                            Rektorat</option>
+                                                                                        <option value="Fakultas Teknik">
+                                                                                            Fakultas
+                                                                                            Teknik</option>
+                                                                                        <option
+                                                                                            value="Fakultas Sains dan Informatika">
+                                                                                            Fakultas Sains dan
+                                                                                            Informatika</option>
+                                                                                        <option
+                                                                                            value="Fakultas Ekonomi dan Bisnis">
+                                                                                            Fakultas Ekonomi dan
+                                                                                            Bisnis
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Fakultas Ilmu Sosial dan Ilmu Politik">
+                                                                                            Fakultas Ilmu
+                                                                                            Sosial dan Ilmu Politik
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Fakultas Kedokteran">
+                                                                                            Fakultas
+                                                                                            Kedokteran</option>
+                                                                                        <option
+                                                                                            value="Fakultas Psikologi">
+                                                                                            Fakultas
+                                                                                            Psikologi</option>
+                                                                                        <option
+                                                                                            value="Fakultas Farmasi">
+                                                                                            Fakultas
+                                                                                            Farmasi</option>
+                                                                                        <option
+                                                                                            value="Fakultas Teknologi Manufaktur">
+                                                                                            Fakultas Teknologi
+                                                                                            Manufaktur</option>
+                                                                                        <option
+                                                                                            value="Fakultas Kedokteran Gigi">
+                                                                                            Fakultas Kedokteran Gigi
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Fakultas Ilmu dan Teknologi Kesehatan">
+                                                                                            Fakultas Ilmu dan
+                                                                                            Teknologi Kesehatan
+                                                                                        </option>
+                                                                                    </optgroup>                                                                                    <optgroup
+                                                                                        label="Fakultas  Teknik (FT)">
+                                                                                        <option
+                                                                                            value="Teknik Elektro S-1">
+                                                                                            Teknik Elektro S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Teknik Kimia S-1">
+                                                                                            Teknik Kimia S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Teknik Sipil S-1">
+                                                                                            Teknik Sipil S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Magister Teknik Sipil S-2">
+                                                                                            Magister Teknik Sipil
+                                                                                            S-2
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Teknik Geomatika S-1">
+                                                                                            Teknik Geomatika S-1
+                                                                                        </option>
+                                                                                    </optgroup>
+                                                                                    <optgroup
+                                                                                        label="Fakultas Teknologi Manufaktur (FTM)">
+                                                                                        <option
+                                                                                            value="Teknik Mesin S-1">
+                                                                                            Teknik Mesin S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Teknik Industri S-1">
+                                                                                            Teknik Industri S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Teknik Metalurgi S-1">
+                                                                                            Teknik Metalurgi S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Magister Manajemen Teknologi S-2">
+                                                                                            Magister Manajemen
+                                                                                            Teknologi S-2
+                                                                                        </option>
+                                                                                    </optgroup>
+                                                                                    <optgroup
+                                                                                        label="Fakultas  Ekonomi dan Bisnis (FEB)">
+                                                                                        <option value="Akuntansi S-1">
+                                                                                            Akuntansi S-1
+                                                                                        </option>
+                                                                                        <option value="Manajemen S-1">
+                                                                                            Manajemen S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Magister Manajemen S-2">
+                                                                                            Magister Manajemen S-2
+                                                                                        </option>
+                                                                                    </optgroup>
+                                                                                    <optgroup
+                                                                                        label="Fakultas Ilmu Sosial dan Ilmu Politik (FISIP)">
+                                                                                        <option
+                                                                                            value="Ilmu Pemerintahan S-1">
+                                                                                            Ilmu Pemerintahan S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Ilmu Hub. Internasional S-1">
+                                                                                            Ilmu Hub. Internasional
+                                                                                            S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Magister Hub. Internasional S-2">
+                                                                                            Magister Hub.
+                                                                                            Internasional S-2
+                                                                                        </option>
+                                                                                        <option value="Ilmu Hukum S-1">
+                                                                                            Ilmu Hukum
+                                                                                            S-1</option>
+                                                                                        <option
+                                                                                            value="Magister Ilmu Pemerintahan S-2">
+                                                                                            Magister Ilmu
+                                                                                            Pemerintahan S-2
+                                                                                        </option>
+                                                                                    </optgroup>
+                                                                                    <optgroup
+                                                                                        label="Fakultas  Sains dan Informatika (FSI)">
+                                                                                        <option value="Kimia S-1">
+                                                                                            Kimia S-1</option>
+                                                                                        <option
+                                                                                            value="Magister Kimia S-2">
+                                                                                            Magister Kimia S-2
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Teknik Informatika S-1">
+                                                                                            Teknik Informatika S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Sistem Informasi S-1">
+                                                                                            Sistem Informasi S-1
+                                                                                        </option>
+                                                                                    </optgroup>
+
+                                                                                    <optgroup label="Psikologi">
+                                                                                        <option value="Psikologi S-1">
+                                                                                            Psikologi S-1
+                                                                                        </option>
+                                                                                    </optgroup>
+                                                                                    <optgroup label="Fakultas  Farmasi">
+                                                                                        <option value="Farmasi S-1">
+                                                                                            Farmasi S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Profesi Apoteker">
+                                                                                            Profesi Apoteker
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Magister Farmasi S-2">
+                                                                                            Magister Farmasi S-2
+                                                                                        </option>
+                                                                                    </optgroup>
+                                                                                    <optgroup label="Kedokteran">
+                                                                                        <option
+                                                                                            value="Pendidikan Dokter S-1">
+                                                                                            Pendidikan Dokter S-1
+                                                                                        </option>
+                                                                                        <option value="Profesi Dokter">
+                                                                                            Profesi
+                                                                                            Dokter</option>
+                                                                                        <option
+                                                                                            value="Administrasi Rumah Sakit S-1">
+                                                                                            Administrasi Rumah Sakit
+                                                                                            S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Magister Penuaan Kulit dan Estetika S-2">
+                                                                                            Magister Penuaan Kulit
+                                                                                            dan Estetika S-2
+                                                                                        </option>
+                                                                                    </optgroup>
+                                                                                    <optgroup
+                                                                                        label="Fakultas Kedokteran Gigi">
+                                                                                        <option
+                                                                                            value="Kedokteran Gigi S-1">
+                                                                                            Kedokteran Gigi S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Profesi Dokter Gigi">
+                                                                                            Profesi Dokter Gigi
+                                                                                        </option>
+                                                                                    </optgroup>
+                                                                                    <optgroup
+                                                                                        label="Fakultas Teknologi Kesehatan FITKES">
+                                                                                        <option
+                                                                                            value="Magister Keperawatan S-2">
+                                                                                            Magister Keperawatan S-2
+                                                                                        </option>
+                                                                                        <option value="Profesi Ners">
+                                                                                            Profesi Ners
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Ilmu Keperawatan S-1">
+                                                                                            Ilmu Keperawatan S-1
+                                                                                        </option>
+                                                                                        <option value="Keperawatan D-3">
+                                                                                            Keperawatan D-3
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Kesehatan Masyarakat S-1">
+                                                                                            Kesehatan Masyarakat S-1
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Teknologi Laboraturium Medis D-4">
+                                                                                            Teknologi Laboraturium
+                                                                                            Medis D-4
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Teknologi Laboraturium Medis D-3">
+                                                                                            Teknologi Laboraturium
+                                                                                            Medis D-3
+                                                                                        </option>
+                                                                                        <option value="Kebidanan S-1">
+                                                                                            Kebidanan S-1
+                                                                                        </option>
+                                                                                        <option value="Profesi Bidan">
+                                                                                            Profesi Bidan
+                                                                                        </option>
+                                                                                        <option value="Kebidanan D-3">
+                                                                                            Kebidanan D-3
+                                                                                        </option>
+                                                                                        <option
+                                                                                            value="Magister Kesehatan Masyarakat S-2">
+                                                                                            Magister Kesehatan
+                                                                                            Masyarakat S-2
+                                                                                        </option>
+                                                                                    </optgroup>
+                                                                                </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="leaveemails"
+                                                                            class="form-label">Email untuk dihubungi</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="email" class="form-control"
+                                                                            id="email" name="email"
+                                                                            placeholder="Masukan Email">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="contactNumber"
+                                                                            class="form-label">No. Hp</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="number"
+                                                                            class="form-control"
+                                                                            id="contactNumber" name="phone"
+                                                                            placeholder="Contoh 081273537383">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row mb-3">
+                                                                    <div class="col-lg-3">
+                                                                        <label for="timeinput required"
+                                                                            class="form-label">Identitas
+                                                                            (KTM/KTR/ID
+                                                                            CARD/Kartu Akes Parkir) </label>
+                                                                    </div>
+                                                                    <div class="col-lg-9">
+                                                                        <input required type="file" class="form-control"
+                                                                            name="idCard" capture="camera"
+                                                                            accept="image/*" required />
+                                                                    </div>
+                                                                </div>
+                                                                <!-- reCAPTCHA widget -->
+    <div class="g-recaptcha" data-sitekey="6LdhZiYqAAAAAPhXvlnu7IcjG3UyfNAt7fGAgN24"></div>
+<div class="text-end">
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary">Simpan</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--end tab-pane-->
+                                        </div>
+                                    </div> <!-- end col-->
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+            </div>
+            <!-- end container -->
+        </section>
+        <!-- end plan -->
+
+        <!-- Start footer -->
+        <footer class="custom-footer bg-dark py-5 position-relative">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 mt-4">
+                        <div>
+                            <div>
+                                <img src="/public/assets/images/brand.png" alt="logo light" height="40">
+                            </div>
+                            <div class="mt-4 fs-13">
+                                <p>Aplikasi Pelayanan Sistem Informasi <br> <b>Universitas Jenderal Achmad Yani</b></p>
+                                <p class="ff-secondary">Melayani pembuatan email institusi pembuatan kartu akses parkir dan pelaporan insiden CISRT.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7 ms-lg-auto">
+                        <div class="row">
+                            <div class="col-sm-4 mt-4">
+                                <h5 class="text-white mb-0">Company</h5>
+                                <div class="text-muted mt-3">
+                                    <ul class="list-unstyled ff-secondary footer-list fs-14">
+                                        <li><a href="#">About Us</a></li>
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mt-4">
+                                <h5 class="text-white mb-0">Apps Pages</h5>
+                                <div class="text-muted mt-3">
+                                    <ul class="list-unstyled ff-secondary footer-list fs-14">
+                                        <li><a href="email">Email</a></li>
+                                        <li><a href="#">Kartu Akses</a></li>
+                                        <li><a href="#">Tiket</a></li>
+                                        <li><a href="#">CISRT</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mt-4">
+                                <h5 class="text-white mb-0">Support</h5>
+                                <div class="text-muted mt-3">
+                                    <ul class="list-unstyled ff-secondary footer-list fs-14">
+                                        <li><a href="#">FAQ</a></li>
+                                        <li><a href="#">Contact</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row text-center text-sm-start align-items-center mt-5">
+                    <div class="col-sm-6">
+
+                        <div>
+                            <p class="copy-rights mb-0">
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script> © Apps Sisfo - <a>Wildan Pratama, S.Kom.</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end footer -->
+
+        <!--start back-to-top-->
+        <button onclick="topFunction()" class="btn btn-danger btn-icon landing-back-top" id="back-to-top">
+            <i class="ri-arrow-up-line"></i>
+        </button>
+        <!--end back-to-top-->
+
+    </div>
+    <!-- end layout wrapper -->
+
+
+    <!-- JAVASCRIPT -->
+    <script src="/public/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="/public/assets/libs/node-waves/waves.min.js"></script>
+    <script src="/public/assets/libs/feather-icons/feather.min.js"></script>
+    <script src="/public/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="/public/assets/js/plugins.js"></script>
+
+    <!--Swiper slider js-->
+    <script src="/public/assets/libs/swiper/swiper-bundle.min.js"></script>
+
+    <!-- landing init -->
+    <script src="/public/assets/js/pages/landing.init.js"></script>
+
+    <!--jquery cdn-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!--select2 cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script src="/public/assets/js/pages/select2.init.js"></script>
+
+    <!-- Tambahkan script berikut untuk memuat reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    let messagesSuccess = "<%- success_msg %>";
+            if (messagesSuccess != "") {
+                Swal.fire({
+                    title: "Berhasil",
+                    icon: "success",
+                    text: messagesSuccess,
+                });
+            }
+            let messagesError = "<%- error_msg %>";
+            if (messagesError != "") {
+                Swal.fire({
+                    title: "Gagal",
+                    icon: "error",
+                    text: messagesError,
+                });
+            }</script>
+
+</body>
+
+</html>

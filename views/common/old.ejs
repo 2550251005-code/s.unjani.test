@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi UNJANI</title>
+    <!-- Favicon dengan logo QR -->
+    <link rel="icon" href="/public/assets/images/logos/logo qr.png" type="image/png">
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Gunakan styles.css yang sudah ada -->
+    <link href="/public/assets/css/styles.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .header-bg {
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .app-card {
+            border-left: 4px solid var(--bs-primary);
+            transition: all 0.3s;
+            height: 100%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .app-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .app-number {
+            background-color: var(--bs-primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .app-name {
+            font-weight: 600;
+            color: var(--bs-primary);
+        }
+        
+        .app-url {
+            color: var(--bs-primary);
+            word-break: break-all;
+        }
+        
+        .app-url:hover {
+            text-decoration: underline;
+            color: var(--bs-primary-dark);
+        }
+        
+        .search-box {
+            border: 1px solid var(--bs-primary);
+            border-radius: 20px;
+        }
+        
+        .search-box:focus {
+            box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+        }
+        
+        .footer {
+            padding: 1.5rem 0;
+            margin-top: 2rem;
+        }
+        
+        .category-badge {
+            background-color: rgba(var(--bs-primary-rgb), 0.1);
+            color: var(--bs-primary);
+            font-weight: 500;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header dengan Logo UNJANI -->
+    <header class="header-bg bg-primary">
+        <div class="container">
+            <div class="logo-container">
+                <!-- Ganti placeholder dengan logo QR -->
+                <img src="/public/assets/images/logos/logo qr.png" width="75">
+                <div>
+                    <h1 class="h3 mb-0 text-white">Universitas Jenderal Achmad Yani</h1>
+                    <p class="mb-0 text-white">Smart Military University</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <h2 class="mb-3">Daftar Aplikasi UNJANI</h2>
+                <p class="text-muted">Berikut daftar aplikasi dan sistem informasi yang tersedia di Universitas Jenderal Achmad Yani</p>
+            </div>
+            <div class="col-md-4">
+                <input type="text" class="form-control search-box" id="searchApps" placeholder="Cari aplikasi...">
+            </div>
+        </div>
+
+        <div class="row" id="appsContainer">
+            <!-- Aplikasi akan ditampilkan di sini melalui JavaScript -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-primary text-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-white">Universitas Jenderal Achmad Yani</h5>
+                    <p>Jl. Terusan Jenderal Sudirman, Cimahi</p>
+                    <p>Website: <a href="https://www.unjani.ac.id" class="text-white">www.unjani.ac.id</a></p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; 2023 Universitas Jenderal Achmad Yani. All rights reserved.</p>
+                    <p>Developed by Sistem Informasi (SISFO)</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5.3 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Data aplikasi
+        const apps = [
+            {no: "1", nama: "Aplikasi New Siterpadu (Akademik)", url: "https://stpd.unjani.ac.id/", kategori: "Akademik"},
+            {no: "2", nama: "Aplikasi Akademik Rumpun Kesehatan 1", url: "https://sikespadu.unjani.ac.id/", kategori: "Kesehatan"},
+            {no: "3", nama: "Aplikasi PMB/Admisi", url: "https://pendaftaran.unjani.ac.id/loginnew", kategori: "Admisi"},
+            {no: "4", nama: "Aplikasi Sinau Test PMB", url: "https://exam-pmb.unjani.ac.id/", kategori: "Admisi"},
+            {no: "5", nama: "Aplikasi Sinau Prodi Reguler", url: "https://sinau.unjani.ac.id/", kategori: "Akademik"},
+            {no: "6", nama: "API Integrasi SSO", url: "https://gate.unjani.id/", kategori: "Integrasi"},
+            {no: "7", nama: "Aplikasi Feeder", url: "https://stpd.unjani.ac.id/", kategori: "Akademik"},
+            {no: "8", nama: "Aplikasi Wisuda", url: "https://stpd.unjani.ac.id/", kategori: "Akademik"},
+            {no: "9", nama: "Tracer Study", url: "https://tracerstudy.unjani.id/", kategori: "Alumni"},
+            {no: "10", nama: "Aplikasi Kerjasama", url: "https://birokerjasama.unjani.ac.id/", kategori: "Kerjasama"},
+            {no: "11", nama: "Aplikasi Aktivitas TOEFL", url: "https://pusat-bahasa.unjani.ac.id/", kategori: "Bahasa"},
+            {no: "12", nama: "Aplikasi Web dan Blog", url: "https://www.unjani.ac.id/", kategori: "Website"},
+            {no: "13", nama: "Aplikasi Kemahasiswaan", url: "https://siapmau.unjani.ac.id/", kategori: "Kemahasiswaan"},
+            {no: "14", nama: "Aplikasi TA/PA", url: "https://stpd.unjani.ac.id/", kategori: "Akademik"},
+            {no: "15", nama: "Aplikasi Help Desk Sisfo", url: "https://helpdesk.unjani.id/", kategori: "Support"},
+            {no: "16", nama: "Aplikasi Akreditasi", url: "https://spmi.unjani.ac.id/", kategori: "Akreditasi"},
+            {no: "17", nama: "Aplikasi SPI", url: "https://spi.unjani.ac.id/", kategori: "Akreditasi"},
+            {no: "18", nama: "Aplikasi SPMI", url: "https://spmi.unjani.ac.id/", kategori: "Akreditasi"},
+            {no: "19", nama: "Aplikasi Aktivitas Sertifikasi", url: "https://lsp.unjani.id/", kategori: "Sertifikasi"},
+            {no: "20", nama: "Aplikasi CDC", url: "https://cdc.unjani.ac.id/", kategori: "Karir"},
+            {no: "21", nama: "Aplikasi Sinau Kesehatan", url: "https://sinau.unjani.ac.id/", kategori: "Kesehatan"},
+            {no: "22", nama: "Aplikasi Mobile Akademik", url: "https://play.google.com/store/apps/details?id=com.edu.myunjani", kategori: "Mobile"},
+            {no: "23", nama: "Aplikasi Sinau Micro Credential", url: "https://microcredentials.unjani.ac.id/", kategori: "Akademik"},
+            {no: "24", nama: "Aplikasi Mobile E-Learning Untuk Prodi Reguler", url: "https://play.google.com/store/apps/details?id=com.edu.myunjani", kategori: "Mobile"},
+            {no: "25", nama: "Aplikasi Mobile E-Learning Untuk Prodi Rumpun Kesehatan", url: "https://play.google.com/store/apps/details?id=com.edu.myunjani", kategori: "Mobile"},
+            {no: "26", nama: "Aplikasi DMS (Document Management System)", url: "https://dms.unjani.id/", kategori: "Dokumen"},
+            {no: "27", nama: "Aplikasi Lab Center", url: "https://labcenter.unjani.id/", kategori: "Laboratorium"},
+            {no: "28", nama: "Dashboard Akademik Institusi", url: "https://dashboard.unjani.id", kategori: "Dashboard"},
+            {no: "29", nama: "Aplikasi Prodi Benchmark", url: "http://prodibenchmarking.unjani.ac.id/", kategori: "Benchmarking"},
+            {no: "30", nama: "Aplikasi NDE (Nota Dinas Elektronik)", url: "https://nde.unjani.ac.id/", kategori: "Administrasi"},
+            {no: "31", nama: "Aplikasi Akademik Rumpun Kesehatan 2", url: "https://stpd.unjani.ac.id/", kategori: "Kesehatan"},
+            {no: "32", nama: "Aplikasi Perpustakaan", url: "https://library.unjani.id/", kategori: "Perpustakaan"},
+            {no: "33", nama: "Digital Infomation System", url: "https://digitalinformation.unjani.id/", kategori: "Informasi"},
+            {no: "34", nama: "Aplikasi Dashboard YKEP", url: "https://dashboard.erp-ykep.com/home", kategori: "Dashboard"},
+            {no: "35", nama: "Aplikasi Penelitian dan Pengabdian Masyarakat", url: "https://lp2m.unjani.ac.id/", kategori: "Penelitian"},
+            {no: "36", nama: "Aplikasi Absensi Terintegrasi", url: "https://absensi.unjani.id/", kategori: "Absensi"},
+            {no: "37", nama: "ERP Program dan Pendanaan", url: "https://prograr.unjani.id/auth/login", kategori: "ERP"},
+            {no: "38", nama: "ERP Umum", url: "https://erpumum.unjani.ac.id/", kategori: "ERP"},
+            {no: "39", nama: "ERP Finance", url: "https://accounting.unjani.id/", kategori: "ERP"},
+            {no: "40", nama: "ERP SDM", url: "https://sdm.unjani.id/", kategori: "ERP"}
+        ];
+
+        // Fungsi untuk menampilkan aplikasi
+        function displayApps(appList) {
+            const container = document.getElementById('appsContainer');
+            container.innerHTML = '';
+            
+            appList.forEach(app => {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 col-lg-4 mb-4';
+                
+                col.innerHTML = `
+                    <div class="card app-card h-100">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="app-number">${app.no}</div>
+                                <span class="category-badge">${app.kategori}</span>
+                            </div>
+                            <h5 class="card-title app-name">${app.nama}</h5>
+                            <p class="card-text">
+                                <a href="${app.url}" target="_blank" class="app-url">
+                                    ${app.url}
+                                </a>
+                            </p>
+                            <a href="${app.url}" target="_blank" class="btn btn-primary">
+                                Buka Aplikasi <i class="bi bi-box-arrow-up-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(col);
+            });
+        }
+
+        // Fungsi pencarian
+        document.getElementById('searchApps').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredApps = apps.filter(app => 
+                app.nama.toLowerCase().includes(searchTerm) || 
+                app.url.toLowerCase().includes(searchTerm) ||
+                app.kategori.toLowerCase().includes(searchTerm)
+            );
+            displayApps(filteredApps);
+        });
+
+        // Tampilkan semua aplikasi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            displayApps(apps);
+        });
+    </script>
+</body>
+</html>

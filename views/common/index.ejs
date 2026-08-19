@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Favicon icon-->
+  <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+
+  <!-- Core Css -->
+  <link rel="stylesheet" href="/public/assets/css/styles.css" />
+
+  <title>SUNJANI</title>
+  <!-- Owl Carousel  -->
+  <link rel="stylesheet" href="/public/assets/libs/owl.carousel/dist/assets/owl.carousel.min.css" />
+
+  <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+</head>
+
+<body>
+
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <img src="/public/assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
+  </div>
+  <!-- ------------------------------------- -->
+  <!-- Top Bar Start -->
+  <!-- ------------------------------------- -->
+  <div class="topbar-image bg-primary py-1 rounded-0 mb-0 alert alert-dismissible fade show" role="alert">
+    <div class="d-flex justify-content-center gap-sm-3 gap-2 align-items-center text-center flex-md-nowrap flex-wrap">
+      <span class="badge bg-white bg-opacity-10 fs-2 fw-bolder px-2">New</span>
+      <p class="mb-0 text-white fw-bold">Frontend Pages Included!</p>
+    </div>
+    <button type="button" class="btn-close btn-close-white p-2 fs-2" data-bs-dismiss="alert"
+      aria-label="Close"></button>
+  </div>
+  <!-- ------------------------------------- -->
+  <!-- Top Bar End -->
+  <!-- ------------------------------------- -->
+
+  <!-- ------------------------------------- -->
+  <!-- Header Start -->
+  <!-- ------------------------------------- -->
+  <%- include('../partials/headerlanding') %>
+  <!-- ------------------------------------- -->
+  <!-- Header End -->
+  <!-- ------------------------------------- -->
+
+  <!-- ------------------------------------- -->
+  <!-- Responsive Sidebar Start -->
+  <!-- ------------------------------------- -->
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <a href="/">
+        <img src="/public/assets/images/logos/S UNJANI.png" width="150px" alt="Logo-light" />
+      </a>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+          <a href="/about" class="px-0 fs-4 d-block text-dark link-primary w-100 py-2">
+            About Us
+          </a>
+        </li>
+
+        <!-- <li class="mb-1">
+          <a href="/main/frontend-blogpage.html" class="px-0 fs-4 d-block w-100 py-2 text-dark link-primary">
+            Blog
+          </a>
+        </li> -->
+
+        <li class="mb-1">
+          <a href="/apps"
+            class="px-0 fs-4 d-flex align-items-center justify-content-start gap-2 w-100 py-2 text-dark link-primary">
+            What's
+            <span class="badge text-primary bg-primary-subtle fs-2 fw-bolder hstack">New</span>
+          </a>
+        </li>
+
+        <!-- <li class="mb-1">
+          <a href="/main/index.html" class="px-0 fs-4 d-block w-100 py-2 text-dark link-primary">
+            Dashboard
+          </a>
+        </li>
+
+        <li class="mb-1">
+          <a href="/main/frontend-pricingpage.html" class="px-0 fs-4 d-block w-100 py-2 text-dark link-primary">
+            Pricing
+          </a>
+        </li> -->
+
+        <li class="mb-1">
+          <a href="/contact" class="px-0 fs-4 d-block w-100 py-2 text-dark link-primary">
+            Contact
+          </a>
+        </li>
+        <li class="mt-3">
+          <a href="/login" class="btn btn-primary w-100">Log In</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- ------------------------------------- -->
+  <!-- Responsive Sidebar End -->
+  <!-- ------------------------------------- -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body pt-0">
+          <iframe width="100%" height="500" src="https://www.youtube.com/embed/W_ADbeKyP4c?si=-63qC3_L1fI5wEsO"
+            title="YouTube video player" frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-wrapper overflow-hidden">
+    <!-- ------------------------------------- -->
+    <!-- banner Start -->
+    <!-- ------------------------------------- -->
+    <section class="bg-gradient-primary-subtle pt-9 py-lg-8 position-relative overflow-hidden">
+      <div class="custom-container position-relative z-1  my-4">
+        <div class="row justify-content-center text-center">
+          <div class="col-lg-10 col-xl-8">
+            <!-- Animated Badge -->
+            <div class="mb-6 mt-4" data-aos="zoom-in">
+              <span class="badge bg-primary bg-opacity-10 text-primary fs-4 fw-semibold px-5 py-3 rounded-pill">
+                🚀 New Generation URL Shortener
+              </span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="display-3 fw-bold mb-4" data-aos="fade-up" data-aos-delay="100">
+              Simplify your connections with 
+              <span class="text-gradient-primary">SUNJANI</span> <img src="/public/assets/images/logos/favicon.png" width="75px" alt="Logo-light" />
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="lead text-muted mb-6 fs-4" data-aos="fade-up" data-aos-delay="150">
+              Transform long links into concise, trackable URLs with our intelligent platform
+            </p>
+
+            <!-- CTA Buttons -->
+            <div class="d-flex gap-3 justify-content-center mb-3" data-aos="fade-up" data-aos-delay="200">
+              <a href="/contact" class="btn btn-primary btn-lg px-6 py-3 rounded-3 shadow-primary-hover" onclick="return false;">
+                Get Started Free <i class="ti ti-chevron-right ms-2"></i>
+              </a>
+              <a href="#learn-more" class="btn btn-outline-primary btn-lg px-6 py-3 rounded-3">
+                Learn More <i class="ti ti-info-circle ms-2"></i>
+              </a>
+            </div>
+
+            <!-- Stats Card -->
+            <div class="mt-8 mb-4 bg-white rounded-4 p-4 shadow-sm d-inline-block" data-aos="zoom-in" data-aos-delay="250">
+              <div class="d-flex gap-5">
+                <div class="text-center">
+                  <div class="fs-7 fw-bold text-primary">15M+</div>
+                  <div class="text-muted">Links Generated</div>
+                </div>
+                <div class="text-center">
+                  <div class="fs-7 fw-bold text-primary">98%</div>
+                  <div class="text-muted">Customer Satisfaction</div>
+                </div>
+                <div class="text-center">
+                  <div class="fs-7 fw-bold text-primary">1.5B+</div>
+                  <div class="text-muted">Clicks Tracked</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Background Elements -->
+      <div class="position-absolute top-0 start-0 w-100 h-100 opacity-25">
+        <div class="position-absolute end-0 top-n5" style="width: 800px;">
+          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="var(--bs-primary)"
+              d="M45.3,-58.2C58.1,-49.1,67.1,-34.1,69.7,-18.6C72.3,-3.1,68.5,12.9,61.3,27.2C54.1,41.5,43.5,54.1,30.6,62.3C17.7,70.6,2.5,74.4,-10.5,70.7C-23.5,66.9,-34.3,55.5,-44.1,44.2C-54,32.9,-62.8,21.7,-65.3,8.9C-67.8,-3.9,-64.1,-18.3,-56.5,-29.6C-48.9,-40.9,-37.4,-49.1,-24.3,-58C-11.1,-66.8,3.6,-76.3,18.7,-75.1C33.8,-73.8,49.3,-61.8,59.5,-47.5C69.7,-33.2,74.6,-16.6,74.9,0.3C75.3,17.1,71,34.2,62.2,47.3C53.4,60.4,40.1,69.5,25.8,73.1C11.5,76.7,-3.8,74.8,-17.5,69.7C-31.2,64.6,-43.3,56.3,-53.5,45.9C-63.7,35.5,-72,22.9,-75.5,8.5C-79,-5.9,-77.8,-22.1,-70.8,-34.2C-63.8,-46.4,-50.9,-54.5,-37.3,-63.1C-23.6,-71.7,-9.3,-80.7,4.1,-86.9C17.5,-93,35,-96.2,45.3,-58.2Z"
+              transform="translate(100 100)" />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ------------------------------------- -->
+    <!-- banner End -->
+    <!-- ------------------------------------- -->
+
+        <!-- ------------------------------------- -->
+    <!-- Features Start -->
+    <!-- ------------------------------------- -->
+    <section>
+      <div class="custom-container mt-4">
+        <div class="py-5 py-md-14 py-lg-12 bg-primary-subtle rounded-3 overflow-hidden">
+          <div class="row justify-content-center">
+            <div class="col-lg-6">
+              <h2 class="fs-10 fw-bolder text-center mb-10 pb-lg-4 px-2 px-md-0">
+                Enjoy unparalleled features & exceptional flexibility.
+              </h2>
+            </div>
+          </div>
+          
+          <!-- First Row Features -->
+          <div class="w-100 text-nowrap">
+            <div class="slide-animation1 d-flex gap-7 text-nowrap">
+              <!-- Custom Alias -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-pencil text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Custom Alias</p>
+              </div>
+              
+              <!-- Unlimited Shortlink -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-infinity text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Unlimited Shortlink</p>
+              </div>
+      
+              <!-- Link Private -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-lock text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Link Private</p>
+              </div>
+      
+              <!-- Unlimited Access -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-key text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Unlimited Access</p>
+              </div>
+      
+              <!-- Full Control -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-settings text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Full Control</p>
+              </div>
+      
+              <!-- Shortlink Schedule -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-calendar text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Shortlink Schedule</p>
+              </div>
+      
+              <!-- QRCode Shortlink -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-qrcode text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Shortlink with QRCode</p>
+              </div>
+      
+              <!-- Easy to Use -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-sparkles text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Easy to Use</p>
+              </div>
+      
+              <!-- UI/UX Friendly -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-layout-dashboard text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">UI & UX Friendly</p>
+              </div>
+      
+              <!-- Safe & Secure -->
+              <div class="feature-item bg-white rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-shield-lock text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Safe & Secure</p>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Second Row Features -->
+          <div class="w-100 text-nowrap">
+            <div class="slide-animation2 d-flex gap-7 text-nowrap my-4">
+              <!-- Random Alias -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-dice text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Random Alias</p>
+              </div>
+      
+              <!-- REST API Generation -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-cloud-code text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Generated via REST API</p>
+              </div>
+      
+              <!-- Link Monitoring -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-chart-line text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Link Monitoring</p>
+              </div>
+      
+              <!-- Click Tracking -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-click text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Click Tracking</p>
+              </div>
+      
+              <!-- UNJANI Private -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-school text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Exclusive for UNJANI</p>
+              </div>
+      
+              <!-- Enjoy -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-mood-happy text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Enjoy Seamless Experience</p>
+              </div>
+      
+              <!-- Fully Responsive -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-devices text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Fully Responsive</p>
+              </div>
+      
+              <!-- Fast & Secure -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-bolt text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Fast & Secure</p>
+              </div>
+      
+              <!-- Link Lock -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-lock-access text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Link Locking</p>
+              </div>
+      
+              <!-- Notifications -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-bell text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Real-time Notifications</p>
+              </div>
+            </div>
+          </div>
+      
+          <!-- Third Row Features -->
+          <div class="w-100 text-nowrap">
+            <div class="slide-animation1 d-flex gap-7 text-nowrap">
+              <!-- Customization -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-sliders text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Easy Customization</p>
+              </div>
+      
+              <!-- Analytics -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-chart-arcs text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Advanced Analytics</p>
+              </div>
+      
+              <!-- Reporting -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-report-analytics text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Detailed Reports</p>
+              </div>
+      
+              <!-- Updates -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-update text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">Regular Updates</p>
+              </div>
+      
+              <!-- Support -->
+              <div class="feature-item bg-white p-4 rounded-3 gap-8 d-flex align-items-center justify-content-center">
+                <i class="ti ti-headset text-primary fs-8"></i>
+                <p class="fs-3 fw-semibold mb-0 gap-3">24/7 Support</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ------------------------------------- -->
+    <!-- Features End -->
+    <!-- ------------------------------------- -->
+
+
+    <!-- ------------------------------------- -->
+    <!-- Leadership Start -->
+    <!-- ------------------------------------- -->
+    <section class="py-5 py-md-14 py-lg-12">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-5">
+            <h2 class="fs-10 fw-bolder">Our Teams</h2>
+            <p class="fs-4 mb-0">
+              Our robust analytics provide valuable insights into how users interact with short links, helping teams understand engagement and optimize their communication strategies.
+            </p>
+          </div>
+        </div>
+        <div class="owl-carousel leadership-carousel owl-theme mt-5">
+          <% if (teamMembers && teamMembers.length > 0) { %>
+            <% teamMembers.forEach(function(member) { %>
+              <div class="item">
+                <div class="">
+                  <img src="<%= member.photoUrl %>" alt="<%= member.name %>" class="rounded-3">
+                  <div
+                    class="position-relative leadership-card z-1 bg-white mt-n10 rounded py-3 px-8 mx-9 text-center shadow-sm">
+                    <h4 class="fs-5 fw-semibold mb-2"><%= member.name %></h4>
+                    <p class="fs-3 mb-0"><%= member.position %></p>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+          <% } else { %>
+            <div class="item">
+              <div class="">
+                <img src="/public/assets/images/frontend-pages/who.jpg" alt="leader" class="rounded-3">
+                <div
+                  class="position-relative leadership-card z-1 bg-white mt-n10 rounded py-3 px-8 mx-9 text-center shadow-sm">
+                  <h4 class="fs-5 fw-semibold mb-2">Data Tim Belum Tersedia</h4>
+                  <p class="fs-3 mb-0">Silakan tambahkan dari panel admin.</p>
+                </div>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </section>
+    <!-- ------------------------------------- -->
+    <!-- Leadership end -->
+    <!-- ------------------------------------- -->
+
+    
+
+    <!-- ------------------------------------- -->
+    <!-- Discover Start -->
+    <!-- ------------------------------------- -->
+    <!-- <section class="py-5 py-md-14 py-lg-12">
+      <div class="custom-container">
+        <div class="rounded-24 bg-primary-subtle py-5 py-md-14 my-md-2">
+          <div class="px-md-12 px-4">
+            <h2 class="fs-10 fw-bolder mb-5 pb-lg-2">Discover Powerful Dozens of
+              <br />
+              Purpose-Fit Templates
+            </h2>
+          </div>
+          <div class="mb-14 pb-lg-3">
+            <div class="owl-carousel template-carousel owl-theme">
+              <div class="item rounded overflow-hidden">
+                <a target="_blank" href="/main/index.html">
+                  <img src="/public/assets/images/demos/demo-main.jpg" alt="template">
+                </a>
+              </div>
+              <div class="item rounded overflow-hidden">
+                <a target="_blank" href="/dark/index.html">
+                  <img src="/public/assets/images/demos/demo-dark.jpg" alt="template">
+                </a>
+              </div>
+              <div class="item rounded overflow-hidden">
+                <a target="_blank" href="/horizontal/index.html">
+                  <img src="/public/assets/images/demos/demo-horizontal.jpg" alt="template">
+                </a>
+              </div>
+              <div class="item rounded overflow-hidden">
+                <a target="_blank" href="/minisidebar/index.html">
+                  <img src="/public/assets/images/demos/demo-minisidebar.jpg" alt="template">
+                </a>
+              </div>
+              <div class="item rounded overflow-hidden">
+                <a target="_blank" href="/rtl/index.html">
+                  <img src="/public/assets/images/demos/demo-rtl.jpg" alt="template">
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-lg-row flex-column gap-xl-13 gap-9 px-sm-12">
+            <div>
+              <h3 class="fs-5 fw-bolder text-center mb-3">High Customizability</h3>
+              <p class="text-center fs-3 mb-0">
+                Tailor the dashboard to your exact needs. Customize layouts,
+                color schemes, and widgets effortlessly for a personalized user experience.
+              </p>
+            </div>
+            <div>
+              <h3 class="fs-5 fw-bolder text-center mb-3"> Powerful Data Analytics</h3>
+              <p class="text-center fs-3 mb-0">
+                Unlock the true potential of your data with our advanced
+                analytics tools. Gain valuable insights and make data-driven decisions with ease.</p>
+            </div>
+            <div>
+              <h3 class="fs-5 fw-bolder text-center mb-3"> Interactive Graphs & Charts</h3>
+              <p class="text-center fs-3 mb-0">
+                Visualize complex data sets beautifully with our interactive
+                graphs and charts. Quickly grasp trends and patterns for smarter analysis.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <!-- ------------------------------------- -->
+    <!-- Discover End -->
+    <!-- ------------------------------------- -->
+
+
+    <!-- ------------------------------------- -->
+    <!-- Faq Start -->
+    <!-- ------------------------------------- -->
+    <section class="py-7">
+      <div class="container-fluid mt-4">
+        <h2 class="display-4 fw-bolder text-center mb-8">Shortlink Essentials</h2>
+        <div class="row justify-content-center">
+          <div class="col-lg-9">
+            <div class="accordion faq-accordion" id="shortlinkFAQ">
+              <!-- Question 1 -->
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button fs-4" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#collapseOne" aria-expanded="true">
+                    <i class="ti ti-currency-free fs-5 me-3"></i>
+                    Is SUNJANI free for UNJANI members?
+                  </button>
+                </h3>
+                <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#shortlinkFAQ">
+                  <div class="accordion-body">
+                    Yes! All UNJANI students and staff get full access to premium features including custom aliases, 
+                    QR code generation, and advanced analytics at no cost as part of campus digital services.
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Question 2 -->
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#collapseTwo">
+                    <i class="ti ti-shield-lock fs-5 me-3"></i>
+                    How secure are my shortened links?
+                  </button>
+                </h3>
+                <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#shortlinkFAQ">
+                  <div class="accordion-body">
+                    We employ military-grade security measures:
+                    <ul>
+                      <li>SSL encryption for all links</li>
+                      <li>Optional password protection</li>
+                      <li>Link expiration controls</li>
+                      <li>24/7 malware scanning</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Question 3 -->
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#collapseThree">
+                    <i class="ti ti-pencil-star fs-5 me-3"></i>
+                    Can I customize my short URLs?
+                  </button>
+                </h3>
+                <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#shortlinkFAQ">
+                  <div class="accordion-body">
+                    Absolutely! Create branded links with:
+                    <ul>
+                      <li>Custom aliases: s.unjani.ac.id/your-alias</li>
+                      <li>UNJANI domain verification</li>
+                      <li>Auto-generated QR codes</li>
+                      <li>Custom splash pages</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Question 4 -->
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#collapseFour">
+                    <i class="ti ti-clock-hour-4 fs-5 me-3"></i>
+                    Can I set expiration dates for links?
+                  </button>
+                </h3>
+                <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#shortlinkFAQ">
+                  <div class="accordion-body">
+                    Yes! Manage link lifespan with:
+                    <ul>
+                      <li>Date-specific expiration</li>
+                      <li>Click-count limits</li>
+                      <li>Auto-disable for inactive links</li>
+                      <li>Instant manual disable</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Question 5 -->
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#collapseFive">
+                    <i class="ti ti-infinity fs-5 me-3"></i>
+                    Is there a creation limit?
+                  </button>
+                </h3>
+                <div id="collapseFive" class="accordion-collapse collapse" data-bs-parent="#shortlinkFAQ">
+                  <div class="accordion-body">
+                    UNJANI members enjoy:
+                    <ul>
+                      <li>Unlimited link creations</li>
+                      <li>Unlimited click tracking</li>
+                      <li>Unlimited QR code generations</li>
+                      <li>Priority API access</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+    
+              <!-- Question 6 -->
+              <div class="accordion-item">
+                <h3 class="accordion-header">
+                  <button class="accordion-button collapsed fs-4" type="button" data-bs-toggle="collapse" 
+                    data-bs-target="#collapseSix">
+                    <i class="ti ti-headset fs-5 me-3"></i>
+                    How to get support?
+                  </button>
+                </h3>
+                <div id="collapseSix" class="accordion-collapse collapse" data-bs-parent="#shortlinkFAQ">
+                  <div class="accordion-body">
+                    Our team is available (serves only unjani employees):
+                    <ul>
+                      <li>📞 WhatsApp: <a href="https://wa.me/6281295574385">+62 812-9557-4385</a></li>
+                      <li>📧 Email: <a href="mailto:wildan.pratama@unjani.ac.id">wildan.pratama@unjani.ac.id</a></li>
+                      <li>🕒 Campus helpdesk: Gedung Rektorat Lt.1</li>
+                      <li>⏰ Mon-Fri 08:00-16:00 WIB</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="text-center mt-8">
+              <div class="d-inline-block border-top border-bottom py-3 px-5">
+                <p class="fs-4 mb-0">
+                  More questions? Reach out via 
+                  <a href="https://wa.me/6281295574385" class="text-decoration-underline fw-bold">WhatsApp</a> 
+                  or
+                  <a href="mailto:wildan.pratama@unjani.ac.id" class="text-decoration-underline fw-bold">Email</a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- ------------------------------------- -->
+    <!-- Faq End -->
+    <!-- ------------------------------------- -->
+
+    <!-- ------------------------------------- -->
+    <!-- Develop Start -->
+    <!-- ------------------------------------- -->
+    <section class="my-md-12 my-14">
+      <div class="custom-container">
+        <div class="bg-primary-subtle rounded-3 position-relative overflow-hidden">
+          <div class="row align-items-center">
+            <div class="col-lg-6">
+              <div class="py-lg-12 ps-lg-12 py-5 px-lg-0 px-9">
+                <h2 class="display-4 fw-bolder text-lg-start text-center">
+                  Transform Your Links with <span class="text-primary">SUNJANI</span> Power
+                </h2>
+                <div class="d-flex justify-content-lg-start justify-content-center gap-3 my-4 flex-sm-nowrap flex-wrap">
+                  <a href="/login" class="btn btn-primary btn-lg px-6 py-3">
+                    <i class="ti ti-link me-2"></i>Start Shortening Now
+                  </a>
+                  <a href="#features" class="btn btn-outline-primary btn-lg px-6 py-3">
+                    <i class="ti ti-star me-2"></i>Explore Features
+                  </a>
+                </div>
+                <div class="mt-4 text-lg-start text-center">
+                  <p class="lead mb-0">
+                    <span class="fw-bold">Free for UNJANI Members</span> - Premium URL management tools included in campus package
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 d-lg-block d-none">
+              <div class="position-relative develop-feature-rich p-5">
+                <div class="position-absolute start-0 top-0 w-100 h-100 bg-url-pattern opacity-10"></div>
+                <img src="/public/assets/images/logos/S UNJANI.png" 
+                     alt="Shortlink Analytics Dashboard" 
+                     class="img-fluid rounded-3 shadow-lg"
+                     loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal -->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateModalLabel">📢 Pemberitahuan Update dan Bug Fixing</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Hai! Terdapat pembaruan dan perbaikan bug pada sistem <code>s.unjani</code>. Berikut perubahannya:</p>
+        <ul>
+          <li>✅  Penamabahan Fitur Linktree Bio</>
+          <li>🚀 Optimasi kinerja API</li>
+          <li>🎨 Update tampilan antarmuka pengguna</li>
+        </ul>
+        <p>Silakan klik tombol di bawah untuk melanjutkan ke aplikasi.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" onclick="window.location.href='/apps'">
+          View
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.onload = function() {
+    var myModal = new bootstrap.Modal(document.getElementById('updateModal'));
+    myModal.show();
+  };
+</script>
+    
+    <style>
+    .bg-url-pattern {
+      background-image: url('data:image/svg+xml,<svg viewBox="0 0 24 24" fill="%230d6efd" xmlns="http://www.w3.org/2000/svg"><path d="M8.465 11.293c1.133-1.133 3.109-1.133 4.242 0l.707.707 1.414-1.414-.707-.707c-.943-.944-2.199-1.465-3.535-1.465s-2.592.521-3.535 1.465L4.929 12a5.008 5.008 0 0 0 0 7.071 5.006 5.006 0 0 0 7.071 0l.707-.707-1.414-1.414-.707.707a3.007 3.007 0 0 1-4.242 0 3.005 3.005 0 0 1 0-4.243l2.122-2.121z"></path><path d="m12 4.929-.707.707 1.414 1.414.707-.707a3.007 3.007 0 0 1 4.242 0 3.005 3.005 0 0 1 0 4.243l-2.122 2.121c-1.133 1.133-3.109 1.133-4.242 0L10.586 12l-1.414 1.414.707.707c.943.944 2.199 1.465 3.535 1.465s2.592-.521 3.535-1.465L19.071 12a5.008 5.008 0 0 0 0-7.071 5.006 5.006 0 0 0-7.071 0z"></path></svg>');
+      opacity: 0.1;
+      background-size: 50px;
+    }
+    </style>
+    <!-- ------------------------------------- -->
+    <!-- Develop End -->
+    <!-- ------------------------------------- -->
+  </div>
+
+  <!-- ------------------------------------- -->
+  <!-- Footer Start -->
+  <!-- ------------------------------------- -->
+    <%- include('../partials/footer-landing') %>
+  <!-- ------------------------------------- -->
+  <!-- Footer End -->
+  <!-- ------------------------------------- -->
+
+  <!-- Scroll Top -->
+  <a href="javascript:void(0)"
+    class="top-btn btn btn-primary d-flex align-items-center justify-content-center round-54 p-0 rounded-circle">
+    <i class="ti ti-arrow-up fs-7"></i>
+  </a>
+
+  <script src="/public/assets/js/vendor.min.js"></script>
+  <!-- Import Js Files -->
+  <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+  <script src="/public/assets/js/theme/app.init.js"></script>
+  <script src="/public/assets/js/theme/theme.js"></script>
+  <script src="/public/assets/js/theme/app.min.js"></script>
+
+  <!-- solar icons -->
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script src="/public/assets/libs/owl.carousel/dist/owl.carousel.min.js"></script>
+  <script src="/public/assets/js/frontend-landingpage/homepage.js"></script>
+</body>
+
+</html>

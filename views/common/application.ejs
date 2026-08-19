@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal UNJANI</title>
+    <link href="/public/assets/css/styles.css" rel="stylesheet">
+    <link rel="icon" href="/public/assets/images/logos/logo qr.png" type="image/png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --primary-dark: #0b5ed7;
+            --primary-light: #cfe2ff;
+            --primary-lighter: #d0e7ff;
+        }
+        
+        body {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            border: none;
+            border-radius: 50px;
+            padding: 10px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+        }
+        .btn-outline-primary {
+            border-radius: 50px;
+            border-width: 2px;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-primary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        .app-card {
+            border-radius: 12px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .app-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(13, 110, 253, 0.15);
+        }
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 15px;
+        }
+        .category-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+        }
+        .user-type {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .user-type-dosen {
+            background-color: var(--primary-light);
+            color: #084298;
+        }
+        .user-type-mahasiswa {
+            background-color: var(--primary-lighter);
+            color: #0c5460;
+        }
+        .user-type-tendik {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+        .welcome-header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .input-group-text {
+            background-color: #f8f9fa;
+            border-right: none;
+        }
+        .form-control {
+            border-left: none;
+            border-color: #dee2e6;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo-with-text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Logo Section -->
+                <div class="text-center mb-5">
+                    <div class="welcome-header">
+                        <h1 class="text-white mb-3">
+                            <div class="logo-with-text">
+                                <img src="/public/assets/images/logos/logo qr.png" width="75" alt="Logo UNJANI">
+                                <span>UNJANI</span>
+                            </div>
+                        </h1>
+                        <p class="text-white-50 mb-0">Akses semua aplikasi universitas dengan satu identitas</p>
+                    </div>
+                </div>
+                <!-- Input Section -->
+                <div class="card mb-4" id="inputSection">
+                    <div class="card-body p-5">
+                        <h3 class="text-center mb-4">Masukkan NIM / NIP / NID</h3>
+                        <p class="text-center text-muted mb-4">Silakan masukkan identitas Anda untuk mengakses aplikasi yang tersedia</p>
+                        <div class="input-group mb-4">
+                            <span class="input-group-text">
+                                <i class="fas fa-id-card"></i>
+                            </span>
+                            <input type="text" class="form-control form-control-lg" id="identityInput" placeholder="Masukkan NIM, NIP, atau NID Anda" maxlength="10">
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-lg" id="openBtn">
+                                <i class="fas fa-door-open me-2"></i>Buka
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Result Section -->
+                <div class="card d-none" id="resultSection">
+                    <div class="card-body p-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="mb-0">Aplikasi Tersedia</h3>
+                            <button class="btn btn-outline-primary btn-sm" id="backBtn">
+                                <i class="fas fa-arrow-left me-1"></i>Kembali
+                            </button>
+                        </div>
+                        <div id="userTypeBadge" class="user-type d-none"></div>
+                        <div class="row g-3" id="appList">
+                            <!-- Apps will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputSection = document.getElementById('inputSection');
+            const resultSection = document.getElementById('resultSection');
+            const identityInput = document.getElementById('identityInput');
+            const openBtn = document.getElementById('openBtn');
+            const backBtn = document.getElementById('backBtn');
+            const userTypeBadge = document.getElementById('userTypeBadge');
+            const appList = document.getElementById('appList');
+            // Application data
+            const apps = {
+                dosen: [
+                    {no: "1", nama: "Aplikasi New Siterpadu (Akademik)", url: "https://stpd.unjani.ac.id/", kategori: "Akademik", icon: "fas fa-graduation-cap", color: "var(--primary-color)"},
+                    {no: "1", nama: "Aplikasi Sinau Unjani", url: "https://sinau.unjani.ac.id/", kategori: "Akademik", icon: "fas fa-book", color: "var(--primary-dark)"},
+                    {no: "1", nama: "Aplikasi LPPM Unjani", url: "https://lp2m.unjani.ac.id/", kategori: "Akademik", icon: "fas fa-flask", color: "#0a58ca"},
+                    {no: "2", nama: "Aplikasi Portal Dosen", url: "https://lecturer.unjani.ac.id/", kategori: "Akademik", icon: "fas fa-chalkboard-teacher", color: "#084298"}
+                ],
+                tendik: [
+                    {no: "1", nama: "Aplikasi New Siterpadu (Akademik)", url: "https://stpd.unjani.ac.id/", kategori: "Akademik", icon: "fas fa-graduation-cap", color: "var(--primary-color)"},
+                    {no: "1", nama: "Aplikasi Sinau Unjani", url: "https://sinau.unjani.ac.id/", kategori: "Akademik", icon: "fas fa-book", color: "var(--primary-dark)"},
+                    {no: "1", nama: "Aplikasi SDM Unjani", url: "https://sdm.unjani.id/", kategori: "SDM", icon: "fas fa-users", color: "#0a58ca"}
+                ],
+                mahasiswa: [
+                    {no: "22", nama: "Aplikasi Mobile Akademik", url: "https://play.google.com/store/apps/details?id=com.edu.myunjani", kategori: "Android Apps", icon: "fab fa-google-play", color: "var(--primary-color)"},
+                    {no: "22", nama: "Aplikasi Mobile Akademik", url: "https://apps.apple.com/us/app/myunjani/id6495971704?l=ru", kategori: "Ios Apps", icon: "fab fa-apple", color: "var(--primary-dark)"},
+                    {no: "1", nama: "Aplikasi Sinau Unjani", url: "https://sinau.unjani.ac.id/", kategori: "Akademik", icon: "fas fa-book", color: "#0a58ca"},
+                    {no: "1", nama: "Aplikasi Portal Mahasiswa Unjani", url: "https://student.unjani.ac.id/", kategori: "Akademik", icon: "fas fa-user-graduate", color: "#084298"}
+                ]
+            };
+            // Open button click handler
+            openBtn.addEventListener('click', function() {
+                const identity = identityInput.value.trim();
+                if (!identity) {
+                    alert('Silakan masukkan NIM, NIP, atau NID Anda');
+                    return;
+                }
+                let userType = '';
+                let userApps = [];
+                // Determine user type based on input
+                if (identity.length === 9) {
+                    if (identity.startsWith('2')) {
+                        userType = 'tendik';
+                        userApps = apps.tendik;
+                    } else if (identity.startsWith('4')) {
+                        userType = 'dosen';
+                        userApps = apps.dosen;
+                    } else {
+                        alert('NIP/NID tidak valid. Untuk tendik harus diawali angka 2, untuk dosen harus diawali angka 4');
+                        return;
+                    }
+                } else if (identity.length === 10) {
+                    userType = 'mahasiswa';
+                    userApps = apps.mahasiswa;
+                } else {
+                    alert('Panjang identitas tidak valid. NIM harus 10 karakter, NIP/NID harus 9 karakter');
+                    return;
+                }
+                // Show result section
+                inputSection.classList.add('d-none');
+                resultSection.classList.remove('d-none');
+                // Set user type badge
+                userTypeBadge.textContent = userType === 'dosen' ? 'Dosen' : 
+                                          userType === 'tendik' ? 'Tendik' : 'Mahasiswa';
+                userTypeBadge.className = `user-type user-type-${userType}`;
+                userTypeBadge.classList.remove('d-none');
+                // Clear previous apps
+                appList.innerHTML = '';
+                // Add apps to the list
+                userApps.forEach(app => {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-6 col-lg-4';
+                    const appCard = document.createElement('div');
+                    appCard.className = 'app-card p-4 h-100';
+                    const appContent = `
+                        <div class="text-center">
+                            <div class="app-icon" style="background-color: ${app.color}">
+                                <i class="${app.icon}"></i>
+                            </div>
+                            <h5 class="mb-2">${app.nama}</h5>
+                            <span class="badge category-badge" style="background-color: ${app.color}20; color: ${app.color}">
+                                ${app.kategori}
+                            </span>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <a href="${app.url}" target="_blank" class="btn btn-sm" style="background-color: ${app.color}20; color: ${app.color}; border: 1px solid ${app.color}40">
+                                <i class="fas fa-external-link-alt me-1"></i>Buka
+                            </a>
+                        </div>
+                    `;
+                    appCard.innerHTML = appContent;
+                    col.appendChild(appCard);
+                    appList.appendChild(col);
+                });
+            });
+            // Back button click handler
+            backBtn.addEventListener('click', function() {
+                resultSection.classList.add('d-none');
+                inputSection.classList.remove('d-none');
+                identityInput.value = '';
+            });
+            // Allow Enter key to trigger the open button
+            identityInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    openBtn.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
