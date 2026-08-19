@@ -1,0 +1,318 @@
+﻿<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= pageTitle %></title>
+  <meta name="description" content="<%= metaDescription %>" />
+  <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Sora:wght@500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-solid: <%= bioTheme.backgroundSolid %>;
+      --bg-from: <%= bioTheme.gradientFrom %>;
+      --bg-to: <%= bioTheme.gradientTo %>;
+      --button-bg: <%= bioTheme.buttonColor %>;
+      --button-text: <%= bioTheme.buttonTextColor %>;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-border: rgba(14, 30, 48, 0.2);
+      --text-main: #0f1f2d;
+      --text-subtle: #344d61;
+      --shadow-xl: 0 20px 48px rgba(2, 14, 27, 0.36);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, Helvetica, sans-serif;
+      color: var(--text-main);
+      background: var(--bg-solid);
+    }
+
+    body.is-gradient {
+      background:
+        radial-gradient(920px 560px at 12% -8%, rgba(255, 255, 255, 0.22), transparent 66%),
+        radial-gradient(820px 500px at 92% 8%, rgba(255, 255, 255, 0.16), transparent 65%),
+        linear-gradient(148deg, var(--bg-from) 0%, var(--bg-to) 100%);
+    }
+
+    .shell {
+      width: min(620px, 94vw);
+      margin: 0 auto;
+      padding: 28px 0 44px;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+
+    .profile-card {
+      width: 100%;
+      position: relative;
+      border-radius: 28px;
+      border: 1px solid var(--card-border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.93), rgba(255, 255, 255, 0.88));
+      box-shadow: var(--shadow-xl);
+      padding: 30px 22px 20px;
+      overflow: hidden;
+      backdrop-filter: saturate(150%) blur(6px);
+    }
+
+    .profile-card::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      pointer-events: none;
+      border-radius: 28px;
+      background: linear-gradient(130deg, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0));
+      opacity: 0.8;
+      mix-blend-mode: screen;
+    }
+
+    .hero {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo {
+      width: 98px;
+      height: 98px;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.75);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.24);
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .title {
+      margin: 0;
+      font-family: "Sora", "Manrope", sans-serif;
+      font-size: clamp(1.2rem, 3.6vw, 1.55rem);
+      line-height: 1.25;
+      letter-spacing: -0.015em;
+    }
+
+    .alias-chip {
+      margin: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(44, 76, 98, 0.1);
+      border: 1px solid rgba(44, 76, 98, 0.18);
+      color: var(--text-subtle);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .alias-chip .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(40, 88, 115, 0.78);
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .link-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      width: 100%;
+      text-decoration: none;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid rgba(26, 53, 72, 0.13);
+      padding: 13px 14px;
+      box-shadow: 0 10px 20px rgba(15, 35, 49, 0.09);
+      transition: transform 0.14s ease, box-shadow 0.14s ease, border-color 0.14s ease;
+      color: inherit;
+    }
+
+    .link-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 13px 24px rgba(15, 35, 49, 0.14);
+      border-color: rgba(26, 53, 72, 0.24);
+    }
+
+    .link-btn:focus-visible {
+      outline: 3px solid rgba(16, 61, 90, 0.24);
+      outline-offset: 2px;
+    }
+
+    .btn-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .icon {
+      flex: 0 0 auto;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      background: rgba(18, 52, 71, 0.1);
+      border: 1px solid rgba(18, 52, 71, 0.16);
+      color: #1c465f;
+      font-size: 0.92rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .label {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #102a3b;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      font-size: 0.95rem;
+    }
+
+    .visit {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: var(--button-bg);
+      color: var(--button-text);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.14);
+    }
+
+    .empty {
+      margin: 10px 0 0;
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.76);
+      border: 1px dashed rgba(25, 54, 75, 0.26);
+      text-align: center;
+      color: #1f3f55;
+      font-size: 0.9rem;
+      padding: 16px;
+    }
+
+    .foot {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: rgba(255, 255, 255, 0.88);
+      text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .foot a {
+      color: #fff;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .foot a:hover { text-decoration: underline; }
+
+    @media (max-width: 540px) {
+      .shell { width: min(94vw, 540px); }
+      .profile-card { padding: 24px 16px 16px; border-radius: 22px; }
+      .logo { width: 88px; height: 88px; border-radius: 20px; }
+      .alias-chip { font-size: 0.78rem; }
+      .link-btn { padding: 12px; }
+      .visit { padding: 7px 10px; font-size: 0.72rem; }
+    }
+  </style>
+</head>
+<%
+  const isGradientTheme = bioTheme && bioTheme.backgroundMode === 'gradient';
+%>
+<body class="<%= isGradientTheme ? 'is-gradient' : '' %>">
+  <div class="shell">
+    <main class="profile-card" role="main">
+      <header class="hero">
+        <div class="logo" aria-label="Logo <%= bio.title %>">
+          <img src="<%= logoUrl %>" alt="Logo <%= bio.title %>" />
+        </div>
+        <h1 class="title"><%= bio.title %></h1>
+        <p class="alias-chip"><span class="dot" aria-hidden="true"></span>/bio/<%= bio.alias %></p>
+      </header>
+
+      <section aria-label="Daftar tautan">
+        <% if (bio.links && bio.links.length) { %>
+          <ul class="links">
+            <% bio.links.forEach(function(link) {
+                 const rawLabel = (link.label || '').trim();
+                 const label = rawLabel || 'Tautan';
+                 const displayLabel = label.length > 46 ? label.slice(0, 43) + '...' : label;
+                 const iconText = label ? label.charAt(0).toUpperCase() : '?';
+                 const rawUrl = (link.url || '').trim();
+                 const href = rawUrl || '#';
+            %>
+              <li>
+                <a class="link-btn" href="<%= href %>" target="_blank" rel="noopener noreferrer">
+                  <span class="btn-main">
+                    <span class="icon" aria-hidden="true"><%= iconText %></span>
+                    <span class="label"><%= displayLabel %></span>
+                  </span>
+                  <span class="visit">Kunjungi</span>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+        <% } else { %>
+          <p class="empty">Belum ada tautan tersedia.</p>
+        <% } %>
+      </section>
+    </main>
+
+    <p class="foot">
+      Dibuat melalui <a href="https://s.unjani.ac.id" target="_blank" rel="noopener noreferrer">S UNJANI</a>
+    </p>
+  </div>
+
+  <script>
+    (function () {
+      document.querySelectorAll('.link-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
+          button.style.transform = 'translateY(0) scale(0.99)';
+          setTimeout(function () {
+            button.style.transform = '';
+          }, 120);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
