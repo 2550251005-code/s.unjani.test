@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+
+    <!-- Core Css -->
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+    <style>
+        #qrcode {
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            /* Optional: efek halus saat hover */
+        }
+
+        #qrcode:hover {
+            transform: scale(1.05);
+            /* Optional: efek zoom saat hover */
+        }
+    </style>
+
+    <title>Link Detail - S UNJANI</title>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        <%- include('../partials/aside') %>
+
+        <!--  Sidebar End -->
+        <div class="page-wrapper">
+            <!--  Header Start -->
+            <%- include('../partials/header') %>
+
+             <!--  Header End -->
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <div class="row card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8">Link <i
+                                            class="fa-duotone fa-solid fa-link text-primary ms-2"></i></h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Menu</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">
+                                                <a class="text-muted text-decoration-none" href="/users/links">Links</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">Link</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center mb-n5">
+                                        <img src="/public/assets/images/breadcrumb/ChatBc.png" alt="modernize-img"
+                                            class="img-fluid mb-n4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <img src="/public/assets/qr/<%- link.qrCode %>" alt="QR Code" id="qrcode" class="img-fluid"
+                                        data-bs-toggle="tooltip" data-bs-placement="top"
+                                        data-bs-custom-class="custom-tooltip text-primary"
+                                        data-bs-title="Dowload QRCode <%- shortPath %>">
+                                    <button class="btn btn-primary ms-2 mt-2" onclick="generateqr('<%- link.alias %>')"><i class="fa-regular fa-qrcode me-2"></i>Regenerate QR </button>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="d-flex justify-content-end mb-3">
+                                        <button class="btn btn-primary me-2" id="copyButton"
+                                            data-copy-text="<%- shortUrl %>">
+                                            <i class="far fa-copy"></i> Copy
+                                        </button>
+                                        <!-- Tombol Pemicu Modal -->
+                                        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal"
+                                            data-bs-target="#shareModal">
+                                            <i class="fas fa-share-alt"></i> Share
+                                        </button>
+
+                                        <!-- Script untuk Fungsi Copy -->
+
+                                        <a class="btn btn-primary" href="/users/link/<%- link.alias %>"
+                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip text-primary"
+                                            data-bs-title="Edit Short Link <%- shortPath %> ."><i
+                                                class="fas fa-edit"></i> Edit</a>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-1 text-primary"><i
+                                                class="fa-solid fa-link-simple me-2"></i><%- shortPath %>
+                                        </h5>
+                                        <a href="<%- shortUrl %>" target="_blank"
+                                            class="text-decoration-none"><i class="fa-solid fa-globe me-2"></i>
+                                            <%- link.link %></a>
+                                        <% if (segmenLabel) { %>
+                                        <div class="text-muted mt-1">
+                                            <i class="fa-solid fa-layer-group me-2"></i>Segmen: <%- segmenLabel %>
+                                        </div>
+                                        <% } %>
+                                        <h6 class="my-1 text-primary">
+                                            <i class="fa-solid fa-user me-2"></i><%- link.user_id %>
+                                            </h5>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3">
+                                        <div><i class="far fa-calendar-alt me-2"></i> <%- link.timeStamp %></div>
+                                        <div>
+                                            <button class="btn btn-primary-subtle me-2"><i class="far fa-clock"></i> Set
+                                                Time</button>
+                                            <button class="btn btn-primary-subtle me-2"><i class="fas fa-lock"></i> Set
+                                                Password</button>
+                                            <a href="/users/analytic/<%- link.alias %>"
+                                                class="btn btn-primary-subtle"><i class="fas fa-chart-bar"></i>
+                                                Statistics</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card border border-primary-subtle">
+                                <div class="card-header bg-primary text-white">
+                                    <i class="fas fa-lock me-2"></i> Pengaturan Keamanan
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>Password</span>
+                                            <% if(link.password !== ''){ %> <span
+                                                class="badge bg-success rounded-pill">Aktif</span> <% } else { %> <span
+                                                class="badge bg-danger rounded-pill">Tidak aktif</span><% } %>
+                                        </li>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>Masa Berlaku</span>
+                                            <span class="badge bg-success rounded-pill">Aktif</span>
+                                        </li>
+                                        <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>IP Filter</span>
+            <span class="badge bg-secondary rounded-pill">Nonaktif</span>
+          </li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border border-primary-subtle">
+                                <div class="card-header bg-primary text-white">
+                                    <i class="fas fa-exclamation-circle me-2"></i> Tips Keamanan
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-check-circle text-success me-2"></i> Gunakan password untuk
+                                            melindungi link sensitif</li>
+                                        <li><i class="fas fa-check-circle text-success me-2"></i> Batasi masa berlaku
+                                            untuk kampanye sementara</li>
+                                        <!-- <li><i class="fas fa-check-circle text-success me-2"></i> Aktifkan filter IP untuk pengguna terbatas</li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="card border border-primary-subtle">
+                                <div class="card-header bg-primary text-white">
+                                    <i class="fas fa-desktop me-2"></i> Preview Link
+                                </div>
+                                <div class="card-body">
+                                    <div class="ratio ratio-16x9">
+                                        <iframe src="<%- shortUrl %>" title="Preview Link"
+                                            allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <a class="btn btn-outline-primary" href="/admin/links"><i class="fas fa-arrow-left me-2"></i>
+                            Back</a>
+                        <!-- <button class="btn btn-outline-danger"><i class="fas fa-trash me-2"></i> Hapus Link</button> -->
+                    </div>
+                    <!-- Footer -->
+                    <%- include('../partials/footer') %>
+                    <!-- End Footer -->
+                    <script>
+                        function handleColorTheme(e) {
+                            document.documentElement.setAttribute("data-color-theme", e);
+                        }
+                    </script>
+
+                </div>
+
+
+
+            </div>
+
+
+            <!-- Modal -->
+            <!-- Modal Share -->
+            <div class="modal fade" id="shareModal" tabindex="-1" aria-labelledby="shareModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header bg-primary">
+                            <h5 class="modal-title text-white" id="shareModalLabel">Share
+                                your S.UNJANI Link</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <!-- Social Media Icons -->
+                            <div class="row g-3 mb-4 justify-content-center">
+                                <div class="col-3">
+                                    <a href="https://api.whatsapp.com/send/?text=Bagikan%20shortlink%20s.unjani%3A%20<%- shortUrlEncoded %>"
+                                        target="_blank" class="text-reset text-decoration-none">
+                                        <div class="card border rounded-3 text-center p-2">
+                                            <i class="fab fa-whatsapp fa-2x mt-2"></i>
+                                            <p class="small mt-2">WhatsApp</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-3">
+                                    <a href="https://www.facebook.com/sharer.php?u=<%- shortUrlEncoded %>"
+                                        target="_blank" class="text-reset text-decoration-none">
+                                        <div class="card border rounded-3 text-center p-2">
+                                            <i class="fab fa-facebook fa-2x mt-2"></i>
+                                            <p class="small mt-2">Facebook</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!-- <div class="col-3">
+                                    <a href="#" target="_blank" class="text-reset text-decoration-none">
+                                        <div class="card border rounded-3 text-center p-2">
+                                            <i class="fab fa-instagram fa-2x mt-2"></i>
+                                            <p class="small mt-2">Instagram</p>
+                                        </div>
+                                    </a> 
+                                </div> -->
+                                <div class="col-3">
+                                    <a href="https://twitter.com/share?url=<%- shortUrlEncoded %>"
+                                        target="_blank" class="text-reset text-decoration-none">
+                                        <div class="card border rounded-3 text-center p-2">
+                                            <i class="fab fa-x-twitter fa-2x mt-2"></i>
+                                            <p class="small mt-2">X</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-3">
+                                    <a href="mailto:?subject=Check%20this%20out&body=<%- shortUrlEncoded %>"
+                                        class="text-reset text-decoration-none">
+                                        <div class="card border rounded-3 text-center p-2">
+                                            <i class="fas fa-envelope fa-2x  mt-2"></i>
+                                            <p class="small mt-2">Email</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Input Link dan Tombol Copy -->
+                            <div class="input-group justify-content-center mb-4">
+                                <input type="text" class="form-control" id="copyInput"
+                                    value="<%- shortUrl %>" readonly>
+                                <button class="btn btn-outline-primary" id="copyBtn">Copy</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.modal -->
+
+            <div class="dark-transparent sidebartoggler"></div>
+            <script src="/public/assets/js/vendor.min.js"></script>
+            <!-- Import Js Files -->
+            <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+            <script src="/public/assets/js/theme/app.init.js"></script>
+            <script src="/public/assets/js/theme/theme.js"></script>
+            <script src="/public/assets/js/theme/app.min.js"></script>
+            <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+
+            <!-- solar icons -->
+            <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+            <script src="/public/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+            <script src="/public/assets/js/dashboards/dashboard2.js"></script>
+
+            <!-- font-awesome -->
+            <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+
+            <!-- Sweat Alert -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <!-- Data Tables -->
+            <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+            <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
+            <script src="/public/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+            <script src="/public/assets/js/forms/datepicker-init.js"></script>
+
+
+            <script>
+                $(document).ready(function () {
+                    $('#qrcode').on('click', function () {
+                        const img = $(this)[
+                            0]; // Dapatkan elemen DOM asli dari jQuery object
+
+                        if (!img.complete) {
+                            $(img).on('load', function () {
+                                downloadImage(img);
+                            });
+                            return;
+                        }
+
+                        downloadImage(img);
+                    });
+
+                    function downloadImage(img) {
+                        const canvas = $('<canvas>')[0]; // Buat elemen canvas dengan jQuery
+                        const ctx = canvas.getContext('2d');
+
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+
+                        ctx.drawImage(img, 0, 0);
+
+                        canvas.toBlob(function (blob) {
+                            if (blob) {
+                                const link = $('<a>', {
+                                    href: URL.createObjectURL(blob),
+                                    download: 'qrcode - s.unjani.ac.id/<%- link.alias %>.png'
+                                }).appendTo('body');
+
+                                link[0].click(); // Trigger download
+                                link.remove(); // Hapus elemen setelah selesai
+                            }
+                        }, 'image/png');
+                    }
+
+                    //--------------------
+                    const $copyBtn = $('#copyBtn');
+                    const originalText = $copyBtn.html(); // Simpan teks asli
+
+                    $copyBtn.on('click', async function () {
+                        const textToCopy = $('#copyInput').val(); // Ambil teks dari input
+
+                        try {
+                            // Salin ke clipboard
+                            await navigator.clipboard.writeText(textToCopy);
+
+                            // Ubah teks tombol menjadi "Copied"
+                            $copyBtn.html('<i class="fas fa-check"></i> Copied')
+                                .prop('disabled', true); // Nonaktifkan tombol
+
+                            // Kembalikan teks setelah 3 detik
+                            setTimeout(() => {
+                                $copyBtn.html(originalText)
+                                    .prop('disabled', false); // Aktifkan kembali
+                            }, 3000);
+                        } catch (err) {
+                            console.error('Gagal menyalin:', err);
+                        }
+                    });
+                    const originalHTML = $('#copyButton').html(); // Simpan teks asli tombol
+
+                    $('#copyButton').on('click', async function () {
+                        const $btn = $(this);
+                        const textToCopy = $btn.data('copy-text'); // Ambil teks dari data-copy-text
+
+                        try {
+                            // Salin teks ke clipboard
+                            await navigator.clipboard.writeText(textToCopy);
+
+                            // Ubah teks tombol menjadi "Copied"
+                            $btn.html('<i class="fas fa-check"></i> Copied').prop('disabled', true);
+
+                            // Kembalikan ke "Copy" setelah 3 detik
+                            setTimeout(() => {
+                                $btn.html(originalHTML).prop('disabled', false);
+                            }, 3000);
+                        } catch (err) {
+                            console.error('Gagal menyalin teks:', err);
+                        }
+                    });
+
+
+                });
+
+                async function generateqr(alias) {
+                    const url = `/users/link/gen-qr/${encodeURIComponent(alias)}`;
+
+                    try {
+                        Swal.fire({
+                            title: 'Memproses...',
+                            text: 'Regenerating QR Code',
+                            allowOutsideClick: false,
+                            showConfirmButton: false,
+                            didOpen: () => Swal.showLoading(),
+                        });
+
+                        const response = await fetch(url, {
+                            method: 'GET',
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status}`);
+                        }
+
+                        const data = await response.json();
+
+                        const img = document.getElementById('qrcode');
+                        if (img && data.qrCodeUrl) {
+                            img.src = `${data.qrCodeUrl}?t=${Date.now()}`;
+                        }
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: 'QR Code berhasil diregenerate.',
+                            timer: 2000,
+                            showConfirmButton: false,
+                        });
+                    } catch (error) {
+                        console.error('Gagal meregenerate QR Code:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Gagal meregenerate QR Code. Silakan coba lagi.',
+                            footer: `<small>${error.message}</small>`,
+                        });
+                    }
+                }
+
+                let messagesSuccess = '<%- success_msg %>';
+                if (messagesSuccess != '') {
+                    Swal.fire({
+                        title: "Berhasil",
+                        icon: "success",
+                        text: messagesSuccess,
+                        confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false
+                    });
+                }
+                let messagesError = '<%- error_msg %>' + '<%- error %>';
+                if (messagesError != '') {
+                    Swal.fire({
+                        title: "Gagal",
+                        icon: "error",
+                        text: messagesError,
+                        confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false
+                    });
+                }
+            </script>
+</body>
+
+</html>

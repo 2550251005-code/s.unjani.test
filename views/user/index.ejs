@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+
+    <!-- Core Css -->
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+    <link rel="stylesheet" href="/public/assets/libs/select2/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <style>
+        /* =========================
+       UI/UX improvements (tanpa ubah asset/include)
+       Fokus: Add Link lebih clean + cepat
+       ========================= */
+
+        /* Focus states */
+        .form-control:focus {
+            border-color: #43ee5a;
+            box-shadow: 0 0 0 0.2rem rgba(67, 238, 124, 0.2);
+        }
+
+        /* Select2 sizing & focus */
+        .select2-container--default .select2-selection--single {
+            height: calc(2.25rem + 2px);
+            border: 1px solid #ced4da;
+            border-radius: .375rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 1.5;
+            padding-left: .75rem;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 100%;
+            right: .5rem;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--single {
+            border-color: #007446;
+            box-shadow: 0 0 0 0.2rem rgba(67, 238, 124, 0.2);
+        }
+
+        /* Helpers */
+        .input-group-text {
+            background-color: #f8f9fa;
+            color: #6c757d;
+        }
+
+        #shortlinkPreview {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            color: #24c256;
+            word-break: break-all;
+        }
+
+        .character-count {
+            font-size: 0.875em;
+            color: #6c757d;
+            text-align: right;
+            min-width: 72px;
+        }
+
+        .character-count.warning {
+            color: #ffc107;
+        }
+
+        .character-count.danger {
+            color: #dc3545;
+        }
+
+        .validation-feedback {
+            font-size: 0.875em;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .validation-feedback.valid {
+            color: #198754;
+            display: block;
+        }
+
+        .validation-feedback.invalid {
+            color: #dc3545;
+            display: block;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #34db69;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: .35rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .preview-box {
+            background-color: #f8f9fa;
+            border: 1px dashed #cfd4da;
+            border-radius: .75rem;
+            padding: 1rem;
+        }
+
+        .copy-btn {
+            font-size: 0.875rem;
+            white-space: nowrap;
+        }
+
+        .req-star {
+            color: #dc3545;
+            font-weight: 700;
+        }
+
+        /* Add Link polish */
+        .link-add .input-group-lg>.form-control,
+        .link-add .input-group-lg>.input-group-text,
+        .link-add .input-group-lg>.btn {
+            height: 52px;
+        }
+
+        .link-add .btn-outline-primary {
+            border-color: #cfe0ff;
+        }
+
+        .link-add .btn-outline-primary:hover {
+            border-color: #43ee6e;
+        }
+
+        .link-add .card {
+            border-radius: .9rem;
+        }
+
+        .link-add hr {
+            opacity: .08;
+        }
+
+        #toggle-password {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        #toggle-password:hover {
+            background-color: #43ee85;
+            color: #fff;
+            border-color: #43ee76;
+        }
+
+        .form-label {
+            margin-bottom: .35rem;
+        }
+
+        .form-text {
+            margin-top: .35rem;
+        }
+
+        /* Advanced button: ikut PRIMARY kamu (hijau) via Bootstrap variable */
+.link-add .btn-soft-primary{
+  background: rgba(var(--bs-primary-rgb), .10);
+  border: 1px solid rgba(var(--bs-primary-rgb), .28);
+  color: var(--bs-primary);
+}
+
+.link-add .btn-soft-primary:hover{
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
+}
+
+.link-add .btn-soft-primary:focus{
+  box-shadow: 0 0 0 .2rem rgba(var(--bs-primary-rgb), .20);
+}
+
+/* active ketika collapse terbuka */
+.link-add #btnAdvanced[aria-expanded="true"]{
+  background: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
+}
+
+    </style>
+
+    <title>Dashboard - S UNJANI</title>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+
+    <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        <%- include('../partials/aside') %>
+        <!-- Sidebar End -->
+
+        <div class="page-wrapper">
+            <!-- Header Start -->
+            <%- include('../partials/header') %>
+            <!-- Header End -->
+
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <!-- =========================
+                 CARD: Add Link + Welcome
+                 ========================= -->
+                        <div class="col-lg-8 d-flex align-items-stretch">
+                            <div class="card w-100 bg-primary-subtle overflow-hidden shadow-none">
+                                <div class="card-body position-relative">
+                                    <div class="row">
+
+                                        <!-- ====== Add Link (Improved) ====== -->
+                                        <div class="col-12">
+                                            <form id="linkAddForm" class="row g-3 link-add">
+
+                                                <!-- URL + Actions -->
+                                                <div class="col-12">
+                                                    <label class="form-label fw-semibold mb-2">
+                                                        URL Tujuan <span class="req-star">*</span>
+                                                    </label>
+
+                                                    <div class="input-group input-group-lg">
+                                                        <span class="input-group-text bg-primary-subtle text-primary">
+                                                            <i class="fa-sharp-duotone fa-solid fa-globe-pointer"></i>
+                                                        </span>
+
+                                                        <input type="url" class="form-control"
+                                                            placeholder="https://example.com"
+                                                            aria-label="https://example.com" id="link" name="link"
+                                                            required>
+
+                                                        <!-- Advanced -->
+                                                        <button class="btn btn-soft-primary" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#advenced"
+                                                            aria-expanded="false" aria-controls="advenced"
+                                                            id="btnAdvanced" title="Pengaturan lanjutan">
+                                                            <i class="fa-duotone fa-solid fa-sliders"></i>
+                                                            <span class="d-none d-md-inline ms-1">Advanced</span>
+                                                        </button>
+
+
+                                                        <!-- Submit -->
+                                                        <button type="submit" class="btn btn-primary px-4"
+                                                            id="submitBtn">
+                                                            <span class="d-inline-flex align-items-center">
+                                                                <span class="loading-spinner"
+                                                                    id="loadingSpinner"></span>
+                                                                <i class="fa-duotone fa-solid fa-link-simple me-2"></i>
+                                                                <span id="submitText">Short URL</span>
+                                                            </span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="validation-feedback" id="linkFeedback"></div>
+                                                    <div class="form-text mt-2">
+                                                        Pastikan diawali <b>http://</b> atau <b>https://</b>.
+                                                        <span class="ms-2 text-muted">Tips: tekan Enter untuk
+                                                            submit.</span>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Advanced collapse -->
+                                                <div class="col-12">
+                                                    <div class="collapse" id="advenced">
+                                                        <div class="card border-0 shadow-sm mt-2">
+                                                            <div class="card-body p-3 p-lg-4">
+
+                                                                <div
+                                                                    class="d-flex align-items-center justify-content-between mb-3">
+                                                                    <div class="d-flex align-items-center gap-2">
+                                                                        <i
+                                                                            class="fa-duotone fa-solid fa-gear text-primary"></i>
+                                                                        <div class="fw-semibold">Pengaturan Lanjutan
+                                                                        </div>
+                                                                    </div>
+                                                                    <span
+                                                                        class="badge text-bg-secondary">Opsional</span>
+                                                                </div>
+
+                                                                <div class="row g-3">
+                                                                    <!-- Segmen -->
+                                                                    <div class="col-12 col-lg-6">
+                                                                        <label
+                                                                            class="form-label fw-semibold">Segmen</label>
+                                                                        <select class="form-control" id="segmen"
+                                                                            name="segmen"></select>
+                                                                        <div class="form-text">Opsional. Segmen
+                                                                            mengikuti unit kerja Anda.</div>
+                                                                        <div class="validation-feedback"
+                                                                            id="segmenFeedback"></div>
+                                                                    </div>
+
+                                                                    <!-- Alias -->
+                                                                    <div class="col-12 col-lg-6">
+                                                                        <label
+                                                                            class="form-label fw-semibold">Alias</label>
+                                                                        <div class="input-group">
+                                                                            <span class="input-group-text"
+                                                                                id="segmenPrefix">https://s.unjani.ac.id/</span>
+                                                                            <input type="text" class="form-control"
+                                                                                id="alias" placeholder="custom-alias"
+                                                                                maxlength="50" autocomplete="off">
+                                                                        </div>
+                                                                        <div
+                                                                            class="d-flex justify-content-between mt-1">
+                                                                            <div class="form-text">Tanpa spasi. Boleh
+                                                                                <code>-</code> <code>_</code>
+                                                                                <code>.</code>
+                                                                            </div>
+                                                                            <div class="character-count"
+                                                                                id="aliasCount">0/50</div>
+                                                                        </div>
+                                                                        <div class="validation-feedback"
+                                                                            id="aliasFeedback"></div>
+                                                                    </div>
+
+                                                                    <!-- Preview -->
+                                                                    <div class="col-12">
+                                                                        <div
+                                                                            class="preview-box d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-2">
+                                                                            <div class="d-flex flex-column">
+                                                                                <span
+                                                                                    class="text-muted fw-medium mb-1">Preview
+                                                                                    shortlink</span>
+                                                                                <span class="fw-semibold text-primary"
+                                                                                    id="shortlinkPreview">
+                                                                                    https://s.unjani.ac.id/alias
+                                                                                </span>
+                                                                            </div>
+                                                                            <button type="button"
+                                                                                class="btn btn-sm btn-outline-primary copy-btn"
+                                                                                id="copyPreview">
+                                                                                <i class="fa fa-copy me-1"></i>Salin
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-12">
+                                                                        <hr class="my-2">
+                                                                    </div>
+
+                                                                    <!-- Redirect -->
+                                                                    <div class="col-12 col-lg-4">
+                                                                        <label
+                                                                            class="form-label fw-semibold">Redirect</label>
+                                                                        <select class="form-control" id="referer">
+                                                                            <option value="direct" selected>Direct
+                                                                            </option>
+                                                                            <option value="splash">Splash</option>
+                                                                        </select>
+                                                                        <div class="form-text">Mode pengalihan ketika
+                                                                            link dibuka.</div>
+                                                                    </div>
+
+                                                                    <!-- Expired -->
+                                                                    <div class="col-12 col-lg-4">
+                                                                        <label
+                                                                            class="form-label fw-semibold">Expired</label>
+                                                                        <div class="input-group">
+                                                                            <input type="text"
+                                                                                class="form-control datepicker"
+                                                                                id="expired" placeholder="dd/mm/yyyy"
+                                                                                readonly>
+                                                                            <button type="button"
+                                                                                class="btn btn-outline-secondary"
+                                                                                id="clearExpired" title="Hapus tanggal">
+                                                                                <i class="fa fa-times"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="form-text">Kosongkan jika tidak ada
+                                                                            batas waktu.</div>
+                                                                    </div>
+
+                                                                    <!-- Password -->
+                                                                    <div class="col-12 col-lg-4">
+                                                                        <label class="form-label fw-semibold">Password
+                                                                            Link</label>
+                                                                        <div class="input-group">
+                                                                            <input type="password" class="form-control"
+                                                                                autocomplete="new-password"
+                                                                                id="password"
+                                                                                placeholder="Password (opsional)">
+                                                                            <button type="button"
+                                                                                class="btn btn-outline-primary"
+                                                                                id="toggle-password"
+                                                                                aria-label="Toggle password visibility"
+                                                                                title="Tampilkan / sembunyikan password">
+                                                                                <i class="fa fa-eye"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div class="form-text">Jika diisi, akses link
+                                                                            memerlukan password.</div>
+                                                                    </div>
+
+                                                                    <!-- Deskripsi -->
+                                                                    <div class="col-12">
+                                                                        <label
+                                                                            class="form-label fw-semibold">Deskripsi</label>
+                                                                        <textarea class="form-control" id="deskripsi"
+                                                                            rows="2"
+                                                                            placeholder="Contoh: Link pendaftaran seminar / dokumen internal"
+                                                                            maxlength="200"></textarea>
+                                                                        <div
+                                                                            class="d-flex justify-content-between mt-1">
+                                                                            <div class="form-text">Opsional: untuk
+                                                                                dokumentasi internal.</div>
+                                                                            <div class="character-count"
+                                                                                id="deskripsiCount">0/200</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <!-- ====== /Add Link ====== -->
+
+                                        <!-- Welcome + Summary -->
+                                        <div class="col-sm-7 mt-4">
+                                            <div class="d-flex align-items-center mb-7">
+                                                <div class="rounded-circle overflow-hidden me-6">
+                                                    <img src="/public/assets/images/profile/user-1.jpg"
+                                                        alt="modernize-img" width="40" height="40">
+                                                </div>
+                                                <h5 class="fw-semibold mb-0 fs-4">Welcome back <%- user.name %>!</h5>
+                                            </div>
+
+                                            <div class="d-flex align-items-center">
+                                                <div class="border-end pe-4 border-muted border-opacity-10">
+                                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">
+                                                        <%= jumlahLinks %><i
+                                                            class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                                    </h3>
+                                                    <p class="mb-0 text-dark">Short Links</p>
+                                                </div>
+                                                <div class="ps-4">
+                                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center">
+                                                        <%= jumlahClicks %><i
+                                                            class="ti ti-arrow-up-right fs-5 lh-base text-success"></i>
+                                                    </h3>
+                                                    <p class="mb-0 text-dark">Akses Links</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-5">
+                                            <div class="welcome-bg-img mb-n7 text-end">
+                                                <img src="/public/assets/images/backgrounds/welcome-bg.svg"
+                                                    alt="modernize-img" class="img-fluid">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stat cards (kanan) -->
+                        <div class="col-sm-6 col-lg-2 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <div class="p-2 bg-primary-subtle rounded-2 d-inline-block mb-3">
+                                        <i class="fa-duotone fa-solid fa-link text-primary fa-2x"></i>
+                                    </div>
+
+                                    <h4 class="mb-1 fw-semibold d-flex align-content-center">
+                                        <%- jumlahLinks %>
+                                        <i class="fa-duotone fa-solid fa-link text-primary ms-2"></i>
+                                    </h4>
+                                    <p class="mb-0">Jumlah Links</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-2 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <div class="p-2 bg-primary-subtle rounded-2 d-inline-block mb-3">
+                                        <i
+                                            class="fa-duotone fa-solid fa-arrow-right-to-bracket fa-2x text-center text-primary"></i>
+                                    </div>
+
+                                    <h4 class="mb-1 fw-semibold d-flex align-content-center">
+                                        <%- jumlahClicks %>
+                                        <i
+                                            class="fa-duotone fa-solid fa-arrow-right-to-bracket ms-2 text-center text-primary"></i>
+                                    </h4>
+                                    <p class="mb-0">Jumlah Akses</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <div class="p-2 bg-success-subtle rounded-2 d-inline-block mb-3">
+                                        <i class="fa-solid fa-circle-check text-success fa-2x"></i>
+                                    </div>
+                                    <h4 class="mb-1 fw-semibold d-flex align-content-center"><%- jumlahAktif %></h4>
+                                    <p class="mb-0">Link Aktif</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <div class="p-2 bg-danger-subtle rounded-2 d-inline-block mb-3">
+                                        <i class="fa-solid fa-circle-xmark text-danger fa-2x"></i>
+                                    </div>
+                                    <h4 class="mb-1 fw-semibold d-flex align-content-center"><%- jumlahNonaktif %></h4>
+                                    <p class="mb-0">Link Nonaktif</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <div class="p-2 bg-primary-subtle rounded-2 d-inline-block mb-3">
+                                        <i class="fa-solid fa-layer-group text-primary fa-2x"></i>
+                                    </div>
+                                    <h4 class="mb-1 fw-semibold d-flex align-content-center"><%- jumlahSegmen %></h4>
+                                    <p class="mb-0">Link Dengan Segmen</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <div class="p-2 bg-warning-subtle rounded-2 d-inline-block mb-3">
+                                        <i class="fa-solid fa-link-slash text-warning fa-2x"></i>
+                                    </div>
+                                    <h4 class="mb-1 fw-semibold d-flex align-content-center"><%- jumlahTanpaSegmen %>
+                                    </h4>
+                                    <p class="mb-0">Link Tanpa Segmen</p>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Segmen -->
+                        <div class="col-lg-6 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-header bg-primary-subtle">
+                                    <h4 class="card-title mb-0">
+                                        <i class="fa-solid fa-layer-group me-2 text-primary"></i>Top Segmen
+                                    </h4>
+                                    <p class="card-subtitle mb-0 fs-2 fw-normal mt-1">Berdasarkan jumlah link</p>
+                                </div>
+                                <div class="card-body">
+                                    <% if (topSegmen && topSegmen.length) { %>
+                                    <ul class="list-group list-group-flush">
+                                        <% for (const item of topSegmen) { %>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span class="text-truncate"
+                                                title="<%= item.label %>"><%= item.label %></span>
+                                            <span class="badge bg-primary-subtle text-primary"><%= item.count %></span>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <div class="text-muted">Belum ada data segmen.</div>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Link -->
+                        <div class="col-lg-6 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-header bg-primary-subtle">
+                                    <h4 class="card-title mb-0">
+                                        <i class="fa-solid fa-chart-line me-2 text-primary"></i>Top Link
+                                    </h4>
+                                    <p class="card-subtitle mb-0 fs-2 fw-normal mt-1">Berdasarkan jumlah klik</p>
+                                </div>
+                                <div class="card-body">
+                                    <% if (topLinks && topLinks.length) { %>
+                                    <ul class="list-group list-group-flush">
+                                        <% for (const item of topLinks) { %>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <div class="d-flex flex-column flex-grow-1 me-2">
+                                                <a target="_blank" href="<%= item.shortUrl %>"
+                                                    class="text-decoration-none font-monospace text-truncate"
+                                                    title="<%= item.shortUrl %>">
+                                                    <%= item.shortPath %>
+                                                </a>
+                                                <% if (item.segmenLabel) { %>
+                                                <span
+                                                    class="badge bg-primary-subtle text-primary align-self-start mt-1">
+                                                    <%= item.segmenLabel %>
+                                                </span>
+                                                <% } %>
+                                            </div>
+                                            <span class="badge bg-success-subtle text-success"><%= item.count %></span>
+                                        </li>
+                                        <% } %>
+                                    </ul>
+                                    <% } else { %>
+                                    <div class="text-muted">Belum ada data klik.</div>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- List Link -->
+                        <div class="col-sm-12 col-lg-8 d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="px-4 py-3 border-bottom bg-primary-subtle">
+                                    <h4 class="card-title mb-0">
+                                        <i class="fa-duotone fa-solid fa-link me-2 text-primary"></i>Link
+                                    </h4>
+                                    <h6 class="card-subtitle mb-0 fs-2 fw-normal mt-1">Short link terbaru</h6>
+                                </div>
+
+                                <div class="card-body">
+                                    <% for(const link of links){ %>
+                                    <div
+                                        class="card border-start <%= link.status ? 'border-success' : 'border-danger' %>">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-start flex-column flex-md-row">
+
+                                                <div class="mb-3 mb-md-0 me-md-3">
+                                                    <% if (link.favicon) { %>
+                                                    <img src="/public/assets/images/favico/<%- link.favicon %>"
+                                                        alt="Favicon" width="40"
+                                                        class="avatar-xs shadow rounded-circle img-thumbnail"
+                                                        onerror="this.onerror=null; this.outerHTML='<i class=\'fa-solid fa-earth-asia fa-2x shadow rounded-circle img-thumbnail text-primary\'></i>';">
+                                                    <% } else { %>
+                                                    <i
+                                                        class="fa-solid fa-earth-asia fa-2x shadow rounded-circle img-thumbnail text-primary"></i>
+                                                    <% } %>
+                                                </div>
+
+                                                <div class="flex-grow-1 w-100">
+                                                    <div
+                                                        class="d-flex flex-column flex-md-row align-items-md-center gap-2">
+                                                        <h6 class="fs-4 mb-0 flex-grow-1">
+                                                            <a target="_blank" href="<%= link.shortUrl %>"
+                                                                class="text-break text-decoration-none font-monospace"
+                                                                data-bs-toggle="tooltip" title="<%= link.shortUrl %>">
+                                                                <%= link.shortPath %>
+                                                            </a>
+                                                            <i
+                                                                class="fa-duotone mx-2 fa-solid <%= link.password ? 'fa-lock-keyhole text-danger' : 'fa-lock-keyhole-open text-primary' %> fs-5"></i>
+
+                                                            <button class="btn btn-sm text-nowrap"
+                                                                style="background-color: #137F49; color: white; min-width: 80px;"
+                                                                onmouseover="this.style.backgroundColor='#24A54C'"
+                                                                data-bs-toggle="tooltip" title="Salin Link"
+                                                                onmouseout="this.style.backgroundColor='#137F49'"
+                                                                onclick="copingLink('<%= link.shortUrl %>', '<%= link.alias %>')">
+                                                                <i class="fa-duotone fa-solid fa-copy me-1"></i>
+                                                                <span id="<%= link.alias %>"
+                                                                    class="d-none d-md-inline">Copy</span>
+                                                            </button>
+                                                        </h6>
+                                                    </div>
+
+                                                    <% if (link.segmenLabel) { %>
+                                                    <div class="mt-1">
+                                                        <span class="badge bg-primary-subtle text-primary">
+                                                            <i class="fa-solid fa-layer-group me-1"></i>
+                                                            <%= link.segmenLabel %>
+                                                        </span>
+                                                    </div>
+                                                    <% } %>
+
+                                                    <h6 class="card-subtitle mb-1 mt-2 fs-2 fw-normal text-break"
+                                                        data-bs-toggle="tooltip" title="<%= link.link %>">
+                                                        <%= link.link.length > 75 ? link.link.substring(0, 75) + "..." : link.link %>
+                                                    </h6>
+
+                                                    <div class="d-flex flex-wrap gap-2 align-items-center fs-2">
+                                                        <p class="mb-0">
+                                                            <i
+                                                                class="fa-sharp-duotone fa-solid fa-pen-to-square me-1"></i>
+                                                            <span class="text-primary"><b><%= link.user %></b></span>
+                                                        </p>
+
+                                                        <span class="d-flex align-items-center gap-1">
+                                                            <i class="fa-regular fa-calendar-clock"></i>
+                                                            <%- link.dateExpired ? link.dateExpired : '<i class="fa-solid fa-infinity"></i>' %>
+                                                            <b>|</b>
+                                                            <i class="fa-duotone fa-solid fa-calendar-days"></i>
+                                                            <%= link.timeStamp.toLocaleString("en-US", { timeZone: "Asia/Jakarta", hour12: false }) %>
+                                                            <span class="fw-bolder text-primary ms-1">
+                                                                - <%- link.click %> Clicks
+                                                            </span>
+                                                        </span>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right column -->
+                        <div class="col-md-12 col-lg-4 d-flex flex-column gap-4">
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <h4 class="card-title fw-semibold">
+                                        <i class="fa-solid fa-chart-column me-2 text-primary"></i>
+                                        Klik 7 Hari Terakhir
+                                    </h4>
+                                    <p class="card-subtitle mb-4">Rekap klik harian</p>
+                                    <ul class="list-group list-group-flush">
+                                        <% if (dailyClicks && dailyClicks.length) { %>
+                                        <% for (const item of dailyClicks) { %>
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span class="text-muted"><%= item.label %></span>
+                                            <span class="fw-semibold"><%= item.count %></span>
+                                        </li>
+                                        <% } %>
+                                        <% } else { %>
+                                        <li class="list-group-item text-muted">Belum ada data klik.</li>
+                                        <% } %>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="card w-100">
+                                <div class="card-body">
+                                    <h4 class="card-title fw-semibold">
+                                        <i class="fa-solid fa-clock-rotate-left me-2 text-primary"></i>
+                                        Aktivitas terbaru
+                                    </h4>
+                                    <p class="card-subtitle mb-4">Daftar pengaksesan short link</p>
+
+                                    <% let no = 1 %>
+                                    <% for(const stat of stats){ %>
+                                    <div class="card mb-4 right bg-primary-subtle border-start border-success">
+                                        <div class="card-body">
+                                            <span class="mb-2 badge text-bg-primary fs-2"><%- stat.timeStamp %></span>
+                                            <h5 class="fs-3 text-start"><b><%- no %>.</b> <%- stat.ip %></h5>
+                                            <div class="d-flex align-items-center">
+                                                <div class="flex-grow-1">
+                                                    <span class="fs-2 mb-1 text-primary font-monospace"
+                                                        data-bs-toggle="tooltip" title="<%= stat.shortUrl %>">
+                                                        <%= stat.shortPath.length > 35 ? stat.shortPath.substring(0, 35) + "..." : stat.shortPath %>
+                                                    </span>
+
+                                                    <p class="text-muted fs-1 mt-1 mb-0">
+                                                        <i class="fa-solid fa-language"></i> <%- stat.bahasa %>
+                                                        <i class="fa-brands fa-windows"></i> <%- stat.os %>
+                                                    </p>
+
+                                                    <p class="text-muted fs-1 mb-1">
+                                                        <i class="fa-brands fa-chrome"></i> <%- stat.browser %>
+                                                        <i class="fa-sharp-duotone fa-solid fa-map-location-dot"></i>
+                                                        <%- stat.negara %>
+                                                        <i class="fa-sharp-duotone fa-solid fa-city"></i>
+                                                        <%- stat.kota %>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <% no++ %>
+                                    <% } %>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <%- include('../partials/footer') %>
+            <!-- End Footer -->
+
+            <script>
+                function handleColorTheme(e) {
+                    document.documentElement.setAttribute("data-color-theme", e);
+                }
+            </script>
+
+            <button
+                class="btn btn-primary p-3 rounded-circle d-flex align-items-center justify-content-center customizer-btn"
+                type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
+                aria-controls="offcanvasExample">
+                <i class="icon ti ti-settings fs-7"></i>
+            </button>
+
+            <div class="offcanvas customizer offcanvas-end" tabindex="-1" id="offcanvasExample"
+                aria-labelledby="offcanvasExampleLabel">
+                <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
+                    <h4 class="offcanvas-title fw-semibold" id="offcanvasExampleLabel">Settings</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body h-n80" data-simplebar>
+                    <h6 class="fw-semibold fs-4 mb-2">Theme</h6>
+
+                    <div class="d-flex flex-row gap-3 customizer-box" role="group">
+                        <input type="radio" class="btn-check light-layout" name="theme-layout" id="light-layout"
+                            autocomplete="off" />
+                        <label class="btn p-9 btn-outline-primary rounded-2" for="light-layout">
+                            <i class="icon ti ti-brightness-up fs-7 me-2"></i>Light
+                        </label>
+
+                        <input type="radio" class="btn-check dark-layout" name="theme-layout" id="dark-layout"
+                            autocomplete="off" />
+                        <label class="btn p-9 btn-outline-primary rounded-2" for="dark-layout">
+                            <i class="icon ti ti-moon fs-7 me-2"></i>Dark
+                        </label>
+                    </div>
+
+                    <h6 class="mt-5 fw-semibold fs-4 mb-2">Container Option</h6>
+
+                    <div class="d-flex flex-row gap-3 customizer-box" role="group">
+                        <input type="radio" class="btn-check" name="layout" id="boxed-layout" autocomplete="off" />
+                        <label class="btn p-9 btn-outline-primary" for="boxed-layout">
+                            <i class="icon ti ti-layout-distribute-vertical fs-7 me-2"></i>Boxed
+                        </label>
+
+                        <input type="radio" class="btn-check" name="layout" id="full-layout" autocomplete="off" />
+                        <label class="btn p-9 btn-outline-primary" for="full-layout">
+                            <i class="icon ti ti-layout-distribute-horizontal fs-7 me-2"></i>Full
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade bs-example-modal-center " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+        id="modalLink">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-white" id="myModalLabel">S.UNJANI</h5>
+                    <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close"
+                        data-bs-toggle="tooltip" title="Tutup">
+                        <i class="fa-duotone fa-solid fa-circle-xmark text-white fa-2x"></i>
+                    </button>
+                </div>
+
+                <div class="modal-body p-5">
+                    <div class="row">
+                        <div class="col-4">
+                            <img id="qrcode" width="100%">
+                            <a href="button" id="qrcoded" class="btn btn-sm btn-primary btn-label right w-100"
+                                target="_blank">
+                                <i class="fa-duotone fa-solid fa-download label-icon align-middle fs-16 ms-2"></i>
+                                Download
+                            </a>
+                        </div>
+                        <div class="col-8 ">
+                            <div>
+                                <label for="readonlyInput" class="form-label">Short Link</label>
+
+                                <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm mb-2" id="shortLink" value=""
+                                        readonly>
+                                    <button class="btn btn-success mb-2 btn-sm" type="button" id="buttonCopy"
+                                        onclick="copyLink()">
+                                        <i class="fa-duotone fa-solid fa-copy"></i>
+                                        <span id="buttonText">Copy</span>
+                                    </button>
+                                </div>
+
+                                <a href="" id="shareFB" class="btn btn-sm btn-primary waves-effect waves-light">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                                <a href="" id="shareX" class="btn btn-sm btn-primary waves-effect waves-light">
+                                    <i class="fa-brands fa-x-twitter"></i>
+                                </a>
+                                <a href="" id="shareLI" class="btn btn-sm btn-primary waves-effect waves-light">
+                                    <i class="fa-brands fa-linkedin"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <div class="dark-transparent sidebartoggler"></div>
+
+    <script src="/public/assets/js/vendor.min.js"></script>
+
+    <!-- Import Js Files -->
+    <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+    <script src="/public/assets/js/theme/app.init.js"></script>
+    <script src="/public/assets/js/theme/theme.js"></script>
+    <script src="/public/assets/js/theme/app.min.js"></script>
+    <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+
+    <!-- solar icons -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+    <script src="/public/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="/public/assets/js/dashboards/dashboard2.js"></script>
+
+    <!-- font-awesome -->
+    <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+
+    <!-- select2 -->
+    <script src="/public/assets/libs/select2/dist/js/select2.full.min.js"></script>
+    <script src="/public/assets/libs/select2/dist/js/select2.min.js"></script>
+
+    <!-- datepicker -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker@1.9.0/dist/locales/bootstrap-datepicker.id.min.js">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        (function () {
+            // Inisialisasi Datepicker
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true,
+                todayHighlight: true,
+                language: 'id',
+                startDate: new Date()
+            });
+
+            $('#clearExpired').on('click', function () {
+                $('#expired').val('');
+            });
+
+            function normalizeSegmenSlug(name) {
+                return (name || '').toString().trim()
+                    .toLowerCase()
+                    .replace(/\s+/g, '-')
+                    .replace(/[^a-z0-9-]/g, '');
+            }
+
+            function getSelectedSegmenName() {
+                const data = $('#segmen').select2('data') || [];
+                return data[0] ? (data[0].nama || data[0].text) : '';
+            }
+
+            // Validasi URL
+            function isValidUrl(string) {
+                try {
+                    const u = new URL(string);
+                    return u.protocol === 'http:' || u.protocol === 'https:';
+                } catch (_) {
+                    return false;
+                }
+            }
+
+            // Validasi Alias
+            function isValidAlias(alias) {
+                if (!alias) return true; // optional
+                const regex = /^[a-zA-Z0-9._-]+$/;
+                return regex.test(alias);
+            }
+
+            function buildShortUrl(aliasValue) {
+                const segmenName = getSelectedSegmenName();
+                const segmenSlug = normalizeSegmenSlug(segmenName);
+                return segmenSlug ?
+                    `https://s.unjani.ac.id/${segmenSlug}/${aliasValue}` :
+                    `https://s.unjani.ac.id/${aliasValue}`;
+            }
+
+            function setModalData(shortUrl, qrFilename) {
+                const finalUrl = shortUrl || '';
+                const encodedUrl = encodeURIComponent(finalUrl);
+
+                $('#shortLink').val(finalUrl);
+                $('#buttonText').text('Copy');
+
+                if ($('#shareWA').length) {
+                    $('#shareWA').attr('href',
+                        `https://api.whatsapp.com/send/?text=Bagikan%20shortlink%20s.unjani%3A%20${encodedUrl}`);
+                }
+                $('#shareFB').attr('href', `https://www.facebook.com/sharer.php?u=${encodedUrl}`);
+                $('#shareX').attr('href', `https://twitter.com/share?url=${encodedUrl}`);
+                $('#shareLI').attr('href', `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}`);
+
+                if (qrFilename) {
+                    const qrPath = `/assets/qr/${qrFilename}`;
+                    setTimeout(function () {
+                        $('#qrcode').attr('src', qrPath);
+                        $('#qrcoded').attr('href', qrPath);
+                    }, 100);
+                }
+            }
+
+            // Update Character Count
+            function updateCharacterCount($el, $countEl, maxLength) {
+                const length = ($el.val() || '').length;
+                $countEl.text(`${length}/${maxLength}`);
+
+                $countEl.removeClass('warning danger');
+                if (length >= Math.ceil(maxLength * 0.90)) {
+                    $countEl.addClass('danger');
+                } else if (length >= Math.ceil(maxLength * 0.80)) {
+                    $countEl.addClass('warning');
+                }
+            }
+
+            // Update Preview
+            function updatePreview() {
+                const segmenName = getSelectedSegmenName();
+                const segmenSlug = normalizeSegmenSlug(segmenName);
+
+                const aliasValue = ($('#alias').val() || '').trim();
+                const aliasPreview = aliasValue || 'alias';
+                const prefix = segmenSlug ? `${segmenSlug}/` : '';
+
+                $('#segmenPrefix').text(`https://s.unjani.ac.id/${prefix}`);
+                $('#shortlinkPreview').text(`https://s.unjani.ac.id/${prefix}${aliasPreview}`);
+
+                $('#aliasCount').text(`${aliasValue.length}/50`);
+                $('#aliasCount').removeClass('warning danger');
+                if (aliasValue.length >= 45) {
+                    $('#aliasCount').addClass('danger');
+                } else if (aliasValue.length >= 40) {
+                    $('#aliasCount').addClass('warning');
+                }
+            }
+
+            // Inisialisasi Select2
+            $('#segmen').select2({
+                width: '100%',
+                placeholder: 'Pilih segmen (opsional)',
+                allowClear: true,
+                minimumInputLength: 0,
+                ajax: {
+                    url: '/users/link/segmen-options',
+                    delay: 200,
+                    data: function (params) {
+                        return {
+                            search: params.term || ''
+                        };
+                    },
+                    processResults: function (data) {
+                        const results = (data && data.results) ? data.results : [];
+                        return {
+                            results: results
+                        };
+                    }
+                }
+            });
+
+            // Event: Segmen change
+            $('#segmen').on('change', function () {
+                updatePreview();
+                if ($(this).val()) {
+                    $('#segmenFeedback').removeClass('invalid').addClass('valid').text('Segmen dipilih');
+                } else {
+                    $('#segmenFeedback').removeClass('valid invalid').text('');
+                }
+            });
+
+            // Event: Alias input (sanitasi + feedback konsisten)
+            $('#alias').on('input', function () {
+                const raw = $(this).val() || '';
+                const sanitized = raw.replace(/[^a-zA-Z0-9._-]/g, '');
+                if (raw !== sanitized) $(this).val(sanitized);
+
+                updatePreview();
+
+                if (sanitized) {
+                    $('#aliasFeedback').removeClass('invalid').addClass('valid').text('Format alias valid');
+                } else {
+                    $('#aliasFeedback').removeClass('valid invalid').text('');
+                }
+            });
+
+            // Event: URL validate realtime
+            $('#link').on('input blur', function () {
+                const url = ($(this).val() || '').trim();
+
+                if (!url) {
+                    $(this).removeClass('is-valid is-invalid');
+                    $('#linkFeedback').removeClass('valid invalid').text('');
+                    return;
+                }
+
+                if (isValidUrl(url)) {
+                    $(this).removeClass('is-invalid').addClass('is-valid');
+                    $('#linkFeedback').removeClass('invalid').addClass('valid').text('Format URL valid');
+                } else {
+                    $(this).removeClass('is-valid').addClass('is-invalid');
+                    $('#linkFeedback').removeClass('valid').addClass('invalid').text(
+                        'Format URL tidak valid. Gunakan http:// atau https://');
+                }
+            });
+
+            // Deskripsi count
+            $('#deskripsi').on('input', function () {
+                updateCharacterCount($(this), $('#deskripsiCount'), 200);
+            });
+
+            // Toggle Password Visibility
+            $('#toggle-password').on('click', function () {
+                const passwordInput = $('#password');
+                const icon = $(this).find('i');
+
+                if (passwordInput.attr('type') === 'password') {
+                    passwordInput.attr('type', 'text');
+                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                    $(this).attr('aria-label', 'Sembunyikan password');
+                } else {
+                    passwordInput.attr('type', 'password');
+                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                    $(this).attr('aria-label', 'Tampilkan password');
+                }
+            });
+
+            // Copy Preview
+            $('#copyPreview').on('click', function () {
+                const btn = $(this);
+                const text = $('#shortlinkPreview').text();
+
+                navigator.clipboard.writeText(text).then(function () {
+                    btn.html('<i class="fa fa-check me-1"></i>Tersalin')
+                        .removeClass('btn-outline-primary').addClass('btn-success');
+
+                    setTimeout(() => {
+                        btn.html('<i class="fa fa-copy me-1"></i>Salin')
+                            .removeClass('btn-success').addClass('btn-outline-primary');
+                    }, 2000);
+                }).catch(function (err) {
+                    console.error('Gagal menyalin: ', err);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Gagal',
+                        text: 'Tidak dapat menyalin ke clipboard',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                    });
+                });
+            });
+
+            window.copyLink = function () {
+                const input = document.getElementById('shortLink');
+                const buttonText = document.getElementById('buttonText');
+                if (!input) return;
+
+                input.select();
+                input.setSelectionRange(0, 99999);
+
+                const value = input.value || '';
+                const setCopied = function () {
+                    if (!buttonText) return;
+                    buttonText.textContent = 'Copied';
+                    setTimeout(() => {
+                        buttonText.textContent = 'Copy';
+                    }, 2000);
+                };
+
+                if (navigator.clipboard && value) {
+                    navigator.clipboard.writeText(value).then(setCopied).catch(function () {
+                        document.execCommand('copy');
+                        setCopied();
+                    });
+                    return;
+                }
+
+                document.execCommand('copy');
+                setCopied();
+            };
+
+            // Submit
+            $('#linkAddForm').on('submit', function (e) {
+                e.preventDefault();
+
+                const link = ($('#link').val() || '').trim();
+                const segmen = $('#segmen').val();
+                const alias = ($('#alias').val() || '').trim();
+
+                if (!link) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'URL Kosong',
+                        text: 'URL tujuan wajib diisi',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                    });
+                    $('#link').focus();
+                    return;
+                }
+
+                if (!isValidUrl(link)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'URL Tidak Valid',
+                        text: 'Format URL tidak valid. Pastikan menggunakan http:// atau https://',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                    });
+                    $('#link').focus();
+                    return;
+                }
+
+                if (alias && !isValidAlias(alias)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Alias Tidak Valid',
+                        text: 'Alias mengandung karakter yang tidak diizinkan',
+                        confirmButtonText: 'OK',
+                        customClass: {
+                            confirmButton: 'btn btn-danger'
+                        },
+                        buttonsStyling: false
+                    });
+                    $('#alias').focus();
+                    return;
+                }
+
+                const payload = {
+                    link: link,
+                    segmen: segmen,
+                    alias: alias,
+                    referer: $('#referer').val(),
+                    expired: $('#expired').val(),
+                    deskripsi: $('#deskripsi').val(),
+                    password: $('#password').val()
+                };
+
+                const submitBtn = $('#submitBtn');
+                $('#loadingSpinner').show();
+                $('#submitText').text('Menyimpan...');
+                submitBtn.prop('disabled', true);
+
+                $.ajax({
+                    url: '/users/link',
+                    method: 'POST',
+                    data: payload,
+                    success: function (data) {
+                        if (data && data.alias) {
+                            const shortUrl = buildShortUrl(data.alias);
+                            const qrFilename = data.qrCode || `${data.alias}.png`;
+                            setModalData(shortUrl, qrFilename);
+
+                            const modalElement = document.getElementById('modalLink');
+                            if (modalElement) {
+                                const modal = new bootstrap.Modal(modalElement, {
+                                    backdrop: 'static',
+                                    keyboard: false
+                                });
+                                modal.show();
+                            }
+
+                            // Reset form
+                            document.getElementById('linkAddForm').reset();
+                            $('#segmen').val(null).trigger('change');
+                            $('.form-control').removeClass('is-valid is-invalid');
+                            $('.validation-feedback').removeClass('valid invalid').text('');
+                            updatePreview();
+                            updateCharacterCount($('#deskripsi'), $('#deskripsiCount'), 200);
+
+                        } else if (data && data.error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: data.error,
+                                confirmButtonText: 'OK',
+                                customClass: {
+                                    confirmButton: 'btn btn-danger'
+                                },
+                                buttonsStyling: false
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Kesalahan Sistem',
+                            text: 'Terjadi kesalahan saat menyimpan link. Silakan coba lagi.',
+                            confirmButtonText: 'OK',
+                            customClass: {
+                                confirmButton: 'btn btn-danger'
+                            },
+                            buttonsStyling: false
+                        });
+                        console.error('Error:', error);
+                    },
+                    complete: function () {
+                        $('#loadingSpinner').hide();
+                        $('#submitText').text('Short URL');
+                        submitBtn.prop('disabled', false);
+                    }
+                });
+            });
+
+            // Initial updates
+            updatePreview();
+            updateCharacterCount($('#deskripsi'), $('#deskripsiCount'), 200);
+
+        })();
+
+        let messagesSuccess = "<%- success_msg %>";
+        if (messagesSuccess != "") {
+            Swal.fire({
+                title: "Berhasil",
+                icon: "success",
+                text: messagesSuccess,
+                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                customClass: {
+                    confirmButton: 'btn btn-primary'
+                },
+                buttonsStyling: false
+            });
+        }
+
+        let messagesError = "<%- error_msg %>";
+        if (messagesError != "") {
+            Swal.fire({
+                title: "Gagal",
+                icon: "error",
+                text: messagesError,
+                confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                customClass: {
+                    confirmButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            });
+        }
+
+        function copingLink(link, alias) {
+            navigator.clipboard.writeText(link)
+                .then(() => {
+                    const buttonText = document.getElementById(alias);
+                    const originalText = buttonText ? buttonText.innerText : "Copy";
+                    if (buttonText) buttonText.innerText = "Copied";
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil diCopy!',
+                        text: `Link ${link} telah dicopy di clipboard.`,
+                        timer: 2000,
+                        confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false
+                    });
+
+                    setTimeout(() => {
+                        if (buttonText) buttonText.innerText = originalText;
+                    }, 5000);
+                })
+                .catch(err => {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'Failed to copy the link. Please try again.',
+                        confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false
+                    });
+                    console.error('Failed to copy text: ', err);
+                });
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical"
+    data-boxed-layout="full">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Favicon icon-->
+    <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+
+    <!-- Core Css -->
+    <link rel="stylesheet" href="/public/assets/css/styles.css" />
+
+    <title>Link Edit - S UNJANI</title>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+    </div>
+    <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        <%- include('../partials/aside') %>
+
+        <!--  Sidebar End -->
+        <div class="page-wrapper">
+            <!--  Header Start -->
+            <%- include('../partials/header') %>
+
+            <!--  Header End -->
+            <div class="body-wrapper">
+                <div class="container-fluid">
+                    <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+                        <div class="card-body px-4 py-3">
+                            <div class="row align-items-center">
+                                <div class="col-9">
+                                    <h4 class="fw-semibold mb-8">Update Links <i
+                                            class="fa-duotone fa-solid fa-link text-primary ms-2"></i></h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a class="text-muted text-decoration-none" href="/">Menu</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">
+                                                <a class="text-muted text-decoration-none" href="/users/links">Links</a>
+                                            </li>
+                                            <li class="breadcrumb-item" aria-current="page">Update Link</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center mb-n5">
+                                        <img src="/public/assets/images/breadcrumb/ChatBc.png" alt="modernize-img"
+                                            class="img-fluid mb-n4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <form id="updateLinkForm">
+                                        <div class="mb-3">
+                                            <input hidden readonly id="slug" name="slug" value="<%- link._id %>">
+                                            <label for="employeeUrl" class="form-label">URL</label>
+                                            <input type="url" class="form-control" id="link" name="link"
+                                                value="<%- link.link %>" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="segmen" class="form-label">Segmen (Opsional)</label>
+                                            <select class="form-select" id="segmen" name="segmen">
+                                                <option value="">Tanpa segmen</option>
+                                                <% if (segmenOptions && segmenOptions.length) { %>
+                                                    <% segmenOptions.forEach(function (option) { %>
+                                                        <option value="<%- option.id %>" <%= link.segmen && link.segmen._id && link.segmen._id.toString() === option.id ? 'selected' : '' %>><%- option.label %></option>
+                                                    <% }); %>
+                                                <% } %>
+                                            </select>
+                                            <div class="form-text">Segmen mengikuti unit kerja Anda.</div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="StartleaveDate" class="form-label">Short Link</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"
+                                                    id="basic-addon3">https://s.unjani.ac.id/</span>
+                                                <input type="text" class="form-control" id="alias" name="alias"
+                                                    aria-describedby="basic-addon3" minlength="3" data-validation-regex-regex="((http[s]?|ftp[s]?):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*" data-validation-regex-message="URL's yang dimasukan tidak valid."
+                                                    value="<%- link.alias %>" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                <label for="basic-url" class="form-label">Redirect</label>
+                                                <select class="form-select mb-3" name="referer" id="referer" required>
+                                                    <option value="direct" <% if(link.referer == 'direct'){ %> selected
+                                                        <% } %>>Direct</option>
+                                                    <option value="splash" <% if(link.referer == 'splash'){ %> selected
+                                                        <% } %>>Splash</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <label for="exampleInputdate" class="form-label">Expired</label>
+                                                <input type="text" class="form-control mydatepicker" id="expired" data-validation-regex-regex="([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})"
+                                                    name="expired" placeholder="mm/dd/yyyy" data-validation-regex-message="Masukan tanggal dengan format mm/dd/yyyy."
+                                                    value="<%- link.dateExpired %>">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-xl-6">
+                                                <label for="exampleInputpassword" class="form-label">Password</label>
+                                                <input minlength="5" type="password" class="form-control" id="password"
+                                                    name="password"
+                                                    placeholder="Isi jika ingin menambahkan atau mengganti password">
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <label for="deskripsi" class="form-label">Deskripsi</label>
+                                                <input type="text" class="form-control" id="deskripsi" name="deskripsi"
+                                                    value="<%- link.deskripsi %>"
+                                                    placeholder="Deskripsi link (optional)">
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <button type="submit" class="btn btn-primary"><i
+                                                    class="fa-solid fa-floppy-disk me-1"></i> Update Link</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer -->
+                    <%- include('../partials/footer') %>
+                    <!-- End Footer -->
+                    <script>
+                        function handleColorTheme(e) {
+                            document.documentElement.setAttribute("data-color-theme", e);
+                        }
+                    </script>
+
+                </div>
+
+
+
+            </div>
+
+            <!-- Modal -->
+            <!-- /.modal -->
+
+            <div class="dark-transparent sidebartoggler"></div>
+            <script src="/public/assets/js/vendor.min.js"></script>
+            <!-- Import Js Files -->
+            <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+            <script src="/public/assets/js/theme/app.init.js"></script>
+            <script src="/public/assets/js/theme/theme.js"></script>
+            <script src="/public/assets/js/theme/app.min.js"></script>
+            <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+
+            <!-- solar icons -->
+            <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+            <script src="/public/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+            <script src="/public/assets/js/dashboards/dashboard2.js"></script>
+
+            <!-- font-awesome -->
+            <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+
+            <!-- Sweat Alert -->
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+            <!-- Data Tables -->
+            <script src="https://cdn.datatables.net/2.2.1/js/dataTables.js"></script>
+            <script src="https://cdn.datatables.net/2.2.1/js/dataTables.bootstrap5.js"></script>
+            <script src="/public/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+            <script src="/public/assets/js/forms/datepicker-init.js"></script>
+
+
+            <script>
+                $(document).ready(function () {
+                    $('#updateLinkForm').on('submit', function (e) {
+                        e.preventDefault(); // Mencegah form dari submit default
+
+                        // Ambil data dari form
+                        const formData = {
+                            slug: $('#slug').val(),
+                            link: $('#link').val(),
+                            alias: $('#alias').val(),
+                            segmen: $('#segmen').val(),
+                            referer: $('#referer').val(),
+                            expired: $('#expired').val(),
+                            password: $('#password').val(),
+                            deskripsi: $('#deskripsi').val(),
+                        };
+
+                        // Kirim data menggunakan AJAX
+                        $.ajax({
+                            url: '/users/link/update',
+                            type: 'POST',
+                            data: formData,
+                            success: function (response) {
+                                // Menampilkan SweetAlert sukses
+                                Swal.fire({
+                                    title: "Berhasil",
+                                    icon: "success",
+                                    text: "Link berhasil diperbarui!",
+                                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                    customClass: {
+                                        confirmButton: 'btn btn-primary'
+                                    },
+                                    buttonsStyling: false
+                                }).then(() => {
+                                    // Redirect setelah berhasil
+                                    window.location.href = "/users/links";
+                                });
+                            },
+                            error: function (xhr, status, error) {
+                                // Menampilkan SweetAlert gagal
+                                Swal.fire({
+                                    title: "Gagal",
+                                    icon: "error",
+                                    text: xhr.responseText ||
+                                        "Terjadi kesalahan saat memperbarui link.",
+                                    confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                                    customClass: {
+                                        confirmButton: 'btn btn-primary'
+                                    },
+                                    buttonsStyling: false
+                                });
+                            }
+                        });
+                    });
+                });
+                let messagesSuccess = '<%- success_msg %>';
+                if (messagesSuccess != '') {
+                    Swal.fire({
+                        title: "Berhasil",
+                        icon: "success",
+                        text: messagesSuccess,
+                        confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false
+                    });
+                }
+                let messagesError = '<%- error_msg %>' + '<%- error %>';
+                if (messagesError != '') {
+                    Swal.fire({
+                        title: "Gagal",
+                        icon: "error",
+                        text: messagesError,
+                        confirmButtonText: '<i class="fa-solid fa-badge-check"></i> OK',
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        },
+                        buttonsStyling: false
+                    });
+                }
+            </script>
+</body>
+
+</html>

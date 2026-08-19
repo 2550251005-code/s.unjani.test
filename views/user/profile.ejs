@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/public/assets/css/styles.css" />
+  <title>Profile - S UNJANI</title>
+</head>
+<body class="link-sidebar">
+  <%
+    const avatarUrl = user?.avatarUrl || '/public/assets/images/profile/user-1.jpg';
+    const unitKerja = user?.jabatan?.struktural?.unitKerja || user?.jabatan?.akademik?.unitKerja || '-';
+    const stats = profileStats || {};
+  %>
+  <div class="preloader">
+    <img src="/public/assets/images/logos/favicon.png" alt="loader" class="lds-ripple img-fluid" />
+  </div>
+
+  <div id="main-wrapper">
+    <%- include('../partials/aside') %>
+    <div class="page-wrapper">
+      <%- include('../partials/header') %>
+
+      <div class="body-wrapper">
+        <div class="container-fluid">
+          <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+            <div class="card-body px-4 py-3">
+              <div class="row align-items-center">
+                <div class="col-9">
+                  <h4 class="fw-semibold mb-2">Profile</h4>
+                  <p class="mb-0 text-body-secondary">Kelola data profil, password, dan foto akun Anda.</p>
+                </div>
+                <div class="col-3 text-end">
+                  <img src="<%= avatarUrl %>" alt="avatar" class="rounded-circle border border-2 border-white" width="64" height="64" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-4">
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body text-center">
+                  <i class="fa-sharp fa-regular fa-link-simple fa-2x mb-2"></i>
+                  <h4 class="mb-1"><%= stats.totalLinks || 0 %></h4>
+                  <p class="mb-0">Total Links</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body text-center">
+                  <i class="fa-solid fa-globe-pointer fa-2x mb-2"></i>
+                  <h4 class="mb-1"><%= stats.totalAccess || 0 %></h4>
+                  <p class="mb-0">Total Akses</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body text-center">
+                  <i class="fa-solid fa-address-card fa-2x mb-2"></i>
+                  <h4 class="mb-1"><%= stats.totalBios || 0 %></h4>
+                  <p class="mb-0">Total Bio</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Informasi Akun</h5>
+                  <div class="text-center mb-4">
+                    <img id="photoPreview" src="<%= avatarUrl %>" alt="avatar" class="rounded-circle border border-2" width="120" height="120" />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Nama</label>
+                    <input type="text" class="form-control" value="<%= user?.name || '-' %>" readonly />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="text" class="form-control" value="<%= user?.email || '-' %>" readonly />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Role</label>
+                    <input type="text" class="form-control text-capitalize" value="<%= user?.role || '-' %>" readonly />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Nomor Induk</label>
+                    <input type="text" class="form-control" value="<%= user?.nomorInduk || '-' %>" readonly />
+                  </div>
+                  <div class="mb-0">
+                    <label class="form-label">Unit Kerja</label>
+                    <input type="text" class="form-control" value="<%= unitKerja %>" readonly />
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Ubah Foto Profil</h5>
+                  <form action="/users/profile/photo" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                      <label class="form-label">Upload Foto</label>
+                      <input id="photoInput" type="file" name="photo" class="form-control" accept="image/jpeg,image/png,image/webp" required />
+                      <div class="form-text">Maksimal 1 MB. Format: JPG, PNG, WEBP.</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Simpan Foto</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-8">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Edit Profil</h5>
+                  <form action="/users/profile/update" method="post">
+                    <div class="mb-3">
+                      <label for="name" class="form-label">Nama</label>
+                      <input id="name" type="text" name="name" class="form-control" value="<%= user?.name || '' %>" required />
+                    </div>
+                    <div class="mb-3">
+                      <label for="jabatanFungsional" class="form-label">Jabatan Fungsional</label>
+                      <input id="jabatanFungsional" type="text" name="jabatanFungsional" class="form-control" value="<%= user?.jabatanFungsional || '' %>" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="dosenProdi" class="form-label">Dosen Prodi</label>
+                      <input id="dosenProdi" type="text" name="dosenProdi" class="form-control" value="<%= user?.dosenProdi || '' %>" />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                  </form>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Ubah Password</h5>
+                  <form action="/users/profile/password" method="post">
+                    <div class="mb-3">
+                      <label for="currentPassword" class="form-label">Current Password</label>
+                      <input id="currentPassword" type="password" name="currentPassword" class="form-control" required />
+                    </div>
+                    <div class="mb-3">
+                      <label for="newPassword" class="form-label">New Password</label>
+                      <input id="newPassword" type="password" name="newPassword" class="form-control" minlength="6" required />
+                    </div>
+                    <div class="mb-3">
+                      <label for="confirmPassword" class="form-label">Confirm Password</label>
+                      <input id="confirmPassword" type="password" name="confirmPassword" class="form-control" minlength="6" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ubah Password</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%- include('../partials/footer') %>
+    </div>
+  </div>
+
+  <div class="dark-transparent sidebartoggler"></div>
+  <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+  <script src="/public/assets/js/theme/app.init.js"></script>
+  <script src="/public/assets/js/theme/theme.js"></script>
+  <script src="/public/assets/js/theme/app.min.js"></script>
+  <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+  <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script>
+    const successMessage = '<%- success_msg %>';
+    if (successMessage) {
+      Swal.fire({
+        title: 'Berhasil',
+        icon: 'success',
+        text: successMessage,
+      });
+    }
+
+    const errorMessage = '<%- error_msg %>' + '<%- error %>';
+    if (errorMessage) {
+      Swal.fire({
+        title: 'Gagal',
+        icon: 'error',
+        text: errorMessage,
+      });
+    }
+
+    const photoInput = document.getElementById('photoInput');
+    const photoPreview = document.getElementById('photoPreview');
+    if (photoInput && photoPreview) {
+      photoInput.addEventListener('change', function (event) {
+        const file = event.target.files && event.target.files[0];
+        if (!file) return;
+        const url = URL.createObjectURL(file);
+        photoPreview.src = url;
+      });
+    }
+  </script>
+</body>
+</html>

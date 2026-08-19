@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical" data-boxed-layout="full">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="/public/assets/images/logos/favicon.png" />
+  <link rel="stylesheet" href="/public/assets/css/styles.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+  <script src="/public/assets/js/fontawesome/font-awesome.js"></script>
+
+  <style>
+    :root {
+      --qr-primary: var(--bs-primary, #17b368);
+      --qr-primary-rgb: var(--bs-primary-rgb, 67, 97, 238);
+      --qr-soft: rgba(var(--qr-primary-rgb), 0.08);
+      --qr-soft-2: rgba(var(--qr-primary-rgb), 0.14);
+      --qr-border: rgba(var(--qr-primary-rgb), 0.25);
+      --qr-text: #1e293b;
+      --qr-muted: #64748b;
+    }
+
+    .qr-form-card .form-label {
+      font-weight: 600;
+    }
+
+    .qr-form-card .form-text {
+      color: #64748b;
+    }
+
+    .custom-table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .table-shell {
+      border: 0;
+      border-radius: 0;
+      overflow: hidden;
+    }
+
+    .modern-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .modern-table th,
+    .modern-table td {
+      padding: 0.9rem 1rem;
+    }
+
+    .modern-table th {
+      font-weight: 700;
+      color: #0f172a;
+      letter-spacing: 0.01em;
+    }
+
+    .modern-table tbody tr:hover {
+      transition: background-color 0.15s ease;
+    }
+
+    .modern-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .table-meta {
+      color: var(--qr-muted);
+      font-size: 0.85rem;
+    }
+
+    .link-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      max-width: 100%;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      background-color: #f8fafc;
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    .link-pill span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .date-pill {
+      background-color: #eef2ff;
+      border: 1px solid #e0e7ff;
+      color: #4338ca;
+      font-weight: 600;
+    }
+
+    .url-cell {
+      max-width: 260px;
+    }
+
+    .qr-thumb-btn {
+      width: 56px;
+      height: 56px;
+      padding: 4px;
+      border-radius: 0.6rem;
+      border: 1px solid #e5e7eb;
+      background-color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .qr-thumb-btn img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+    }
+
+    .qr-thumb-btn.qr-empty {
+      color: #94a3b8;
+    }
+
+    .qr-thumb-btn:hover {
+      border-color: var(--qr-primary);
+      box-shadow: 0 0 0 0.15rem rgba(var(--qr-primary-rgb), 0.12);
+    }
+
+    .qr-preview-box {
+      background-color: #f8fafc;
+      border: 1px dashed #e2e8f0;
+      border-radius: 0.85rem;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .qr-preview-box img {
+      width: 100%;
+      max-width: 240px;
+      height: auto;
+    }
+
+    .qr-placeholder {
+      color: var(--qr-muted);
+      font-size: 0.9rem;
+    }
+
+    .section-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .dataTables_wrapper .dataTables_filter,
+    .dataTables_wrapper .dataTables_length {
+      margin-bottom: 1rem;
+    }
+
+    .dataTables_wrapper .dataTables_filter input,
+    .dataTables_wrapper .dataTables_length select {
+      border: 1px solid var(--qr-border);
+      border-radius: 0.5rem;
+      padding: 0.35rem 0.6rem;
+    }
+
+    .dataTables_wrapper .dataTables_filter input:focus,
+    .dataTables_wrapper .dataTables_length select:focus {
+      border-color: var(--qr-primary);
+      box-shadow: 0 0 0 0.2rem var(--qr-soft-2);
+      outline: none;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      border: none !important;
+      border-radius: 0.45rem;
+      margin: 0 2px;
+      padding: 0.35rem 0.65rem;
+      background-color: var(--qr-soft) !important;
+      color: #334155 !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+      background-color: var(--qr-primary) !important;
+      color: #ffffff !important;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+      background-color: var(--qr-soft-2) !important;
+      color: #1d4ed8 !important;
+    }
+  </style>
+
+  <title>QR Codes - S UNJANI</title>
+</head>
+
+<body>
+  <div class="preloader">
+    <img src="/public/assets/images/logos/favicon.ico" alt="loader" class="lds-ripple img-fluid" />
+  </div>
+  <div id="main-wrapper">
+    <%- include('../partials/aside') %>
+    <div class="page-wrapper">
+      <%- include('../partials/header') %>
+      <div class="body-wrapper">
+        <div class="container-fluid">
+          <div class="card bg-primary-subtle shadow-none position-relative overflow-hidden mb-4">
+            <div class="card-body px-4 py-3">
+              <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+                <div>
+                  <div class="d-flex align-items-center gap-3">
+                    <h4 class="fw-semibold mb-0">QR Codes</h4>
+                  </div>
+                  <p class="mb-0 text-muted mt-2">Buat QR kustom dengan logo dan warna sesuai kebutuhan Anda.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% if (success_msg && success_msg.length) { %>
+          <div class="alert alert-success"><%= success_msg %></div>
+          <% } %>
+          <% if (error_msg && error_msg.length) { %>
+          <div class="alert alert-danger"><%= error_msg %></div>
+          <% } %>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-3">
+                    <div class="section-heading">
+                      <h5 class="card-title mb-1">QR Codes Saya</h5>
+                      <p class="mb-0 text-muted">Kelola dan buat QR baru langsung dari modal.</p>
+                      <span class="text-muted small">Total: <%= qrcodes.length %> QR</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                      <a href="/users/qrcodes/create" class="btn btn-primary">
+                        <i class="fa-solid fa-qrcode me-2"></i>Tambah QR
+                      </a>
+                    </div>
+                  </div>
+                  <div class="custom-table-container table-shell">
+                    <table class="table modern-table align-middle mb-0" id="qrcodesTable">
+                      <thead>
+                        <tr>
+                          <th>Nama</th>
+                          <th>URL</th>
+                          <th class="text-center">QR</th>
+                          <th>Dibuat</th>
+                          <th class="text-center">Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <% qrcodes.forEach(function(qr){ %>
+                          <tr>
+                            <td>
+                              <div class="fw-semibold"><%= qr.name %></div>
+                              <div class="table-meta"><%= qr.fileName ? `File: ${qr.fileName}` : 'Belum ada file' %></div>
+                            </td>
+                            <td class="url-cell text-truncate">
+                              <a href="<%= qr.url %>" target="_blank" rel="noopener" class="text-decoration-none link-pill">
+                                <i class="fa-solid fa-link"></i>
+                                <span><%= qr.url %></span>
+                              </a>
+                            </td>
+                            <td class="text-center">
+                              <button type="button"
+                                class="btn btn-light qr-thumb-btn <%= qr.fileUrl ? '' : 'qr-empty' %> qr-preview-btn"
+                                data-name="<%= qr.name %>"
+                                data-url="<%= qr.url %>"
+                                data-file="<%= qr.fileUrl || '' %>"
+                                data-created="<%= qr.createdAtLabel %>">
+                                <% if (qr.fileUrl) { %>
+                                  <img src="<%= qr.fileUrl %>" alt="QR <%= qr.name %>">
+                                <% } else { %>
+                                  <i class="fa-solid fa-qrcode fa-lg"></i>
+                                <% } %>
+                              </button>
+                            </td>
+                            <td>
+                              <span class="badge date-pill">
+                                <i class="fa-regular fa-calendar-clock me-1"></i><%= qr.createdAtLabel %>
+                              </span>
+                            </td>
+                            <td class="text-center">
+                              <div class="btn-group" role="group" aria-label="Aksi QR Code">
+                                <button type="button"
+                                  class="btn btn-sm btn-outline-primary qr-edit-btn"
+                                  data-id="<%= qr.id %>"
+                                  data-name="<%= qr.name %>"
+                                  data-url="<%= qr.url %>">
+                                  <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+                                <button type="button"
+                                  class="btn btn-sm btn-outline-danger qr-delete-btn"
+                                  data-id="<%= qr.id %>"
+                                  data-name="<%= qr.name %>">
+                                  <i class="fa-solid fa-trash"></i>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        <% }) %>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="qrPreviewModal" tabindex="-1" aria-labelledby="qrPreviewLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title text-white" id="qrPreviewLabel">Detail QR Code</h5>
+          <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-duotone fa-solid fa-circle-xmark text-white fa-2x"></i>
+          </button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="row g-4">
+            <div class="col-md-5">
+              <div class="qr-preview-box">
+                <img id="qrPreviewImage" src="" alt="QR Code" class="d-none">
+                <div id="qrPreviewEmpty" class="qr-placeholder">QR belum tersedia.</div>
+              </div>
+            </div>
+            <div class="col-md-7">
+              <div class="mb-3">
+                <div class="text-muted small">Nama</div>
+                <div class="fw-semibold" id="qrPreviewName">-</div>
+              </div>
+              <div class="mb-3">
+                <div class="text-muted small">URL</div>
+                <a href="#" target="_blank" rel="noopener" class="text-decoration-none link-primary" id="qrPreviewUrl">-</a>
+              </div>
+              <div class="mb-4">
+                <div class="text-muted small">Dibuat</div>
+                <div class="fw-semibold" id="qrPreviewCreated">-</div>
+              </div>
+              <div class="d-flex gap-2">
+                <a href="#" target="_blank" rel="noopener" class="btn btn-primary" id="qrDownload">
+                  <i class="fa-duotone fa-solid fa-download me-2"></i>Download
+                </a>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Tutup</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="qrEditModal" tabindex="-1" aria-labelledby="qrEditLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-primary">
+          <h5 class="modal-title text-white" id="qrEditLabel">Edit QR Code</h5>
+          <button type="button" class="btn" data-bs-dismiss="modal" aria-label="Close">
+            <i class="fa-duotone fa-solid fa-circle-xmark text-white fa-2x"></i>
+          </button>
+        </div>
+        <form id="qrEditForm">
+          <div class="modal-body">
+            <input type="hidden" id="qrEditId">
+            <div class="mb-3">
+              <label class="form-label">Nama</label>
+              <input type="text" class="form-control" id="qrEditName" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">URL</label>
+              <input type="url" class="form-control" id="qrEditUrl" required>
+              <div class="form-text">Mengubah URL akan membuat QR baru.</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <%- include('../partials/menu') %>
+
+  <script src="/public/assets/js/vendor.min.js"></script>
+  <script src="/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/public/assets/libs/simplebar/dist/simplebar.min.js"></script>
+  <script src="/public/assets/js/theme/app.init.js"></script>
+  <script src="/public/assets/js/theme/theme.js"></script>
+  <script src="/public/assets/js/theme/app.min.js"></script>
+  <script src="/public/assets/js/theme/sidebarmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script>
+    (function() {
+      // DataTable init
+      const tableEl = document.getElementById('qrcodesTable');
+      if (tableEl && window.$) {
+        $('#qrcodesTable').DataTable({
+          pageLength: 10,
+          order: [[3, 'desc']],
+          columnDefs: [
+            { orderable: false, targets: [2, 4] }
+          ],
+          language: {
+            search: 'Cari:',
+            lengthMenu: 'Tampilkan _MENU_ data',
+            info: 'Menampilkan _START_ - _END_ dari _TOTAL_ data',
+            infoEmpty: 'Tidak ada data',
+            emptyTable: 'Belum ada QR code.',
+            zeroRecords: 'Data tidak ditemukan',
+            paginate: {
+              previous: 'Sebelumnya',
+              next: 'Berikutnya',
+            },
+          },
+          drawCallback: function() {
+            $('.modern-table tbody tr').each(function() {
+              $(this).removeClass('odd even');
+            });
+          }
+        });
+      }
+
+      $(document).on('click', '.qr-preview-btn', function() {
+        const name = $(this).data('name') || '-';
+        const url = $(this).data('url') || '';
+        const fileUrl = $(this).data('file') || '';
+        const created = $(this).data('created') || '-';
+        const modalEl = document.getElementById('qrPreviewModal');
+
+        if (!modalEl) {
+          return;
+        }
+
+        $('#qrPreviewName').text(name);
+        if (url) {
+          $('#qrPreviewUrl').text(url).attr('href', url).removeClass('text-muted');
+        } else {
+          $('#qrPreviewUrl').text('-').attr('href', '#').addClass('text-muted');
+        }
+        $('#qrPreviewCreated').text(created);
+
+        if (fileUrl) {
+          $('#qrPreviewImage').attr('src', fileUrl).removeClass('d-none');
+          $('#qrPreviewEmpty').addClass('d-none');
+          $('#qrDownload').attr('href', fileUrl).removeClass('d-none');
+        } else {
+          $('#qrPreviewImage').attr('src', '').addClass('d-none');
+          $('#qrPreviewEmpty').removeClass('d-none');
+          $('#qrDownload').attr('href', '#').addClass('d-none');
+        }
+
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
+      });
+
+      $(document).on('click', '.qr-edit-btn', function() {
+        const id = $(this).data('id');
+        const name = $(this).data('name') || '';
+        const url = $(this).data('url') || '';
+
+        $('#qrEditId').val(id);
+        $('#qrEditName').val(name);
+        $('#qrEditUrl').val(url);
+
+        const modalEl = document.getElementById('qrEditModal');
+        const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modal.show();
+      });
+
+      $('#qrEditForm').on('submit', function(e) {
+        e.preventDefault();
+        const id = $('#qrEditId').val();
+        const name = ($('#qrEditName').val() || '').trim();
+        const url = ($('#qrEditUrl').val() || '').trim();
+
+        if (!name || !url) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'Data belum lengkap',
+            text: 'Nama dan URL wajib diisi.',
+            confirmButtonText: 'OK',
+            customClass: { confirmButton: 'btn btn-warning' },
+            buttonsStyling: false
+          });
+          return;
+        }
+
+        $.post(`/users/qrcodes/${id}/update`, { name, url })
+          .done(function() {
+            const modalEl = document.getElementById('qrEditModal');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) {
+              modal.hide();
+            }
+            Swal.fire({
+              icon: 'success',
+              title: 'Berhasil',
+              text: 'QR Code berhasil diperbarui.',
+              confirmButtonText: 'OK',
+              customClass: { confirmButton: 'btn btn-primary' },
+              buttonsStyling: false
+            }).then(() => window.location.reload());
+          })
+          .fail(function(xhr) {
+            const message = (xhr.responseJSON && xhr.responseJSON.error)
+              ? xhr.responseJSON.error
+              : 'Gagal memperbarui QR Code.';
+            Swal.fire({
+              icon: 'error',
+              title: 'Gagal',
+              text: message,
+              confirmButtonText: 'OK',
+              customClass: { confirmButton: 'btn btn-danger' },
+              buttonsStyling: false
+            });
+          });
+      });
+
+      $(document).on('click', '.qr-delete-btn', function() {
+        const id = $(this).data('id');
+        const name = $(this).data('name') || '';
+
+        Swal.fire({
+          title: 'Hapus QR Code?',
+          text: `QR "${name}" akan dihapus permanen.`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Hapus',
+          cancelButtonText: 'Batal',
+          customClass: {
+            confirmButton: 'btn btn-danger',
+            cancelButton: 'btn btn-outline-secondary ms-2'
+          },
+          buttonsStyling: false
+        }).then((result) => {
+          if (!result.isConfirmed) return;
+
+          $.post(`/users/qrcodes/${id}/delete`)
+            .done(function() {
+              Swal.fire({
+                icon: 'success',
+                title: 'Terhapus',
+                text: 'QR Code berhasil dihapus.',
+                confirmButtonText: 'OK',
+                customClass: { confirmButton: 'btn btn-primary' },
+                buttonsStyling: false
+              }).then(() => window.location.reload());
+            })
+            .fail(function(xhr) {
+              const message = (xhr.responseJSON && xhr.responseJSON.error)
+                ? xhr.responseJSON.error
+                : 'Gagal menghapus QR Code.';
+              Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: message,
+                confirmButtonText: 'OK',
+                customClass: { confirmButton: 'btn btn-danger' },
+                buttonsStyling: false
+              });
+            });
+        });
+      });
+    })();
+  </script>
+</body>
+
+</html>
